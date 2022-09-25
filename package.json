@@ -1,0 +1,58 @@
+{
+  "name": "easy-classrooms",
+  "version": "1.0.0",
+  "description": "A simpler way to share homework with students",
+  "main": "server.js",
+  "scripts": {
+	"start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raissa-k/easy-classrooms.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "authentication",
+	"mongodb"
+  ],
+  "author": "Raissa K.",
+  "homepage": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raissa-k/easy-classrooms/issues"
+  },
+  "readme": "https://github.com/raissa-k/easy-classrooms#readme",
+  "dependencies": {
+	"apicache": "^1.6.3",
+	"autoprefixer": "^10.4.11",
+	"bcrypt": "^5.0.1",
+	"cloudinary": "^1.25.1",
+    "connect-mongo": "^3.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.1",
+    "method-override": "^3.0.0",
+    "mongodb": "^3.6.5",
+    "mongoose": "^5.12.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^2.6.7",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "postcss": "^8.4.16",
+    "postcss-cli": "^10.0.0",
+    "tailwindcss": "^3.1.8",
+    "unsplash-js": "^7.0.15",
+    "validator": "^13.6.0"
+},
+"devDependencies": {
+	"@tailwindcss/typography": "github:tailwindcss/typography",
+	"@tailwindcss/forms": "^0.5.3",
+    "cssnano": "^5.1.13",
+	"dotenv": "^8.2.0",
+	"nodemon": "^2.0.7"
+  }
+}
