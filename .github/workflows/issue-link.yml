@@ -1,15 +1,17 @@
 name: 'Link to issue in PR body'
 on:
   pull_request:
-    types: [opened]
+    branches: [main]
+    types: [closed]
 
 jobs:
   issue-links:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - name: Add an issue link to PR body
       uses: tkt-actions/add-issue-links@v1.8.0
-        with:
-          repo-token: '${{ secrets.ADD_TO_PROJECT_PAT }}' # required
-          branch-prefix: 'issue-' # required
-          resolve: 'true' # optional (default: "false")
+      with:
+        repo-token: '${{ secrets.ADD_TO_PROJECT_PAT }}' # required
+        branch-prefix: 'issue-' # required
+        resolve: 'true' # optional (default: "false")
