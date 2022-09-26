@@ -343,3 +343,28 @@ const modal = (() => {
 document.addEventListener("DOMContentLoaded", function () {
 	modal.init()
 })
+
+const closeElement = document.querySelectorAll(".close-toast")
+
+document.addEventListener("DOMContentLoaded", function () {
+	Array.from(closeElement).forEach((el) => {
+		setTimeout(() => {
+			el.parentElement.style.opacity = 0
+			setTimeout(() => {
+				el.parentElement.remove()
+			}, 1000);
+		}, 10000);
+	  })
+	})
+
+Array.from(closeElement).forEach((el) => {
+    el.addEventListener('click', (event) => {
+            event.preventDefault();
+			setTimeout(() => {
+				el.parentElement.style.opacity = 0
+				setTimeout(() => {
+					el.parentElement.remove()
+				}, 1000);
+			}, 100);
+          }
+        )})

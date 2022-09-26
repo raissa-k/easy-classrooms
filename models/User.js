@@ -15,8 +15,13 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		default: "https://api.lorem.space/image/face?w=150&h=150" 
 	},
-	bio: { 
-		type: String 
+	classrooms: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Classroom"
+	}],
+	educator: {
+		type: Boolean,
+		default: false
 	}
 });
 

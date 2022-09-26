@@ -1,21 +1,21 @@
 const cloudinary = require("../middleware/cloudinary");
 const validator = require("validator")
 const User = require("../models/User");
-const Post = require("../models/Post");
+const Classroom = require("../models/Classroom");
 
 module.exports = {
 	getPrivateProfile: async (req, res) => {
 		try {
-		  const posts = await Post.find({ user: req.user.id }).sort({ createdAt: "desc" }).limit(4).lean();
-		  res.render("profile.ejs", { posts: posts, user: req.user });
+		  const classrooms = await Classroom.find({ user: req.user.id }).sort({ createdAt: "desc" }).limit(4).lean();
+		  res.render("profile.ejs", { classrooms: classrooms, user: req.user });
 		} catch (err) {
 		  console.log(err);
 		}
 	},
 	getPublicProfile: async (req, res) => {
 		try {
-			const posts = await Post.find({ user: req.user.id }).sort({ createdAt: "desc" }).lean();
-			res.render("public.ejs", { posts: posts, user: req.user });
+			const classrooms = await Classroom.find({ user: req.user.id }).sort({ createdAt: "desc" }).lean();
+			res.render("public.ejs", { classrooms: classrooms, user: req.user });
 		} catch (err) {
 			console.log(err);
 		}

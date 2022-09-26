@@ -1,38 +1,35 @@
 const mongoose = require("mongoose");
 
-const PostSchema = new mongoose.Schema({
-  title: {
+const ClassroomSchema = new mongoose.Schema({
+  name: {
     type: String,
     required: true,
   },
   image: {
     type: String,
-    require: true,
+	required: true
   },
   cloudinaryId: {
     type: String,
     require: true,
   },
-  caption: {
+  password: {
     type: String,
     required: true,
   },
-  likes: {
-    type: Number,
-    required: true,
-  },
-  user: {
+  creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  comments: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Comment",
-  },
+  lessons: [{
+	type: mongoose.Schema.Types.ObjectId,
+	ref: "Lesson"
+  }],
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  updated: Date
 });
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Classroom", ClassroomSchema);

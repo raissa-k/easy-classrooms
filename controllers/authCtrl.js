@@ -19,7 +19,7 @@ exports.postLogin = (req, res, next) => {
     validationErrors.push({ msg: "Password cannot be blank." });
 
   if (validationErrors.length) {
-    req.flash("errors", validationErrors);
+    req.flash("error", validationErrors);
     return res.redirect("/login");
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
@@ -31,14 +31,14 @@ exports.postLogin = (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      req.flash("errors", info);
+      req.flash("error", info);
       return res.redirect("/login");
     }
     req.logIn(user, (err) => {
       if (err) {
         return next(err);
       }
-      req.flash("success", { msg: "Success! You are logged in." });
+      req.flash("success", { msg: `Welcome, ${user.userName}` });
       res.redirect(req.session.returnTo || "/feed");
     });
   })(req, res, next);
@@ -77,7 +77,7 @@ exports.postSignup = (req, res, next) => {
     validationErrors.push({ msg: "Passwords do not match" });
 
   if (validationErrors.length) {
-    req.flash("errors", validationErrors);
+    req.flash("error", validationErrors);
     return res.redirect("../signup");
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
@@ -97,7 +97,7 @@ exports.postSignup = (req, res, next) => {
         return next(err);
       }
       if (existingUser) {
-        req.flash("errors", {
+        req.flash("error", {
           msg: "Account with that email address or username already exists.",
         });
         return res.redirect("../signup");
