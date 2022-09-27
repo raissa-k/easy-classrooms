@@ -12,14 +12,6 @@ module.exports = {
 		  console.log(err);
 		}
 	},
-	getPublicProfile: async (req, res) => {
-		try {
-			const classrooms = await Classroom.find({ user: req.user.id }).sort({ createdAt: "desc" }).lean();
-			res.render("public.ejs", { classrooms: classrooms, user: req.user });
-		} catch (err) {
-			console.log(err);
-		}
-	},
 	updateInfo: async (req, res) => {
 		const action = req.body.update
 
@@ -61,9 +53,6 @@ module.exports = {
 		}
 	},
 	updatePassword: async (req, res) => {
-
-	},
-	updatePicture: async (req, res) => {
 
 	},
 	updateBio: async (req, res) => {

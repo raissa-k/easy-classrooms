@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			setTimeout(() => {
 				el.parentElement.remove()
 			}, 1000);
-		}, 10000);
+		}, 6000);
 	  })
 	})
 
