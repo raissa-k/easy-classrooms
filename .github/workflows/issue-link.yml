@@ -15,3 +15,4 @@ jobs:
         repo-token: '${{ secrets.ADD_TO_PROJECT_PAT }}' # required
         branch-prefix: 'issue-' # required
         resolve: 'true' # optional (default: "false")
+        link-style: 'comment'
