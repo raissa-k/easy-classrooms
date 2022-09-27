@@ -1,0 +1,16 @@
+<%- include('partials/header', {navbar: "yes", title: "Teacher Panel", active: "teacher-panel"}) -%>
+
+<h1>Hi <%= user.userName %></h1>
+
+Here are your classrooms:
+
+<%if( classrooms.length ){%>
+	<h2 class="text-primary">LINK TO CLASSROOM HERE</h2>
+<% } else { %>
+	<h2 class="text-primary">NO CLASSROOMS FOUND.</h2>
+<%}%>
+
+totally a teacher tho
+now go make lessons alalala
+
+<%- include('partials/footer') -%>

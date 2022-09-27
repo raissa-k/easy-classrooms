@@ -1,0 +1,148 @@
+<%- include('partials/header', {navbar: "yes" , title: "Classroom Feed" , active: "classroom-feed" }) -%>
+
+
+
+<div class="px-4 xl:px-0 mt-16 lg:mt-32">
+	<div class="mx-auto container">
+		<div class="xl:flex">
+			<div class="xl:w-3/4 2xl:w-4/5 -mt-8">
+				<div class="pl-4 md:pl-10 py-4 md:py-7 bg-base-200 rounded-tl-md rounded-tr-md shadow-lg bg-gradient-to-l from-secondary/30">
+					<p class="sm:text-mk md:text-2xl lg:text-4xl font-bold leading-normal">Welcome, <%= user.userName %>!</p>
+				</div>
+					<div class="bg-base-100 shadow-lg pb-8 px-4 md:px-8 xl:px-10">
+
+						<%if( !classrooms || !classrooms.length ){%>
+
+							<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
+								<div class="border border-slate-400/40 card card-compact bg-base-100 shadow-xl">
+									<figure class="items-stretch"><img src="https://placeimg.com/400/250/nature" class="object-cover" alt="Shoes" /></figure>
+									<div class="card-body gap-4">
+										<h2 class="card-title">Classroom name 1</h2>
+										<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed ipsum facere deserunt placeat
+											blanditiis modi sit eum officiis rerums!
+										</p>
+										<div class="relative w-full">
+											<label for="p03c" class="block mb-1 text-xs text-right">2 lessons not complete</label>
+											<progress id="p03c" max="100" value="60"
+												class="block w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">
+												60% </progress>
+										</div>
+										<div class="card-actions justify-end">
+											<a href="#" class="btn btn-outline btn-secondary">View Lessons</a>
+										</div>
+									</div>
+								</div>
+						
+								<div class="border border-slate-400/40 card card-compact bg-base-100 shadow-xl">
+									<figure class="items-stretch"><img src="https://placeimg.com/400/250/tech" class="object-cover" alt="Shoes" /></figure>
+									<div class="card-body gap-4">
+										<h2 class="card-title">Classroom name 2</h2>
+										<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed ipsum facere deserunt placeat
+											blanditiis modi sit eum officiis rerum s!
+										</p>
+										<div class="relative w-full">
+											<label for="p03c" class="block mb-1 text-xs text-right">7 lessons not complete</label>
+											<progress id="p03c" max="100" value="40"
+												class="block w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">
+												60% </progress>
+										</div>
+										<div class="card-actions justify-end">
+											<a href="#" class="btn btn-outline btn-secondary">View Lessons</a>
+										</div>
+									</div>
+								</div>
+						
+								<div class="border border-slate-400/40 card card-compact bg-base-100 shadow-xl">
+									<figure class="items-stretch"><img src="https://placeimg.com/400/250/animals" alt="Shoes" class="object-cover" /></figure>
+									<div class="card-body gap-4">
+										<h2 class="card-title">Classroom name 3</h2>
+										<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed ipsum facere deserunt placeat
+											blanditiis modi sit eum officiis rerum as!
+										</p>
+										<div class="relative w-full">
+											<label for="p03c" class="block mb-1 text-xs text-right">4 lessons not complete</label>
+											<progress id="p03c" max="100" value="80"
+												class="block w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">
+												60% </progress>
+										</div>
+										<div class="card-actions justify-end">
+											<a href="#" class="btn btn-outline btn-secondary">View Lessons</a>
+										</div>
+									</div>
+								</div>
+						
+							</div>
+						
+								<% } else { %>
+									<h2 class="text-primary">alalala</h2>
+									<%}%>
+					</div>
+			</div>
+			<div class="xl:w-1/4 2xl:w-1/5 pt-7 xl:pl-8 pb-7 mt-0">
+				<div>
+					<p class="pt-7 text-base text-center font-semibold">Quick actions</p>
+					<div class="mt-4">
+						<div class="flex items-center w-full justify-between rounded">
+							<div class="mx-auto mt-4 bg-base-100 border rounded border-base-200  items-stretch justify-between rounded stats stats-vertical md:stats-horizontal shadow">
+								<div class="stat">
+									<div class="stat-desc">You are enrolled in</div>
+									<div class="stat-value">3</div>
+									<div class="stat-title">classrooms</div>
+									<div class="stat-actions">
+										<button id="modal-enrollButton" class="btn btn-sm btn-primary">Find more<span class="sr-only">, this will open a modal form</span></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="flex items-center w-full justify-between rounded">
+							<div class="mx-auto mt-4 bg-base-100 border rounded border-base-200  items-stretch justify-between rounded stats stats-vertical md:stats-horizontal shadow">
+								<div class="stat">
+									<div class="stat-desc">You have completed</div>
+									<div class="stat-value">12</div>
+									<div class="stat-title">lessons so far</div>
+									<div class="stat-actions">
+										<a href="/user/lessons" class="btn btn-sm btn-secondary">See lessons</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+					<div class="mt-64"></div>
+	<%if( !classrooms || !classrooms.length ){%>
+
+	<div class="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
+		<div class="card card-compact bg-base-100 shadow-xl">
+			<figure><img src="https://placeimg.com/400/250/nature" alt="Shoes" /></figure>
+			<div class="card-body gap-4">
+				<h2 class="card-title">Classroom name 1</h2>
+				<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed ipsum facere deserunt placeat
+					blanditiis modi sit eum officiis rerum, repellat eligendi laboriosam deleniti. Ex temporibus, vel
+					nostrum omnis animi voluptas!
+				</p>
+				<div class="relative w-full">
+					<label for="p03c" class="block mb-1 text-xs text-right">2 lessons not complete</label>
+					<progress id="p03c" max="100" value="60"
+						class="block w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">
+						60% </progress>
+				</div>
+				<div class="card-actions justify-end">
+					<a href="#" class="btn btn-outline btn-secondary">View Lessons</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<% } else { %>
+			<h2 class="text-primary">alalala</h2>
+			<%}%>
+
+				<h3>
+					<%= user.educator ? "YOU'RE A TEACHER" : "YOUR'RE A STUDENT" %>
+				</h3>
+<%- include('partials/footer') -%>

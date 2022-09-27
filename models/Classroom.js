@@ -13,6 +13,10 @@ const ClassroomSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  accessName: {
+    type: String,
+    require: true,
+  },
   password: {
     type: String,
     required: true,
