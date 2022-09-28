@@ -2,12 +2,19 @@ const cloudinary = require("../middleware/cloudinary");
 const validator = require("validator")
 const User = require("../models/User");
 const Classroom = require("../models/Classroom");
+const Lesson = require("../models/Lesson");
+const Enrollment = require("../models/Enrollment")
 
 module.exports = {
 	getPrivateProfile: async (req, res) => {
+		let userClassrooms
 		try {
-		  const classrooms = await Classroom.find({ user: req.user.id }).sort({ createdAt: "desc" }).limit(4).lean();
-		  res.render("profile.ejs", { classrooms: classrooms, user: req.user });
+			await Enrollment.find({ student: req.user.id }).populate({
+				path: 'classroom',
+				populate: { path: 'lessons' }
+			}).exec((err, enrolledClassrooms) =>
+			userClassrooms = enrolledClassrooms)
+			res.render("profile.ejs", {user: req.user, classrooms: userClassrooms });
 		} catch (err) {
 		  console.log(err);
 		}
@@ -30,25 +37,29 @@ module.exports = {
 			} catch (error) {
 				console.error(error)
         	}
+			req.flash('success', {msg: 'New picture successfully uploaded!'})
 			res.redirect('back')
 		} 
 		
 		if (action == 'info'){
 			let newName = req.body.newName
 			let newEmail = req.body.newEmail
+			let newStatus = req.body.educator
 
 			if (!req.body.newName) newName = userToUpdate.userName 
 			if (!req.body.newEmail) newEmail = userToUpdate.email
+			if (!req.body.educator) newStatus = userToUpdate.educator
 
 			userToUpdate.userName = newName
 			userToUpdate.email = newEmail
+			userToUpdate.educator = newStatus
 
 			try {
 				await userToUpdate.save()
 			} catch (error) {
 				console.error(error)
 			}
-			console.log('Updated user info')
+			req.flash('success', {msg: 'User information updated successfully.'})
 			res.redirect("back");
 		}
 	},
