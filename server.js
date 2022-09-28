@@ -9,6 +9,7 @@ const flash = require("express-flash");
 const logger = require("morgan");
 const connectDB = require("./config/database");
 const mainRoutes = require("./routes/mainRoutes");
+const userRoutes = require("./routes/userRoutes")
 const classroomRoutes = require("./routes/classroomRoutes")
 
 
@@ -43,6 +44,7 @@ app.use(passport.session());
 app.use(flash());
 
 app.use("/", mainRoutes);
+app.use("/user", userRoutes);
 app.use("/classroom", classroomRoutes);
 
 app.listen(process.env.PORT, () => {

@@ -1,4 +1,4 @@
-<ul class="md:flex items-center hidden navbar-center gap-4">
+<ul class="hidden lg:flex items-center navbar-center gap-4">
 	<li>
 		<a href="/classroom/feed" aria-current="<%= active=='classroom-feed' ? 'page' : 'false' %>" class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary mx-4 <%= active=='classroom-feed' ? 'border-accent' : 'border-transparent' %>">
 			<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -28,7 +28,7 @@
 		</a>
 	</li>
 	<li>
-		<a href="" aria-current="<%= active=='profile' ? 'page' : 'false' %>" class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary  mx-4 <%= active=='profile' ? 'border-accent' : 'border-transparent' %>">
+		<a href="/user/profile" aria-current="<%= active=='profile' ? 'page' : 'false' %>" class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary  mx-4 <%= active=='profile' ? 'border-accent' : 'border-transparent' %>">
 			<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
 			</svg>
@@ -36,19 +36,22 @@
 		</a>
 	</li>
 	<li>
-		<a href="" class="border-b-2 border-transparent focus:border-accent active:border-accent mx-4">
-
+		<a href="/logout" class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary  mx-4 border-transparent">
+			<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+			  </svg>  
+			Log out
 		</a>
 	</li>
 </ul>
 
 	<div class="flex justify-between">
-		<button class="btn btn-ghost md:hidden" id="navbar-toggle"
+		<button class="btn btn-ghost lg:hidden" id="navbar-toggle"
 		data-modal-trigger="" aria-controls="navbar-mobile" aria-expanded="false">
 		Menu
 		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="ml-2 inline-block w-5 h-5 stroke-current pointer-events-none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
 		</button>
-		<div class="pointer-events-auto md:hidden not-prose">
+		<div class="pointer-events-auto lg:hidden not-prose">
 			<div id="navbar-mobile" aria-labelledby="modalmenu-title" data-modal-target="" class="absolute inset-0 overflow-hidden hidden" aria-modal="true">
 					<div data-modal-overlay="" data-modal-close="" tabindex="-1" data-class-in="opacity-50" data-class-out="opacity-0" class="fixed inset-0 w-full z-40 transition-opacity duration-500 bg-black select-none opacity-50"></div>
 				<div data-modal-wrapper="" data-class-in="translate-x-0" data-class-out="-translate-x-full" class="prose fixed top-0 left-0 bottom-0 w-10/12 h-full max-w-md z-50 overflow-auto scrolling-touch transition-transform duration-500 bg-base-100 flex flex-col shadow-xl transform translate-x-0">
@@ -96,7 +99,7 @@
 						</li>
 						<% } %>
 						<li class="border-b border-base-200">
-							<a href="/profile" class="cursor-pointer active flex flex-row items-center justify-between py-4" <%= active=="profile" ? 'aria-current="page"' : '' %>>
+							<a href="/user/profile" class="cursor-pointer active flex flex-row items-center justify-between py-4" <%= active=="profile" ? 'aria-current="page"' : '' %>>
 								User profile
 								<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -120,14 +123,6 @@
 				</div>
 			</div>
 		</div>
-
-
-		<nav class="pointer-events-auto hidden md:flex md:gap-x-6 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 px-8 rounded-full dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10" id="navbar-default">
-			<a class="relative block px-2 py-2 transition text-teal-600 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-200" href="/profile#addPost">Add post</a>
-			<a class="relative block px-2 py-2 transition hover:text-teal-500 dark:hover:text-teal-400" href="/profile">Profile<%if(active=="profile"){%><span class="absolute inset-x-1 -bottom-px h-0.5 bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0"></span><%}%></a>
-			<a class="relative block px-2 py-2 transition hover:text-teal-500 dark:hover:text-teal-400" href="/feed">Feed<%if(active=="feed"){%><span class="absolute inset-x-1 -bottom-px h-0.5 bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0"></span><%}%></a>
-			<a class="relative block px-2 py-2 transition text-teal-600 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-200" href="/logout">Log out</a>
-		</nav>
 	</div>
 </div>
 

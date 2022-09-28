@@ -9,7 +9,6 @@ const cache = apicache.middleware
 
 
 router.get("/", cache('10 minutes'), homeController.getIndex);
-router.get("/profile", ensureAuth, userController.getPrivateProfile);
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
