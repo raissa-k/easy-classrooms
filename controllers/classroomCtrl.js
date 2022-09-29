@@ -8,14 +8,13 @@ const { startSession } = require("mongoose");
 
 module.exports = {
 	getClassroomsFeed: async (req, res) => {
+		let userClassrooms
 		try {
-			let userClassrooms
-			if (req.user.educator) {
-				userClassrooms = await Classroom.find({ creator: req.user })
-			} else {
-				await Enrollment.find({ student: req.user }).populate('classroom').exec((err, enrolledClassrooms) =>
-					userClassrooms = enrolledClassrooms)
-			}
+			await Enrollment.find({ student: req.user.id }).populate({
+				path: 'classroom',
+				populate: { path: 'lessons' }
+			}).exec((err, enrolledClassrooms) =>
+			userClassrooms = enrolledClassrooms)
 			res.render("classroom-feed.ejs", { classrooms: userClassrooms, user: req.user });
 		} catch (err) {
 			console.log(err);

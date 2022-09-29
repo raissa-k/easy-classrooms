@@ -58,8 +58,8 @@
 				<div data-modal-wrapper="" data-class-in="translate-x-0" data-class-out="-translate-x-full" class="prose fixed top-0 left-0 bottom-0 w-10/12 h-full max-w-md z-50 overflow-auto scrolling-touch transition-transform duration-500 bg-base-100 flex flex-col shadow-xl transform translate-x-0">
 					<div class="flex items-center justify-between border-b p-6">
 						<div class="flex items-center gap-4">
-							<img aria-hidden="true" alt="profile-pic" src="https://tuk-cdn.s3.amazonaws.com/assets/components/boxed_layout/bl_1.png" class="w-8 h-8 rounded-full">
-							<h3 id="navbar-mobile" class="text-2xl font-bold tracking-tight">Jane Doe</h3>
+							<img aria-hidden="true" alt="profile-pic" src="<%=user.profile%>" class="w-8 h-8 rounded-full">
+							<h3 id="navbar-mobile" class="text-2xl font-bold tracking-tight"><%=user.userName%></h3>
 						</div>
 						<button data-modal-close="" class="btn btn-square btn-outline btn-sm">
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
