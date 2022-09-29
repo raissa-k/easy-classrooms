@@ -1,27 +1,30 @@
+const validator = require("validator");
 const cloudinary = require("../middleware/cloudinary");
 const Classroom = require("../models/Classroom");
-const Enrollment = require('../models/Enrollment')
+const Comment = require("../models/Comment")
+const User = require("../models/User")
+const Enrollment = require('../models/Enrollment');
+const { startSession } = require("mongoose");
 
 module.exports = {
 	getClassroomsFeed: async (req, res) => {
+		let userClassrooms
 		try {
-			let userClassrooms
-			if (req.user.educator) {
-				userClassrooms = await Classroom.find({ creator: req.user })
-			} else {
-				await Enrollment.find({ student: req.user }).populate('classroom').exec((err, enrolledClassrooms) =>
-					userClassrooms = enrolledClassrooms)
-			}
+			await Enrollment.find({ student: req.user.id }).populate({
+				path: 'classroom',
+				populate: { path: 'lessons' }
+			}).exec((err, enrolledClassrooms) =>
+			userClassrooms = enrolledClassrooms)
 			res.render("classroom-feed.ejs", { classrooms: userClassrooms, user: req.user });
 		} catch (err) {
 			console.log(err);
 		}
 	},
-	getOneClassroom: async (req, res) => {
+	getPrivateClassroom: async (req, res) => {
 		try {
 			const classroom = await Classroom.findById(req.params.id);
 			const comment = await Comment.find({ classroom: req.params.id });
-			res.render("course-classroom.ejs", { classroom: classroom, user: req.user, comment: comment });
+			res.render("classroom-private.ejs", { classroom: classroom, user: req.user, comment: comment });
 		} catch (err) {
 			console.log(err);
 		}
@@ -39,23 +42,83 @@ module.exports = {
 			}}
 	},
 	createClassroom: async (req, res) => {
-		try {
-			// Upload image to cloudinary
-			const result = await cloudinary.uploader.upload(req.file.path);
-
-			await Classroom.create({
-				title: req.body.title,
-				image: result.secure_url,
-				cloudinaryId: result.public_id,
-				caption: req.body.caption,
-				likes: 0,
-				user: req.user.id,
-			});
-			res.redirect("/teacher");
-		} catch (err) {
-			console.log(err);
+		// generate classroom accessName and check for uniqueness
+		function randomAccess(){
+			let originalString = 'xxxxxxxx'
+			function getRandomHexDigit() {
+				return parseInt(Math.random()*16, 10).toString(16);
+			}
+			return originalString.replace(/x/g, getRandomHexDigit)
 		}
+
+		let newAccessName = randomAccess()
+		Classroom.findOne({ accessName: newAccessName },
+			(err, existingAccess) => {
+			  if (err) {
+				return next(err);
+			  }
+			  if (existingAccess) {
+				req.flash("error", {
+				  msg: "Please try again.",
+				});
+				return res.redirect("back");
+			  }})
+
+		// ensure a picture if none is provided
+		let imageToUpload
+		if (!req.file){
+			imageToUpload = "https://placeimg.com/640/480/nature/grayscale"
+		} else {
+			imageToUpload = req.file.path
+		}
+
+		let image
+		let cloudinaryId
+		try {
+			const result = await cloudinary.uploader.upload(imageToUpload, 
+				{ width: 400, height: 300, crop: 'fill', gravity: 'auto' 
+			})
+			image = result.secure_url
+			cloudinaryId = result.public_id
+		} catch (error) {
+			req.flash("error", error)
+			return res.redirect("back")
+		}
+
+		// placeholder to be saved in transaction
+		const createdClassroom = new Classroom({
+			name: req.body.name,
+			description: req.body.description,
+			image: image,
+			cloudinaryId: cloudinaryId,
+			accessName: newAccessName,
+			creator: req.user.id
+		})
+
+		console.log(createdClassroom)
+
+		let user
+		try {
+			user = await User.findById(req.user.id)
+		} catch (error) {
+			console.error(error)
+		}
+		
+		try {
+			const classroomSession = await startSession()
+			classroomSession.startTransaction()
+			await createdClassroom.save({ session: classroomSession })
+			user.classrooms.push(createdClassroom)
+			await user.save({ session: classroomSession })
+			await classroomSession.commitTransaction()
+		} catch (error) {
+			console.error(error)
+		}
+
+		req.flash('success', {msg: `Classroom "${req.body.name}" created.`})
+		res.redirect("back");
 	},
+
 	updateClassroom: async (req, res) => {
 		try {
 			await Classroom.findByIdAndUpdate(

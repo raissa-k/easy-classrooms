@@ -16,5 +16,11 @@ module.exports = {
         })
         .catch(error => console.error(error))
         res.render('index.ejs', {data: data})            
-    }
+    },
+	test: async (req, res) => {
+		console.log(req.body)
+		req.flash('success', {msg: 'form submitted!'})
+		req.flash('info', {msg: req.user.userName})
+		res.redirect('back')
+	}
 }

@@ -6,33 +6,28 @@
 	<div class="mx-auto container">
 		<div class="xl:flex">
 			<div class="xl:w-3/4 2xl:w-4/5 -mt-8">
-				<div class="pl-4 md:pl-10 py-4 md:py-7 bg-base-200 rounded-tl-md rounded-tr-md shadow-lg bg-gradient-to-l from-secondary/30">
-					<p class="sm:text-mk md:text-2xl lg:text-4xl font-bold leading-normal">Welcome, <%= user.userName %>!</p>
+				<div class="pl-4 md:pl-10 py-4 md:py-7 bg-base-200 rounded-tl-md rounded-tr-md shadow-lg bg-gradient-to-l from-secondary/5">
+					<h1 class="sm:text-mk md:text-2xl lg:text-4xl font-bold leading-normal">Welcome, <%= user.userName %>!</h1>
 				</div>
-					<div class="bg-base-100 shadow-lg pb-8 px-4 md:px-8 xl:px-10">
+				<div class="bg-primary-content/5 rounded-b-md shadow-lg pb-8 px-4 md:px-8 xl:px-10">
+
+					<% if (user.educator) {%>
+						<div class="py-8">
+							<div class="flex flex-col gap-4 md:w-5/12 shadow sm:py-6 py-4 px-4 border border-base-200 rounded-md">
+								<h1 class="text-lg font-semibold">You have registered as a teacher</h1>
+								<p class="text-sm">To manage the classrooms you've created, go to the Teacher Panel.</p>
+								<a href="/classroom/teacher" class="btn btn-outline btn-secondary mx-auto">Teacher Panel</a>
+							</div>
+						</div>
+							
+					<%}%>
+
+						<h2 class="text-xl font-bold">Your enrollments:</h2>
 
 						<%if( !classrooms || !classrooms.length ){%>
 
 							<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
-								<div class="border border-slate-400/40 card card-compact bg-base-100 shadow-xl">
-									<figure class="items-stretch"><img src="https://placeimg.com/400/250/nature" class="object-cover" alt="Shoes" /></figure>
-									<div class="card-body gap-4">
-										<h2 class="card-title">Classroom name 1</h2>
-										<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed ipsum facere deserunt placeat
-											blanditiis modi sit eum officiis rerums!
-										</p>
-										<div class="relative w-full">
-											<label for="p03c" class="block mb-1 text-xs text-right">2 lessons not complete</label>
-											<progress id="p03c" max="100" value="60"
-												class="block w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">
-												60% </progress>
-										</div>
-										<div class="card-actions justify-end">
-											<a href="#" class="btn btn-outline btn-secondary">View Lessons</a>
-										</div>
-									</div>
-								</div>
-						
+					
 								<div class="border border-slate-400/40 card card-compact bg-base-100 shadow-xl">
 									<figure class="items-stretch"><img src="https://placeimg.com/400/250/tech" class="object-cover" alt="Shoes" /></figure>
 									<div class="card-body gap-4">
@@ -74,8 +69,35 @@
 							</div>
 						
 								<% } else { %>
-									<h2 class="text-primary">alalala</h2>
-									<%}%>
+									<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
+										<% classrooms.forEach (el=> { %>
+												<div class="border border-base-300 card card-compact bg-base-100 shadow-xl">
+													<figure class="w-full h-32" style="background-image: linear-gradient(
+														hsla(var(--p)/.3), 
+														hsla(var(--s)/.3)
+													  ), url(<%=el.image%>); background-size: cover; background-position: top; filter: opacity(0.8);"></figure>
+													<div class="card-body gap-4">
+														<h2 class="card-title"><%=el.name%></h2>
+														<p><%=el.description%></p>
+														<div class="relative w-full">
+															<p class="block mb-1 text-xs text-right"><%=el.accessName%></p>
+														</div>
+														<div class="card-actions justify-end">
+															<button class="btn btn">Buy Now</button>
+															<button class="btn">
+																<span class="order-2">Send message</span>
+																<span aria-hidden="true" class="relative only:-mx-5">
+																	<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+																		<path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+																	</svg>
+																</span>
+															</button>
+														</div>
+													</div>
+												</div>
+										<% }) %>
+										</div>
+								<%}%>
 					</div>
 			</div>
 			<div class="xl:w-1/4 2xl:w-1/5 pt-7 xl:pl-8 pb-7 mt-0">
@@ -112,37 +134,4 @@
 		</div>
 	</div>
 </div>
-
-					<div class="mt-64"></div>
-	<%if( !classrooms || !classrooms.length ){%>
-
-	<div class="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
-		<div class="card card-compact bg-base-100 shadow-xl">
-			<figure><img src="https://placeimg.com/400/250/nature" alt="Shoes" /></figure>
-			<div class="card-body gap-4">
-				<h2 class="card-title">Classroom name 1</h2>
-				<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed ipsum facere deserunt placeat
-					blanditiis modi sit eum officiis rerum, repellat eligendi laboriosam deleniti. Ex temporibus, vel
-					nostrum omnis animi voluptas!
-				</p>
-				<div class="relative w-full">
-					<label for="p03c" class="block mb-1 text-xs text-right">2 lessons not complete</label>
-					<progress id="p03c" max="100" value="60"
-						class="block w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">
-						60% </progress>
-				</div>
-				<div class="card-actions justify-end">
-					<a href="#" class="btn btn-outline btn-secondary">View Lessons</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-		<% } else { %>
-			<h2 class="text-primary">alalala</h2>
-			<%}%>
-
-				<h3>
-					<%= user.educator ? "YOU'RE A TEACHER" : "YOUR'RE A STUDENT" %>
-				</h3>
 <%- include('partials/footer') -%>
