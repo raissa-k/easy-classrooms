@@ -2,24 +2,22 @@ const mongoose = require("mongoose");
 
 const ClassroomSchema = new mongoose.Schema({
   name: {
-    type: String,
-    required: true,
+    type: String
+  },
+  description: {
+	type: String
   },
   image: {
     type: String,
-	required: true
+	default: "https://placeimg.com/640/480/nature"
   },
   cloudinaryId: {
     type: String,
-    require: true,
+    required: true,
   },
   accessName: {
     type: String,
-    require: true,
-  },
-  password: {
-    type: String,
-    required: true,
+	unique: true
   },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
