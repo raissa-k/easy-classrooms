@@ -4,7 +4,7 @@ const User = require("../models/User");
 
 exports.getLogin = (req, res) => {
   if (req.user) {
-    return res.redirect("/classroom/feed");
+    return res.redirect("/home");
   }
   res.render("login", {
     title: "Login",
@@ -38,7 +38,7 @@ exports.postLogin = (req, res, next) => {
       if (err) {
         return next(err);
       }
-      res.redirect(req.session.returnTo || "/classroom/feed");
+      res.redirect(req.session.returnTo || "/home");
     });
   })(req, res, next);
 };
@@ -57,7 +57,7 @@ exports.logout = (req, res) => {
 
 exports.getSignup = (req, res) => {
   if (req.user) {
-    return res.redirect("/classroom/feed");
+    return res.redirect("/home");
   }
   res.render("signup", {
     title: "Create Account",
@@ -110,7 +110,7 @@ exports.postSignup = (req, res, next) => {
           if (err) {
             return next(err);
           }
-          res.redirect("/classroom/feed");
+          res.redirect("/home");
         });
       });
     }
