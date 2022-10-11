@@ -1,10 +1,17 @@
 const validator = require("validator");
+const { startSession } = require("mongoose");
+const { uniqueNamesGenerator, adjectives, names, colors, animals } = require('unique-names-generator');
 const cloudinary = require("../middleware/cloudinary");
 const Classroom = require("../models/Classroom");
 const Comment = require("../models/Comment")
 const User = require("../models/User")
 const Enrollment = require('../models/Enrollment');
-const { startSession } = require("mongoose");
+
+const randomAccess = uniqueNamesGenerator({
+	dictionaries: [adjectives, names, animals, colors],
+	separator: '-',
+	length: 3,
+  });
 
 module.exports = {
 	getClassroomsFeed: async (req, res) => {
@@ -42,16 +49,7 @@ module.exports = {
 			}}
 	},
 	createClassroom: async (req, res) => {
-		// generate classroom accessName and check for uniqueness
-		function randomAccess(){
-			let originalString = 'xxxxxxxx'
-			function getRandomHexDigit() {
-				return parseInt(Math.random()*16, 10).toString(16);
-			}
-			return originalString.replace(/x/g, getRandomHexDigit)
-		}
-
-		let newAccessName = randomAccess()
+		let newAccessName = randomAccess
 		Classroom.findOne({ accessName: newAccessName },
 			(err, existingAccess) => {
 			  if (err) {

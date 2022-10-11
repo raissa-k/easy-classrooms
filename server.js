@@ -32,7 +32,7 @@ app.use(methodOverride("_method"));
 
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: "je suis un ananas",
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),

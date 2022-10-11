@@ -21,11 +21,14 @@
 							<div class="card-body gap-4">
 								<h2 class="card-title"><%=el.name%></h2>
 								<p><%=el.description%></p>
-								<div class="relative w-full">
-									<p class="block mb-1 text-xs text-right"><%=el.accessName%></p>
+								<div class="relative w-full" aria-label="Classroom access name">
+									<div class="input-group input-group-vertical clipboard-copy tooltip" data-tip="Click to copy" id="<%=el.accessName%>">
+										<span class="py-2">Classroom name</span>
+										<p class="input input-bordered py-2"><%=el.accessName%></p>
+									</div>
 								</div>
 								<div class="card-actions justify-end">
-									<button class="btn btn">Buy Now</button>
+									<button class="btn">Buy Now</button>
 									<button class="btn">
 										<span class="order-2">Send message</span>
 										<span aria-hidden="true" class="relative only:-mx-5">

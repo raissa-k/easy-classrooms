@@ -38,7 +38,6 @@ exports.postLogin = (req, res, next) => {
       if (err) {
         return next(err);
       }
-      req.flash("success", { msg: `Welcome, ${user.userName}` });
       res.redirect(req.session.returnTo || "/classroom/feed");
     });
   })(req, res, next);
