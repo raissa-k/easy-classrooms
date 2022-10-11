@@ -368,3 +368,27 @@ Array.from(closeElement).forEach((el) => {
 			}, 100);
           }
         )})
+
+const copyButton = document.querySelectorAll('.clipboard-copy')
+
+Array.from(copyButton).forEach((el) => {
+	el.addEventListener("click", async (event) => {
+		event.preventDefault()
+		if (!navigator.clipboard) {
+			return;
+		}
+		try {
+			await navigator.clipboard.writeText(el.id);
+			el.dataset.tip = "Copied! ✅"
+			el.classList.toggle('tooltip-open')
+			setTimeout(() => {
+				el.classList.toggle('tooltip-open')
+				setTimeout(() => {
+					el.dataset.tip = "Click to copy"
+				}, 200);
+			}, 2000);			
+		} catch (err) {
+			console.error("Failed to copy!", err);
+		}
+	});
+});

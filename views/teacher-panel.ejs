@@ -5,7 +5,7 @@
 	<div class="mx-auto container">
 		<div class="flex flex-col">
 			<div class="pl-4 md:pl-10 py-4 md:py-7 bg-base-200 rounded-tl-md rounded-tr-md shadow-lg bg-gradient-to-l from-secondary/5">
-				<h1 class="sm:text-mk md:text-2xl lg:text-4xl font-bold leading-normal">Here are your classrooms:</h1>
+				<h1 class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal">Here are your classrooms:</h1>
 			</div>
 			<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
 				<%if( classrooms.length ){%>
@@ -18,14 +18,23 @@
 								hsla(var(--p)/.3), 
 								hsla(var(--s)/.3)
 							  ), url(<%=el.image%>); background-size: cover; background-position: top; filter: opacity(0.8);"></figure>
-							<div class="card-body gap-4">
+							<div class="card-body gap-6">
 								<h2 class="card-title"><%=el.name%></h2>
 								<p><%=el.description%></p>
-								<div class="relative w-full">
-									<p class="block mb-1 text-xs text-right"><%=el.accessName%></p>
+
+								<div class="relative flex flex-col border border-base-content border-opacity-20 rounded-lg" aria-label="Classroom password">
+									<div class="pl-4 py-4 border border-inherit border-x-transparent border-t-transparent badge-ghost flex align-middle flex-wrap gap-6 justify-between">
+										<span class="text-base font-semibold self-center">Classroom password </span>
+										<button class="btn btn-ghost btn-active mr-4 clipboard-copy tooltip" data-tip="Click to copy" id="<%=el.accessName%>">
+										<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline">
+											<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
+										</svg>
+									</button></div>
+									<p class="py-6 px-4 mx-auto font-semibold"><%=el.accessName%></p>
+									
 								</div>
 								<div class="card-actions justify-end">
-									<button class="btn btn">Buy Now</button>
+									<button class="btn">Buy Now</button>
 									<button class="btn">
 										<span class="order-2">Send message</span>
 										<span aria-hidden="true" class="relative only:-mx-5">
