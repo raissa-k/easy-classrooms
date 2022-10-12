@@ -48,6 +48,18 @@ module.exports = {
 				console.error(error)
 			}}
 	},
+	getClassroomManagement: async(req, res) => {
+		try {
+            let managedClassroom = await Classroom.findOne({
+                accessName: req.params.accessName,
+                creator: req.user
+            }).populate('lessons')
+			res.render('classroom-manage.ejs', { classrooms: managedClassroom, user: req.user })
+		} catch (error) {
+			req.flash("error", error)
+			return res.redirect("back")
+		}
+	},
 	createClassroom: async (req, res) => {
 		let newAccessName = randomAccess
 		Classroom.findOne({ accessName: newAccessName },
@@ -93,8 +105,6 @@ module.exports = {
 			creator: req.user.id
 		})
 
-		console.log(createdClassroom)
-
 		let user
 		try {
 			user = await User.findById(req.user.id)
@@ -116,19 +126,60 @@ module.exports = {
 		req.flash('success', {msg: `Classroom "${req.body.name}" created.`})
 		res.redirect("back");
 	},
+	editClassroom: async (req, res) => {
+		let foundClassroom = await Classroom.findOne({
+			_id: req.params.id,
+			creator: req.user
+		})
 
-	updateClassroom: async (req, res) => {
-		try {
-			await Classroom.findByIdAndUpdate(
-				req.body.id,
-				{
-					$inc: { likes: 1 },
-				}
-			);
-			res.json('Liked!');
-		} catch (err) {
-			console.log(err);
+		if (req.body.accessName !== foundClassroom.accessName){
+			Classroom.findOne({ accessName: req.body.accessName },
+				(err, existingAccess) => {
+				  if (err) {
+					return next(err);
+				  }
+				  else if (existingAccess) {
+					req.flash("error", {msg: "Classroom password in use, please choose another."})
+					return res.redirect(`/classroom/teacher/${foundClassroom.accessName}`)
+				}})
+				return req.body.accessName
+			}
+
+		let classroomImage
+		let cloudinaryId
+		if (!req.file){
+			classroomImage = foundClassroom.image
+			console.log(classroomImage)
+			cloudinaryId = foundClassroom.cloudinaryId
+		} else {
+			imageToUpload = req.file.path
+			currendCloudId = foundClassroom.cloudinaryId
+			try {
+				const result = await cloudinary.uploader.upload(imageToUpload, 
+					{ width: 400, height: 300, crop: 'fill', gravity: 'auto' 
+				})
+				await cloudinary.uploader.destroy(currendCloudId);
+				classroomImage = result.secure_url
+				cloudinaryId = result.public_id
+			} catch (error) {
+				req.flash("error", error)
+				res.redirect(`/classroom/teacher/${foundClassroom.accessName}`)
+			}
 		}
+
+		foundClassroom.name = req.body.name
+		foundClassroom.description = req.body.description
+		foundClassroom.image = classroomImage
+		foundClassroom.cloudinaryId = cloudinaryId
+		foundClassroom.accessName = req.body.accessName
+
+		try {
+			await foundClassroom.save()
+		} catch (error) {
+			console.error(error)
+		}
+		req.flash('success', {msg: `Classroom "${req.body.name}" edited.`})
+		res.redirect(`/classroom/teacher/${foundClassroom.accessName}`)
 	},
 	deleteClassroom: async (req, res) => {
 		try {
