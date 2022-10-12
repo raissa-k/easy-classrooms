@@ -4,8 +4,20 @@
 <div class="px-4 xl:px-0 mt-16 lg:mt-32">
 	<div class="mx-auto container">
 		<div class="flex flex-col">
-			<div class="pl-4 md:pl-10 py-4 md:py-7 bg-base-200 rounded-tl-md rounded-tr-md shadow-lg bg-gradient-to-l from-secondary/5">
+			<div class="pl-4 md:pl-10 py-4 md:py-7 bg-base-200 rounded-tl-md rounded-tr-md shadow-lg bg-gradient-to-l from-secondary/5 flex justify-between gap-4 flex-wrap">
 				<h1 class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal">Here are your classrooms:</h1>
+			
+				<div class="flex justify-between pr-4 md:pr-10">
+					<button class="btn btn-secondary" data-modal-trigger="" id="createClass-toggle" aria-controls="createClass" aria-expanded="false">
+						Create classroom
+						<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 inline-block w-5 h-5 stroke-current pointer-events-none">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5v6m3-3H9m4.06-7.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+						</svg>	
+					</button>
+
+					<%- include('partials/modal-blank', {modalName: "createClass" , modalTitle: "Create classroom" , prose: "not-prose", partial: "modal-createClass", icon: "create"}) -%>
+				</div>
+				</div>
 			</div>
 			<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
 				<%if( classrooms.length ){%>
@@ -13,7 +25,7 @@
 
 				<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
 				<% classrooms.forEach (el=> { %>
-						<div class="border border-base-300 card card-compact bg-base-100 shadow-xl">
+						<div class="border border-base-content border-opacity-20 card card-compact bg-base-100 shadow-xl">
 							<figure class="w-full h-32" style="background-image: linear-gradient(
 								hsla(var(--p)/.3), 
 								hsla(var(--s)/.3)
@@ -33,16 +45,15 @@
 									<p class="py-6 px-4 mx-auto font-semibold"><%=el.accessName%></p>
 									
 								</div>
-								<div class="card-actions justify-end">
-									<button class="btn">Buy Now</button>
-									<button class="btn">
-										<span class="order-2">Send message</span>
+								<div class="card-actions justify-center pb-4">
+									<a class="btn btn-ghost" href="/classroom/teacher/<%=el.accessName%>">
+										<span class="order-2">Manage classroom</span>
 										<span aria-hidden="true" class="relative only:-mx-5">
-											<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-												<path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-											</svg>
+											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-2">
+												<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+											  </svg>
 										</span>
-									</button>
+									</a>
 								</div>
 							</div>
 						</div>
@@ -53,39 +64,21 @@
 				<h1 class="text-primary mt-4">NO CLASSROOMS FOUND.</h1>
 				<%}%>
 
-				<form class="flex flex-col gap-6" method="post" enctype="multipart/form-data" action="/classroom/create">
-					<div class="form-control w-full max-w-xs">
-					<label class="label" for="input-picture">
-						<span class="label-text">Picture</span>
-					</label>
-					<input id="input-picture" name="picture" type="file" accept=".jpg, .jpeg, .png" class="input input-bordered w-full max-w-xs h-auto pl-0 file:rounded-lg file:mr-4 file:py-2 file:px-4 file:border file:border-e file:border-base-300 file:font-semibold file:bg-base-100 file:text-base-content hover:file:bg-base-300">
-						<span class="label-text-alt">If no image is selected, a random one will be used.</span>
-					</div>
 
-					<div class="form-control w-full max-w-xs">
-					<label class="label" for="input-name">
-						<span class="label-text">Name</span>
-					</label>
-					<input id="input-name" name="name" placeholder="Classroom name" type="text" minlength="4" maxlength="35" class="input input-bordered w-full max-w-xs" required>
-						<span class="label-text-alt">Minimum 4 and maximum 35 character</span>
-					</div>
+			<div class="flex justify-end mt-8">
+				<button class="btn btn-secondary" data-modal-trigger="" id="createClass-btoggle" aria-controls="createClass-b" aria-expanded="false">
+					Create classroom
+					<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 inline-block w-5 h-5 stroke-current pointer-events-none">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5v6m3-3H9m4.06-7.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+					  </svg>	
+				</button>
 
-					<div class="form-control w-full max-w-xs">
-					<label class="label" for="input-desc">
-						<span class="label-text">Description</span>
-					</label> 
-						<textarea id="input-desc" name="description" placeholder="Classroom description" maxlength="140" class="textarea textarea-bordered w-full max-w-xs" rows="3"></textarea>
-					</div>
-
-					<button type="submit" class="btn mx-auto">Submit</button>
-					</form>
-				</div>
+				<%- include('partials/modal-blank', {modalName: "createClass-b" , modalTitle: "Create classroom" , prose: "not-prose", partial: "modal-createClass", icon: "create"}) -%>
+			</div>
 			</div>
 		</div>
 	</div>
 </div>
 </div>					
 					
-
-
-	<%- include('partials/footer') -%>
+<%- include('partials/footer') -%>
