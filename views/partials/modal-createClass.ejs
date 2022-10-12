@@ -1,0 +1,27 @@
+	
+<form class="flex flex-col gap-4" method="post" enctype="multipart/form-data" action="/classroom/create">
+	<div class="form-control w-full max-w-xs">
+	<label class="label" for="input-picture">
+		<span class="label-text">Picture</span>
+	</label>
+	<input id="input-picture" name="picture" type="file" accept=".jpg, .jpeg, .png" class="input input-bordered w-full max-w-xs h-auto pl-0 file:rounded-lg file:mr-4 file:py-2 file:px-4 file:border file:border-e file:border-base-300 file:font-semibold file:bg-base-100 file:text-base-content hover:file:bg-base-300">
+		<span class="label-text-alt">If no image is selected, a random one will be used.</span>
+	</div>
+
+	<div class="form-control w-full max-w-xs">
+	<label class="label" for="input-name">
+		<span class="label-text">Name</span>
+	</label>
+	<input id="input-name" name="name" placeholder="Classroom name" type="text" minlength="4" maxlength="35" class="input input-bordered w-full max-w-xs" required>
+		<span class="label-text-alt">Minimum 4 and maximum 35 characters</span>
+	</div>
+
+	<div class="form-control w-full max-w-xs">
+	<label class="label" for="input-desc">
+		<span class="label-text">Description</span>
+	</label> 
+		<textarea id="input-desc" name="description" placeholder="Classroom description" maxlength="140" class="textarea textarea-bordered w-full max-w-xs" rows="3"></textarea>
+	</div>
+
+	<button type="submit" class="btn btn-outline mx-auto sm:my-4">Submit new classroom</button>
+</form>

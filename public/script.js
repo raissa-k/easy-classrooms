@@ -279,9 +279,9 @@ const modal = (() => {
 			trigger = toggle.closest(settings.selectorTrigger);
 			target = document.getElementById(trigger.getAttribute('aria-controls'));
 			open = true;
-		} else if ((toggle.hash) && (toggle.hash.substr(1).indexOf('modal') > -1)) {
+		} else if ((toggle.hash) && (toggle.hash.substring(1).indexOf('modal') > -1)) {
 			trigger = toggle;
-			target = document.getElementById(toggle.hash.substr(1));
+			target = document.getElementById(toggle.hash.substring(1));
 			open = true;
 		}
 
@@ -371,24 +371,26 @@ Array.from(closeElement).forEach((el) => {
 
 const copyButton = document.querySelectorAll('.clipboard-copy')
 
-Array.from(copyButton).forEach((el) => {
-	el.addEventListener("click", async (event) => {
-		event.preventDefault()
-		if (!navigator.clipboard) {
-			return;
-		}
-		try {
-			await navigator.clipboard.writeText(el.id);
-			el.dataset.tip = "Copied! ✅"
-			el.classList.toggle('tooltip-open')
-			setTimeout(() => {
+if (copyButton){
+	Array.from(copyButton).forEach((el) => {
+		el.addEventListener("click", async (event) => {
+			event.preventDefault()
+			if (!navigator.clipboard) {
+				return;
+			}
+			try {
+				await navigator.clipboard.writeText(el.id);
+				el.dataset.tip = "Copied! ✅"
 				el.classList.toggle('tooltip-open')
 				setTimeout(() => {
-					el.dataset.tip = "Click to copy"
-				}, 200);
-			}, 2000);			
-		} catch (err) {
-			console.error("Failed to copy!", err);
-		}
+					el.classList.toggle('tooltip-open')
+					setTimeout(() => {
+						el.dataset.tip = "Click to copy"
+					}, 200);
+				}, 2000);			
+			} catch (err) {
+				console.error("Failed to copy!", err);
+			}
+		});
 	});
-});
+}
