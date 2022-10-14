@@ -1,0 +1,11 @@
+<div class="text-xl flex flex-col gap-4 mb-6">
+	<p>This action is permanent and will also delete all information related to this classroom, such as lessons.</p>
+	<p>Do you wish to proceed?</p>
+</div>
+<form id="classroomDelete-form" method="post" action="/classroom?_method=DELETE">
+	<input type="hidden" name="classroomId" id="classroomDeleteId" value="<%=classrooms._id%>"/>
+	<div class="flex flex-row gap-4 justify-between" >
+		<button type="button" id="classroomDelete-dismiss" class="btn" data-modal-close="">No, go back</button>
+		<button type="submit" id="classroomDelete-button" class="btn btn-error">Delete classroom</button>
+	</div>
+</form>

@@ -3,6 +3,7 @@ const { startSession } = require("mongoose");
 const { uniqueNamesGenerator, adjectives, names, colors, animals } = require('unique-names-generator');
 const cloudinary = require("../middleware/cloudinary");
 const Classroom = require("../models/Classroom");
+const Lesson = require("../models/Lesson")
 const Comment = require("../models/Comment")
 const User = require("../models/User")
 const Enrollment = require('../models/Enrollment');
@@ -128,7 +129,7 @@ module.exports = {
 	},
 	editClassroom: async (req, res) => {
 		let foundClassroom = await Classroom.findOne({
-			_id: req.params.id,
+			_id: req.body.hiddenClassId,
 			creator: req.user
 		})
 
@@ -136,20 +137,19 @@ module.exports = {
 			Classroom.findOne({ accessName: req.body.accessName },
 				(err, existingAccess) => {
 				  if (err) {
-					return next(err);
+					req.flash("error", {msg: "Error. Please try again"})
+					return res.redirect(`/classroom/teacher/${foundClassroom.accessName}`);
 				  }
 				  else if (existingAccess) {
 					req.flash("error", {msg: "Classroom password in use, please choose another."})
 					return res.redirect(`/classroom/teacher/${foundClassroom.accessName}`)
 				}})
-				return req.body.accessName
 			}
 
 		let classroomImage
 		let cloudinaryId
 		if (!req.file){
 			classroomImage = foundClassroom.image
-			console.log(classroomImage)
 			cloudinaryId = foundClassroom.cloudinaryId
 		} else {
 			imageToUpload = req.file.path
@@ -182,16 +182,25 @@ module.exports = {
 		res.redirect(`/classroom/teacher/${foundClassroom.accessName}`)
 	},
 	deleteClassroom: async (req, res) => {
+		const classroomId = req.body.classroomId
+
+		let classroomToDelete = await Classroom.findById(classroomId)
+		let lessonsToDelete = classroomToDelete.lessons.map((obj) => obj._id)
+
 		try {
-			// Find classroom by id
-			let classroom = await Classroom.findById({ _id: req.body.id });
-			// Delete image from cloudinary
-			await cloudinary.uploader.destroy(classroom.cloudinaryId);
-			// Delete classroom from db
-			await Classroom.deleteOne({ _id: req.params.id });
-			res.json('Deleted classroom');
-		} catch (err) {
-			console.error(err)
+			await cloudinary.uploader.destroy(classroomToDelete.cloudinaryId);
+			const classSession = await startSession()
+			classSession.startTransaction()
+			await classroomToDelete.remove({ session: classSession })
+			await Lesson.deleteMany({ _id: {$in: [...lessonsToDelete]}}).session(classSession)
+//			await Comment.deleteMany({ lesson: {$in: [...lessonsToDelete]}}).session(classSession)
+			await classSession.commitTransaction()
+			req.flash('success', {msg: `Classroom successfully deleted.`})
+			res.redirect(`/classroom/teacher`)
+		} catch (error) {
+			req.flash('error', {msg: "Error. Please try again."})
+			console.error(error)
+			return res.redirect('back')
 		}
 	},
 };

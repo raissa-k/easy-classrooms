@@ -45,35 +45,32 @@ module.exports = {
 	req.flash('success', {msg: "Lesson successfully created."})
 	res.redirect("back");
   },
-  likeComment: async (req, res) => {
-    try {
-      const updatedComment = await Comment.findByIdAndUpdate(
-		req.body.id, 
-		{ 
-			$inc: { likes: 1 }
-		},
-		{ new: true } 
-		)
-      res.json(updatedComment);
-	  console.log('Likes +1')
-    } catch (err) {
-      res.status(400).end;
-    }
-  },
   deleteLesson: async (req, res) => {
-    try {
 		const lessonId = req.body.lessonId
-		await Lesson.findOneAndDelete({
-				_id: lessonId,
-				creator: req.user
-			})
-      	await Comment.deleteMany({ lesson: lessonId });
-		req.flash('success', {msg: "Lesson successfully deleted."})
-		res.redirect("back");
-    } catch (err) {
-		req.flash('error', {msg: "Error. Please try again."})
-		console.error(error)
-		return res.redirect('back')
-    }
+		const classroomId = req.body.classroomId
+		const foundClassroom = await Classroom.findById(classroomId)
+		const foundComments = await Comment.find({ lesson: lessonId })
+		const commentsToDelete = foundComments.map((obj) => obj._id)
+
+		const lessonToDelete = await Lesson.findOne({
+			_id: lessonId,
+			creator: req.user
+		})
+			
+		try {
+			const lessonDelSession = await startSession()
+			lessonDelSession.startTransaction()
+			foundClassroom.lessons.pull({_id: lessonId})
+			await Comment.deleteMany({ _id: {$in: [...commentsToDelete]} }).session(lessonDelSession);
+			await lessonToDelete.deleteOne({ session: lessonDelSession })
+			await foundClassroom.save({ session: lessonDelSession })
+			await lessonDelSession.commitTransaction()
+		} catch (error) {
+			req.flash('error', {msg: "Error. Please try again."})
+			console.error(error)
+			return res.redirect('back')
+		}
+		req.flash('success', {msg: `Lesson successfully deleted.`})
+		res.redirect("back")
   },
 };
