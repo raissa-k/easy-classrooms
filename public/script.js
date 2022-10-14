@@ -394,3 +394,16 @@ if (copyButton){
 		});
 	});
 }
+const lessonDeleteDismiss = document.querySelector('#deleteLesson-modal .modalToggleClose')
+const lessonDeleteButton = document.getElementById("lessonDelete-button")
+
+function openDeleteModal(lessonId){
+    let lessonDeleteId = document.getElementById('lessonDelete-id')
+    lessonDeleteId.value = lessonId
+	setTimeout(() => {
+		document.getElementById('deleteLesson-toggle').click()
+		setTimeout(() => {
+			lessonDeleteDismiss.focus()
+		}, 100)
+	}, 50);
+}
