@@ -2,7 +2,7 @@ name: 'Link to issue in PR body'
 on:
   pull_request:
     branches: [main]
-    types: [closed]
+    types: [opened]
 
 jobs:
   issue-links:
