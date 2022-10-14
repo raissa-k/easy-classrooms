@@ -8,15 +8,6 @@
 				<h1 class="sm:text-xl md:text-2xl lg:text-4xl font-bold leading-normal">Classroom management</h1>
 
 				<div class="flex flex-wrap gap-4 pr-4">
-					<button class="btn btn-secondary" data-modal-trigger="" id="editClass-btoggle" aria-controls="editClass" aria-expanded="false">
-						Edit classroom
-						<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 inline-block w-5 h-5 stroke-current pointer-events-none">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-						</svg>											  
-					</button>
-	
-					<%- include('partials/modal-blank', {modalName: "editClass" , modalTitle: "Edit classroom" , prose: "not-prose", partial: "modal-editClass", icon: "edit"}) -%>
-
 					<button class="btn btn-primary btn-outline" data-modal-trigger="" id="addLesson-toggle" aria-controls="addLesson" aria-expanded="false">
 						Add lesson
 						<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 inline-block w-5 h-5 stroke-current pointer-events-none">
@@ -31,7 +22,7 @@
 			<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
 		
 				<div class="py-8 not-prose flex flex-col md:flex-row gap-8">
-					<div class="max-w-xs mb-auto border border-base-content border-opacity-20 card bg-base-100 mx-auto shadow-xl">
+					<div class="w-full max-w-xs mb-auto border border-base-content border-opacity-20 card bg-base-100 mx-auto shadow-xl">
 						<figure class="w-full h-32" style="background-image: linear-gradient(
 							hsla(var(--p)/.3), 
 							hsla(var(--s)/.3)
@@ -50,6 +41,20 @@
 									</button>
 								</div>
 								<p class="py-6 px-4 mx-auto font-semibold"><%=classrooms.accessName%></p>
+							</div>
+
+							<div class="flex flex-col gap-2">
+								<button class="btn btn-secondary" data-modal-trigger="" id="editClass-btoggle" aria-controls="editClass" aria-expanded="false">
+									Edit<span class="sr-only"> classroom</span>
+								</button>
+				
+								<%- include('partials/modal-blank', {modalName: "editClass" , modalTitle: "Edit classroom" , prose: "not-prose", partial: "modal-editClass", icon: "edit"}) -%>
+	
+								<button type="submit" class="btn btn-error tooltip tooltip-warning flex gap-2" data-tip="This action is permanent" data-modal-trigger="" id="deleteClass-toggle" aria-controls="deleteClass" aria-expanded="false">
+									Delete<span class="sr-only"> classroom<span>								  
+								</button>
+
+								<%- include('partials/modal-blank', {modalName: "deleteClass" , modalTitle: "Delete classroom" , prose: "not-prose", partial: "modal-deleteClass", icon: "delete"}) -%>
 							</div>
 						</div>
 					</div>

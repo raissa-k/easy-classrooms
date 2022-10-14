@@ -1,33 +1,34 @@
 	
-<form class="flex flex-col gap-2" method="post" enctype="multipart/form-data" action="/classroom/edit/<%=classrooms.id%>">
+<form class="flex flex-col gap-2" method="post" enctype="multipart/form-data" action="/classroom?_method=PATCH">
+	<input type="hidden" id="hiddenClassId" name="hiddenClassId" value="<%=classrooms._id%>">
 	<div class="form-control w-full max-w-md">
-	<label class="label" for="input-picture">
+	<label class="label" for="edinput-picture">
 		<span class="label-text">Choose new picture</span>
 	</label>
-	<input id="input-picture" name="picture" type="file" accept=".jpg, .jpeg, .png" class="input input-bordered w-full max-w-xs h-auto pl-0 file:rounded-lg file:mr-4 file:py-2 file:px-4 file:border file:border-e file:border-base-300 file:font-semibold file:bg-base-100 file:text-base-content hover:file:bg-base-300">
+	<input id="edinput-picture" name="picture" type="file" accept=".jpg, .jpeg, .png" class="input input-bordered w-full max-w-xs h-auto pl-0 file:rounded-lg file:mr-4 file:py-2 file:px-4 file:border file:border-e file:border-base-300 file:font-semibold file:bg-base-100 file:text-base-content hover:file:bg-base-300">
 		<span class="label-text-alt">Leave blank to keep current one.</span>
 	</div>
 
 	<div class="form-control w-full max-w-xs">
-	<label class="label" for="input-name">
+	<label class="label" for="edinput-name">
 		<span class="label-text">Name</span>
 	</label>
-	<input id="input-name" name="name" placeholder="Classroom name" type="text" minlength="4" maxlength="35" class="input input-bordered w-full max-w-xs" required value="<%=classrooms.name%>">
+	<input id="edinput-name" name="name" placeholder="Classroom name" type="text" minlength="4" maxlength="35" class="input input-bordered w-full max-w-xs" required value="<%=classrooms.name%>">
 		<span class="label-text-alt">Minimum 4 and maximum 35 characters</span>
 	</div>
 
 	<div class="form-control w-full max-w-xs">
-	<label class="label" for="input-desc">
+	<label class="label" for="edinput-desc">
 		<span class="label-text">Description</span>
 	</label> 
-		<textarea id="input-desc" name="description" placeholder="Classroom description" maxlength="140" class="textarea textarea-bordered w-full max-w-xs" rows="2"><%=classrooms.description%></textarea>
+		<textarea id="edinput-desc" name="description" placeholder="Classroom description" maxlength="140" class="textarea textarea-bordered w-full max-w-xs" rows="2"><%=classrooms.description%></textarea>
 	</div>
 
 	<div class="form-control w-full max-w-xs">
-		<label class="label" for="input-pass">
+		<label class="label" for="edinput-pass">
 			<span class="label-text">Classroom password</span>
 		</label> 
-	<input id="input-pass" name="accessName" placeholder="Classroom password" type="text" minlength="4" class="input input-bordered w-full max-w-xs" required value="<%=classrooms.accessName%>">
+	<input id="edinput-pass" name="accessName" placeholder="Classroom password" type="text" minlength="4" class="input input-bordered w-full max-w-xs" required value="<%=classrooms.accessName%>">
 		<span class="label-text-alt">Must be unique.</span>
 	</div>
 

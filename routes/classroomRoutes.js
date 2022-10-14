@@ -6,12 +6,14 @@ const classroomController = require("../controllers/classroomCtrl");
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 router.get("/feed", ensureAuth, classroomController.getClassroomsFeed);
-router.get("/private/:id", ensureAuth, classroomController.getPrivateClassroom)
+router.get("/private/:accessName", ensureAuth, classroomController.getPrivateClassroom)
+router.get("/public/:accessName", classroomController.getPrivateClassroom)
 
-router.get("/teacher", classroomController.getTeacherDashboard)
-router.get("/teacher/:accessName", classroomController.getClassroomManagement)
+router.get("/teacher", ensureAuth, classroomController.getTeacherDashboard)
+router.get("/teacher/:accessName", ensureAuth, classroomController.getClassroomManagement)
 
 router.post("/create", upload.single("picture"), classroomController.createClassroom)
-router.post("/edit/:id", upload.single("picture"), classroomController.editClassroom)
+router.delete("/", classroomController.deleteClassroom)
+router.patch("/", upload.single("picture"), classroomController.editClassroom)
 
 module.exports = router;
