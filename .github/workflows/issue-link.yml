@@ -6,7 +6,6 @@ on:
 
 jobs:
   issue-links:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - name: Add an issue link to PR body
@@ -15,4 +14,5 @@ jobs:
         repo-token: '${{ secrets.ADD_TO_PROJECT_PAT }}' # required
         branch-prefix: 'issue-' # required
         resolve: 'true' # optional (default: "false")
+        resolve-word: 'Closes'
         link-style: 'comment'
