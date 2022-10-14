@@ -6,8 +6,7 @@ const LessonSchema = new mongoose.Schema({
     required: true,
   },
   description: {
-    type: String,
-    require: true,
+    type: String
   },
   comment: {
 	type: mongoose.Schema.Types.ObjectId,

@@ -54,7 +54,7 @@ module.exports = {
                 accessName: req.params.accessName,
                 creator: req.user
             }).populate('lessons')
-			res.render('classroom-manage.ejs', { classrooms: managedClassroom, user: req.user })
+			res.render('classroom-manage.ejs', { classrooms: managedClassroom, lessons: managedClassroom.lessons, user: req.user })
 		} catch (error) {
 			req.flash("error", error)
 			return res.redirect("back")

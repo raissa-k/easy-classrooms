@@ -1,0 +1,11 @@
+<div class="text-xl flex flex-col gap-4 mb-6">
+	<p>This action is permanent and will also delete all information related to this lesson, such as comments.</p>
+	<p>Do you wish to proceed?</p>
+</div>
+<form id="lessonDelete-form" method="post" action="/lesson/delete">
+	<input type="hidden" name="lessonId" id="lessonDelete-id" />
+	<div class="flex flex-row gap-4 justify-between" >
+		<button type="button" id="lessonDelete-dismiss" class="btn" data-modal-close="">No, go back</button>
+		<button type="submit" id="lessonDelete-button" class="btn btn-error">Delete lesson</button>
+	</div>
+</form>
