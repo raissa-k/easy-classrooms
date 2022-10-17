@@ -20,27 +20,27 @@
 		<span class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-blue-500/0 via-secondary to-blue-500/0 opacity-50"></span>
 		<div class="navbar bg-base-100 justify-between container px-6 h-16 flex items-center lg:items-stretch mx-auto rounded">
 			<div class="navbar-start">
-				<a class="btn btn-secondary btn-circle btn-outline" href="/">
+				<a aria-label="Landing page" class="btn btn-secondary btn-circle btn-outline" href="/">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="object-cover h-8 w-8 transition-color" aria-hidden="true">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
 					</svg>
-					<span class="sr-only">Home</span>
 				</a>		  
 			</div>
 		
 		<%if(navbar=="yes"){%>
-			<%- include('navbar.ejs') %>
-		  <%}%>
+			<%- !user ? include('navbar-classroom.ejs') : include('navbar.ejs') %>
+		<% } else { %>
+
+		<%}%>
 
 			<div class="navbar-end">
-				<button class="pointer-events-auto overflow-hidden btn btn-sm btn-circle btn-ghost" data-toggle-theme="night,fantasy" data-act-class="group">
-					<span class="sr-only">Toggle color scheme</span>
+				<button aria-label="Toggle color scheme" class="pointer-events-auto overflow-hidden btn btn-sm btn-circle btn-ghost" data-toggle-theme="night,fantasy" data-act-class="group">
 					<svg class="m-[.5em] w-4 h-4 fill-current group-first:ml-[-1.7em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M152.62,126.77c0-33,4.85-66.35,17.23-94.77C87.54,67.83,32,151.89,32,247.38,32,375.85,136.15,480,264.62,480c95.49,0,179.55-55.54,215.38-137.85-28.42,12.38-61.8,17.23-94.77,17.23C256.76,359.38,152.62,255.24,152.62,126.77Z"></path></svg>
 					<svg class="m-[.5em] w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256,118a22,22,0,0,1-22-22V48a22,22,0,0,1,44,0V96A22,22,0,0,1,256,118Z"></path><path d="M256,486a22,22,0,0,1-22-22V416a22,22,0,0,1,44,0v48A22,22,0,0,1,256,486Z"></path><path d="M369.14,164.86a22,22,0,0,1-15.56-37.55l33.94-33.94a22,22,0,0,1,31.11,31.11l-33.94,33.94A21.93,21.93,0,0,1,369.14,164.86Z"></path><path d="M108.92,425.08a22,22,0,0,1-15.55-37.56l33.94-33.94a22,22,0,1,1,31.11,31.11l-33.94,33.94A21.94,21.94,0,0,1,108.92,425.08Z"></path><path d="M464,278H416a22,22,0,0,1,0-44h48a22,22,0,0,1,0,44Z"></path><path d="M96,278H48a22,22,0,0,1,0-44H96a22,22,0,0,1,0,44Z"></path><path d="M403.08,425.08a21.94,21.94,0,0,1-15.56-6.45l-33.94-33.94a22,22,0,0,1,31.11-31.11l33.94,33.94a22,22,0,0,1-15.55,37.56Z"></path><path d="M142.86,164.86a21.89,21.89,0,0,1-15.55-6.44L93.37,124.48a22,22,0,0,1,31.11-31.11l33.94,33.94a22,22,0,0,1-15.56,37.55Z"></path><path d="M256,358A102,102,0,1,1,358,256,102.12,102.12,0,0,1,256,358Z"></path></svg>
 				</button>
 			</div>
 	  	</div>
     </header>
-<main id="content" class="sm:px-8 mt-4 xl:mt-16 mx-auto container relative py-7 xl:py-0">
+<main id="content" class="sm:px-8 mt-4 xl:mt-8 mx-auto container relative py-4">
 					
     

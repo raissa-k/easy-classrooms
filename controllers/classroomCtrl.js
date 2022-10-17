@@ -28,19 +28,40 @@ module.exports = {
 			console.log(err);
 		}
 	},
-	getPrivateClassroom: async (req, res) => {
+	getClassroom: async (req, res) => {
 		try {
-			const classroom = await Classroom.findById(req.params.id);
-			const comment = await Comment.find({ classroom: req.params.id });
-			res.render("classroom-private.ejs", { classroom: classroom, user: req.user, comment: comment });
+			const publicClassroom = await Classroom.findOne({
+                accessName: req.params.accessName
+            }).populate('lessons')
+			res.render('classroompublic.ejs', { classrooms: publicClassroom, lessons: publicClassroom.lessons, user: req.user })
 		} catch (err) {
-			console.log(err);
+			req.flash("error", {
+				msg: "Something went wrong.",
+			  })
+			console.log(err)
+			res.redirect('back')
 		}
+	},
+	findByPass: async (req, res) => {
+		const findClassroom = req.body.accessName
+
+		Classroom.findOne({ accessName: findClassroom}, (err, existingClassroom) => {
+			if (err) {
+			  return next(err);
+			}
+			if (!existingClassroom) {
+			  req.flash("error", {
+				msg: "Could not find classroom.",
+			  });
+			  return res.redirect("back");
+			}
+			res.redirect(`/classroom/${findClassroom}/view`)
+		})
 	},
 	getTeacherDashboard: async(req, res) => {
 		if (!req.user.educator){
-			req.flash('error', {msg:'Only educators may access the Course Dashboard'})
-			res.redirect('/classroom/feed')
+			req.flash("error", {msg:"Only educators may access the Course Dashboard"})
+			res.redirect('/home')
 		} else {
 			try {
 				userClassrooms = await Classroom.find({ creator: req.user }).populate('lessons')
@@ -57,7 +78,7 @@ module.exports = {
             }).populate('lessons')
 			res.render('classroom-manage.ejs', { classrooms: managedClassroom, lessons: managedClassroom.lessons, user: req.user })
 		} catch (error) {
-			req.flash("error", error)
+			req.flash("error", {msg: "Could not access classroom. Try again."})
 			return res.redirect("back")
 		}
 	},
@@ -138,11 +159,11 @@ module.exports = {
 				(err, existingAccess) => {
 				  if (err) {
 					req.flash("error", {msg: "Error. Please try again"})
-					return res.redirect(`/classroom/teacher/${foundClassroom.accessName}`);
+					return res.redirect(`/classroom/${foundClassroom.accessName}/edit`);
 				  }
 				  else if (existingAccess) {
 					req.flash("error", {msg: "Classroom password in use, please choose another."})
-					return res.redirect(`/classroom/teacher/${foundClassroom.accessName}`)
+					return res.redirect(`/classroom/${foundClassroom.accessName}/edit`)
 				}})
 			}
 
@@ -163,7 +184,7 @@ module.exports = {
 				cloudinaryId = result.public_id
 			} catch (error) {
 				req.flash("error", error)
-				res.redirect(`/classroom/teacher/${foundClassroom.accessName}`)
+				res.redirect(`/classroom/${foundClassroom.accessName}/edit`)
 			}
 		}
 
@@ -179,11 +200,11 @@ module.exports = {
 			console.error(error)
 		}
 		req.flash('success', {msg: `Classroom "${req.body.name}" edited.`})
-		res.redirect(`/classroom/teacher/${foundClassroom.accessName}`)
+		res.redirect(`/classroom/${foundClassroom.accessName}/edit/`)
 	},
 	deleteClassroom: async (req, res) => {
 		const classroomId = req.body.classroomId
-
+		const creator = await User.findById(req.user.id)
 		let classroomToDelete = await Classroom.findById(classroomId)
 		let lessonsToDelete = classroomToDelete.lessons.map((obj) => obj._id)
 
@@ -191,16 +212,18 @@ module.exports = {
 			await cloudinary.uploader.destroy(classroomToDelete.cloudinaryId);
 			const classSession = await startSession()
 			classSession.startTransaction()
+			creator.classrooms.pull({_id: classroomId})
 			await classroomToDelete.remove({ session: classSession })
 			await Lesson.deleteMany({ _id: {$in: [...lessonsToDelete]}}).session(classSession)
+			await creator.save({ session: classSession })
 //			await Comment.deleteMany({ lesson: {$in: [...lessonsToDelete]}}).session(classSession)
 			await classSession.commitTransaction()
 			req.flash('success', {msg: `Classroom successfully deleted.`})
-			res.redirect(`/classroom/teacher`)
+			res.redirect(`/teacher`)
 		} catch (error) {
 			req.flash('error', {msg: "Error. Please try again."})
 			console.error(error)
 			return res.redirect('back')
 		}
-	},
+	}
 };

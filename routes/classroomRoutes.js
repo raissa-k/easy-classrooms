@@ -1,19 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../middleware/multer");
-const userController = require("../controllers/userCtrl")
 const classroomController = require("../controllers/classroomCtrl");
+const lessonController = require("../controllers/lessonCtrl")
+const enrollment = require("../middleware/enrollment")
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
-router.get("/feed", ensureAuth, classroomController.getClassroomsFeed);
-router.get("/private/:accessName", ensureAuth, classroomController.getPrivateClassroom)
-router.get("/public/:accessName", classroomController.getPrivateClassroom)
+router.get("/:accessName/view", classroomController.getClassroom)
+router.get("/:accessName/edit", ensureAuth, classroomController.getClassroomManagement)
+router.get("/:accessName/:lessonId", lessonController.getLesson)
 
-router.get("/teacher", ensureAuth, classroomController.getTeacherDashboard)
-router.get("/teacher/:accessName", ensureAuth, classroomController.getClassroomManagement)
+router.route("/")
+	.delete(classroomController.deleteClassroom)
+	.patch(upload.single("picture"), classroomController.editClassroom)
+	.post(upload.single("picture"), classroomController.createClassroom)
 
-router.post("/create", upload.single("picture"), classroomController.createClassroom)
-router.delete("/", classroomController.deleteClassroom)
-router.patch("/", upload.single("picture"), classroomController.editClassroom)
+router.param('enrollmentId', enrollment.findEnrollment)
 
 module.exports = router;

@@ -1,8 +1,27 @@
 <%- include('partials/header', {navbar: "no", title: "", active:"" }) -%>
 
-<div class="hero prose -mt-12">
-	<div class="hero-content flex-col lg:flex-row">
-		<figure class="relative aspect-[6/8] w-1/2 lg:w-auto flex-none overflow-hidden rounded-xl">
+<div class="prose flex flex-col sm:flex-col md:flex-row lg:flex-row">
+	<div class="flex flex-col lg:w-5/12 md:w-6/12 px-8 md:px-4 lg:pr-3 justify-center md:mb-0 lg:mb-24 mt-0 pt-0">
+		<h1 class="text-4xl sm:text-5xl font-bold leading-none tracking-wide font-sans">
+			<span class="block xl:inline font-sans">Easy</span>
+			<span class="block text-primary xl:inline font-sans">Classrooms</span>
+		</h1>
+		<p class="my-6">Keep all your homework in one place and never lose track of it again when real life gets hectic.</p>
+		<div class="flex gap-4">
+			<a aria-label="Log in" href="/login"class="btn btn-primary"> Log in</a>
+			<a  aria-label="Sign up" href="/signup" class="btn">Sign up</a>
+		</div>
+
+		<p class="text-lg leading-normal mt-6 mb-2">Find a class directly</p>
+		<form role="form" action="/find/" method="post" class="text-xl leading-normal w-full flex flex-col sm:flex-row md:flex-col xl:flex-row items-start sm:items-center md:items-start xl:items-center gap-4">
+			<label class="sr-only" for="findClassroom">Input classroom password to find a classroom you'd like to enroll</label>
+			  <input id="findClassroom" name="accessName" type="text" placeholder="Classroom password" class="input input-bordered w-full max-w-xs focus:border-primary" />
+			
+			  <button aria-label="Find class" type="submit" class="btn btn-primary btn-outline">Find class</button>
+		</form>
+	</div>
+	<div>
+		<figure class="md:w-6/12 lg:w-7/12 relative mx-4 md:mx-4 lg:ml-20 lg:mr-0 pt-0 flex-none overflow-hidden rounded-xl max-w-fit">
 			<img alt="<%= data[0].alt_description %>" src="<%= data[0].urls.raw %>&fm=jpg&crop=edges&fit=max&w=400&h=600&q=80" decoding="async" class="object-cover rounded-lg shadow-2xlr opacity-80" width="400" height="600" loading="lazy">	
 			<figcaption class="not-prose absolute lg:z-10 bottom-0 text-xs text-zinc-200 px-4 bg-zinc-800/60 w-full">
 				<div>
@@ -12,20 +31,10 @@
 						</a> on 
 						<a href="https://unsplash.com/?utm_source=myPetPal&utm_medium=referral">Unsplash</a></p>
 				</div>
-			</figcatpion>
+			</figcaption>
 		</figure>
-	  <div class="ml-2">
-		<h1 class="text-5xl font-bold">
-			<span class="block xl:inline">Easy</span>
-			<span class="block text-primary xl:inline">Classrooms</span>
-		</h1>
-		<p>Keep all your homework in one place and never lose track of it again when real life gets hectic.</p>
-		<div class="flex gap-4">
-			<a href="/login"class="btn btn-primary"> Log in</a>
-			<a href="/signup" class="btn">Sign up</a>
 		</div>
-	  </div>
-	</div>
-  </div>
+</div>
+
 
 	<%- include('partials/footer') -%>
