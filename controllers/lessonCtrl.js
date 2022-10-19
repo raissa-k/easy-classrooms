@@ -45,7 +45,7 @@ module.exports = {
 	req.flash('success', {msg: "Lesson successfully created."})
 	res.redirect("back");
   },
-  deleteLesson: async (req, res) => {
+  	deleteLesson: async (req, res) => {
 		const lessonId = req.body.lessonId
 		const classroomId = req.body.classroomId
 		const foundClassroom = await Classroom.findById(classroomId)
@@ -73,4 +73,18 @@ module.exports = {
 		req.flash('success', {msg: `Lesson successfully deleted.`})
 		res.redirect("back")
   },
+  	getLesson: async (req, res) => {
+		const accessName = req.params.accessName
+		const lessonId = req.params.lessonId
+
+		try {
+			let foundClassroom = await Classroom.findOne({ accessName: accessName })
+			let foundLesson = await Lesson.findById(lessonId).populate('comment creator students')
+			let comments = await Comment.find({ lesson: lessonId}).populate("user")
+			res.render('lesson.ejs', { classrooms: foundClassroom, lessons: foundLesson, comments: comments, user: req.user })
+		} catch (error) {
+			req.flash("error", {msg: "Could not access lesson. Try again."})
+			return res.redirect("back")
+		}		
+  }
 };

@@ -1,26 +1,25 @@
-	
 <form role="form" class="flex flex-col gap-4" method="post" enctype="multipart/form-data" action="/classroom">
 	<div class="form-control w-full max-w-xs">
-	<label class="label" for="input-picture">
+	<label class="label" for="classinput-picture">
 		<span class="label-text">Picture</span>
 	</label>
-	<input aria-label="Select optional picture for classroom." id="input-picture" name="picture" type="file" accept=".jpg, .jpeg, .png" class="input input-bordered w-full max-w-xs h-auto pl-0 file:rounded-lg file:mr-4 file:py-2 file:px-4 file:border file:border-e file:border-base-300 file:font-semibold file:bg-base-100 file:text-base-content hover:file:bg-base-300">
-		<span class="label-text-alt">If no image is selected, a random one will be used.</span>
+	<input aria-label="Select optional picture for classroom." id="classinput-picture"  aria-describedby="classinput-pictureX" name="picture" type="file" accept=".jpg, .jpeg, .png" class="input input-bordered w-full max-w-xs h-auto pl-0 file:rounded-lg file:mr-4 file:py-2 file:px-4 file:border file:border-e file:border-base-300 file:font-semibold file:bg-base-100 file:text-base-content hover:file:bg-base-300">
+		<span class="label-text-alt" id="classinput-pictureX">If no image is selected, a random one will be used.</span>
 	</div>
 
 	<div class="form-control w-full max-w-xs">
-	<label class="label" for="input-name">
+	<label class="label" for="classinput-name">
 		<span class="label-text">Name</span>
 	</label>
-	<input id="input-name" name="name" placeholder="Classroom name" type="text" minlength="4" maxlength="35" class="input input-bordered w-full max-w-xs" required>
-		<span class="label-text-alt">Minimum 4 and maximum 35 characters</span>
+	<input id="classinput-name" aria-describedby="classinput-nameX" name="name" placeholder="Classroom name" type="text" minlength="4" maxlength="35" class="input input-bordered w-full max-w-xs" required>
+		<span id="classinput-nameX" class="label-text-alt">Minimum 4 and maximum 35 characters</span>
 	</div>
 
 	<div class="form-control w-full max-w-xs">
-	<label class="label" for="input-desc">
+	<label class="label" for="classinput-desc">
 		<span class="label-text">Description</span>
 	</label> 
-		<textarea id="input-desc" name="description" placeholder="Classroom description" maxlength="140" class="textarea textarea-bordered w-full max-w-xs" rows="3"></textarea>
+		<textarea id="classinput-desc" name="description" placeholder="Classroom description" maxlength="140" class="textarea textarea-bordered w-full max-w-xs" rows="3"></textarea>
 	</div>
 
 	<button aria-label="Submit new classroom" type="submit" class="btn btn-outline mx-auto sm:my-4">Submit new classroom</button>

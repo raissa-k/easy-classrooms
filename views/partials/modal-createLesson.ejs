@@ -1,25 +1,32 @@
-<form class="flex flex-col gap-4" method="post" action="/lesson/add/<%=classrooms._id%>">
+<form role="form" class="flex flex-col gap-2 lg:gap-4 mb-4 mt-2 lg:mt-0" method="post" action="/lesson/<%=classrooms._id%>">
 	<div class="form-control w-full max-w-xs">
-		<label class="label" for="input-title">
+		<label class="label py-1" for="input-title">
 			<span class="label-text"><span class="sr-only">required </span>Title</span>
 		</label>
-		<input id="input-title" name="title" placeholder="Lesson title" type="text" minlength="4" maxlength="35" class="input input-bordered w-full max-w-xs" required>
-			<span class="label-text-alt">Minimum 4 and maximum 35 characters</span>
-		</div>
-
-	<div class="form-control w-full max-w-xs">
-		<label class="label" for="input-desc">
-			<span class="label-text"><span class="sr-only">optional </span>Lesson description</span>
-		</label> 
-		<textarea id="input-desc" name="description" placeholder="Lesson description" maxlength="140" class="textarea textarea-bordered w-full max-w-xs" rows="3"></textarea>
+		<input id="input-title" name="title" placeholder="Lesson title" type="text" minlength="4" maxlength="35" aria-describedby="input-titlex" class="input input-bordered w-full max-w-xs" required>
+			<span id="input-titlex" class="label-text-alt">Minimum 4 and maximum 35 characters</span>
 	</div>
 
 	<div class="form-control w-full max-w-xs">
-	<label class="label" for="input-name">
+		<label class="label py-1" for="input-desc">
+			<span class="label-text"><span class="sr-only">optional </span>Lesson/task description</span>
+		</label> 
+		<textarea id="input-desc" name="description" placeholder="Lesson description" class="textarea textarea-bordered w-full max-w-xs" rows="2"></textarea>
+	</div>
+
+	<div class="form-control w-full max-w-xs">
+		<label class="label py-1" for="date-title">
+			<span class="label-text"><span class="sr-only">required </span>Date due</span>
+		</label>
+		<input id="date-title" name="dateDue" type="date" class="input input-bordered w-full max-w-xs" required>
+	</div>
+
+	<div class="form-control w-full max-w-xs">
+	<label class="label py-1" for="input-name">
 		<span class="label-text"><span class="sr-only">optional </span>Link to external resource</span>
 	</label>
 	<input id="input-name" name="resource" placeholder="Lesson resource" type="url" class="input input-bordered w-full max-w-xs">
 	</div>
 
-	<button type="submit" class="btn btn-outline mx-auto sm:my-4">Submit new lesson</button>
+	<button aria-label="Submit new lesson" type="submit" class="btn btn-outline mx-auto mt-4">Submit new lesson</button>
 </form>

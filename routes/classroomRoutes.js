@@ -3,12 +3,15 @@ const router = express.Router();
 const upload = require("../middleware/multer");
 const classroomController = require("../controllers/classroomCtrl");
 const lessonController = require("../controllers/lessonCtrl")
+const commentController = require("../controllers/commentsCtrl")
 const enrollment = require("../middleware/enrollment")
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 router.get("/:accessName/view", classroomController.getClassroom)
 router.get("/:accessName/edit", ensureAuth, classroomController.getClassroomManagement)
 router.get("/:accessName/:lessonId", lessonController.getLesson)
+
+router.post("/:accessName/:lessonId", commentController.createComment)
 
 router.route("/")
 	.delete(classroomController.deleteClassroom)

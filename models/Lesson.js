@@ -8,10 +8,10 @@ const LessonSchema = new mongoose.Schema({
   description: {
     type: String
   },
-  comment: {
+  comment: [{
 	type: mongoose.Schema.Types.ObjectId,
 	ref: "Comment"
-  },
+  }],
   resource: [{
 	type: String,
   }],

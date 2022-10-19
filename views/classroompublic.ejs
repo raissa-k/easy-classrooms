@@ -27,7 +27,14 @@
 							hsla(var(--s)/.3)
 							), url(<%=classrooms.image%>); background-size: cover; background-position: top; filter: opacity(0.8);"></div>
 						<div class="card-body">
-							<%if( user && user.id != classrooms.creator && !user.enrollments ){%>
+							<figure class="flex flex-col">
+								<img src="<%= classrooms.creator.profile %>" alt="<%= classrooms.creator.userName %> profile picture" class="rounded-full w-12">
+								<figcaption>
+								 <span class="font-medium">Instructor:</span> <%= classrooms.creator.userName %>
+								</figcaption>
+							</figure>
+
+							<%if( user && user.id != classrooms.creator.id && !user.enrollments ){%>
 							<form role="form" action="" method="post">
 								<div class="form-control text-sm text-center gap-2">
 									<p>Add classroom to your profile to track lesson completion.</p>
@@ -42,40 +49,36 @@
 							<% } else { %>
 							
 							<%}%>
-							<div aria-label="Classroom description" class="divider uppercase">description</div>
+							<div aria-label="Classroom description" class="divider uppercase font-bold">description</div>
 							<p><%=classrooms.description%></p>
 						</div>
 					</article>
 
 					<div class="overflow-x-auto w-full">
-						<table class="table table-zebra w-full">
+						<table class="table table-zebra w-full prose">
 							<!-- head -->
 							<thead class="border-b border-base-content border-opacity-20">
 								<tr>
-									<th aria-label="Lesson">Lesson</th>
-									<th aria-label="Date due" class="hidden sm:block">Due</th>
-									<th aria-label="Link to lesson"></th>
+									<th aria-label="Lesson" class="px-2 sm:px-4">Lesson</th>
+									<th aria-label="Date due" class="px-0 sm:px-4">Due</th>
 								</tr>
 							</thead>
 							<caption class="sr-only">List of lessons</caption>
 							<tbody>
 								<%if (lessons.length > 0 ) {%>
 									<% lessons.forEach (el=> { %>
-								<tr class="hover">
-									<td>
-										<%= el.title %>
-										<br>
-										<span class="badge badge-sm badge-ghost">Added: <%= new Date(el.createdAt).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></span>
-									</td>
-									<td class="hidden sm:table-cell"><%= el.dateDue.toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></td>
-									<td>
-										<a href="./<%= el.id %>" class="link link-primary underline-offset-4 flex gap-2">
+								<tr class="">
+									<td class="px-2 sm:px-4 xs:w-40 whitespace-normal sm:w-auto">
+										<a href="./<%= el.id %>" class="font-medium transition underline underline-offset-4 hover:no-underline hover:text-primary flex gap-2 items-center">
 											<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 hidden sm:inline-block">
 												<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
 												<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
-											  </svg>											  
-											<span>Access</span>
+											  </svg>
+											  <%= el.title %>
 										</a>
+										<p class="hidden sm:inline-block badge badge-ghost ml-5">Added: <%= new Date(el.createdAt).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
+									</td>
+									<td class="px-0 sm:px-4"><%= el.dateDue.toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %>
 									</td>
 								</tr>
 									<% }) %>
@@ -84,7 +87,6 @@
 									<td>
 										No lesson found.
 									</td>
-									<td></td>
 								<%}%>
 							</tbody>
 						</table>

@@ -1,0 +1,127 @@
+<%- include('partials/header', {navbar: "yes" , title: "Classroom" , active: "" }) -%>
+
+<div class="px-4 xl:px-0">
+	<div class="mx-auto container">
+		<div class="flex flex-col">
+			<div class="pl-4 md:pl-10 py-4 md:py-7 rounded-tl-md rounded-tr-md shadow bg-gradient-to-r from-secondary/10 via-transparent to-secondary/10 flex justify-between gap-4 flex-wrap items-center">
+				<h1 class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal"><%=lessons.title%> <span class="text-lg"><%=classrooms.name%></span></h1>
+				<%if( user && user.id == classrooms.creator ){%>
+				<a aria-label="Edit lesson" class="btn btn-ghost flex gap-2 mr-4" href="/classrooms/<%= classrooms.accessName %>/edit">
+					<span class="order-2">Edit lesson</span>
+					<span aria-hidden="true" class="relative only:-mx-5">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+						  </svg>
+					</span>
+				</a>
+				<% } %>
+			</div>
+		</div>
+			<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
+				<div class="py-8 not-prose flex flex-col md:flex-row gap-8">
+					<aside>
+					<div class="w-full max-w-xs mb-auto border border-base-content border-opacity-20 card bg-base-100 mx-auto shadow-xl prose">
+						<div class="card-body">
+							<%if( user && user.id != classrooms.creator && !user.enrollments ){%>
+							<form action="" role="form" aria-label="Enroll in classroom" method="post">
+								<div class="form-control text-sm text-center gap-2">
+									<p>Add classroom to your profile to track lesson completion.</p>
+									<p>This will also allow you to read and write comments on each lesson.</p>
+									<input type="hidden" name="classroom" value="<%=classrooms.id%>">
+									<input type="hidden" name="student" value="<%=user.id%>">
+									<button aria-label="Add to profile" type="submit" class="btn btn-ghost">Add to profile</button>
+								</div>
+							</form>
+							<% } else if (!user) { %>
+								<p class="text-center"><a aria-label="Sign up" href="/signup" class="btn btn-ghost btn-xs">Sign up</a> or <a aria-label="Log in" href="/login" class="btn btn-ghost btn-xs">log in</a><br> to enroll and track progress.</p>
+							<% } else { %>
+							
+							<%}%>
+							<div class="stats pt-4">
+								<div class="stat p-0">
+									<div class="stat-figure text-secondary">
+										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="w-8 h-8">
+											<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+										</svg>
+									</div>
+								  <div class="stat-title opacity-100"><span class="badge badge-ghost badge-lg" id="dateDue">Due</span></div>
+								  <time aria-labelledby="dateDue" datetime="<%=new Date(lessons.dateDue).toDateString()%>" class="font-extrabold text-2xl"><%= new Date(lessons.dateDue).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></time>
+								</div>
+							  </div>
+						</div>
+						<button aria-label="Go back" onclick="location.assign('./view')" class="btn btn-sm btn-primary rounded-t-none rounded-b-2xl">Go back</button>
+					</div>
+					</aside>
+
+					<div class="overflow-x-auto prose">
+						<article class="flex flex-wrap gap-4">
+							<section class="w-full lg:basis-5/12 lg:flex-grow">
+								<div class="divider uppercase">
+									<h2 class="font-bold tracking-tighter" aria-label="Lesson description">
+										Description
+									</h2>
+								</div>
+									<p><%=lessons.description%></p>
+							</section>
+
+							<section class="w-full lg:basis-5/12 lg:flex-grow">
+						<div class="divider uppercase">
+							<h2 id="lessonResources" class="font-bold tracking-tighter" aria-label="Lesson resources">
+								Resources
+							</h2>
+						</div>
+						<ul aria-labelledby="lessonResources">
+							<% lessons.resource.forEach (el=> { %>
+							<li><a class="break-all font-medium transition underline underline-offset-4 hover:no-underline hover:text-primary flex gap-2 items-center" href="<%= el %>">
+								<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline">
+									<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
+									<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
+								  </svg>								  
+								<%= el %>
+							</a></li>
+							<% }) %>
+						</ul>
+							</section>
+						<section aria-labelledby="commentsTitle" class="w-full">
+							<div class="divider uppercase">
+								<h2 id="commentsTitle" class="font-bold tracking-tighter" aria-label="Comments">
+								Comments
+								</h2>
+							</div>
+							<div class="flex flex-wrap gap-4">
+							<% comments.forEach( el=> { %>
+								<div class="flex gap-4">
+									<img class="inline w-8 h-8 rounded-full" src="<%= el.user.profile %>" aria-label="<%= el.user.userName %>'s profile picture">
+									<p class="font-semibold tracking-tight text-sm sm:text-lg"><%= el.user.userName %></p>
+									<div class="flex flex-col flex-wrap gap-2">
+										<p class="inline"><%= el.comment %></p>
+										<span class="text-xs font-normal" datetime="<%= el.creationDate %>">posted on <%= new Date(el.creationDate).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></span></p>
+									</div>
+								</div>
+								<% }) %>
+							</div>
+
+							<form action="./<%= lessons._id %>" method="POST" class="form-control max-w-xs gap-4" aria-labelledby="commentLabel">
+								<label id="commentLabel" for="commentInput" class="">Add your comment
+								</label>
+								<textarea class="textarea textarea-bordered" rows="3" id="commentInput" name="comment" required></textarea>
+								<div>
+									<button type="submit" aria-label="Submit comment" class="btn btn-sm btn-primary gap-2">
+										<span>Submit</span>
+										<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+											<path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd" />
+										  </svg>
+									</button>
+								</div>
+							</form>
+						</section>
+
+					</article>				
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+					
+<%- include('partials/footer') -%>

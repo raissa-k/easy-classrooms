@@ -18,10 +18,10 @@
 									<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />								  
 								</svg>
 							</div>
-							<form action="/find/" method="post" class="form-control gap-4 w-full max-w-xs">
+							<form role="form" action="/find/" method="post" class="form-control gap-4 w-full max-w-xs">
 								<label class="sr-only" for="findClassroom">Input classroom password to find a classroom you'd like to enroll</label>
 								  <input id="findClassroom" name="accessName" type="text" placeholder="Password for classroom" class="input input-bordered input-sm lg:input-md w-full max-w-xs" />
-								<button type="submit" class="btn btn-secondary btn-outline btn-xs md:btn-sm mr-auto group"><span class="text-secondary-focus group-hover:text-secondary-content">Find class</span><span class="xs:inline md:hidden lg:inline text-secondary-focus group-hover:text-secondary-content">room</span></button>
+								<button aria-label="Find classroom" type="submit" class="btn btn-secondary btn-outline btn-xs md:btn-sm mr-auto group"><span class="text-secondary-focus group-hover:text-secondary-content">Find class</span><span class="xs:inline md:hidden lg:inline text-secondary-focus group-hover:text-secondary-content">room</span></button>
 							</form>
 						  </div>
 
@@ -34,7 +34,7 @@
 								</div>
 								<div class="flex flex-col gap-4 opacity-80">
 									<p>You have registered<br> as a teacher</p>
-									<a href="/teacher" class="btn btn-primary btn-outline btn-xs md:btn-sm mr-auto md:text-xs lg:text-sm"><span>Teacher Panel</span></a>
+									<a aria-label="Teacher panel" href="/teacher" class="btn btn-primary btn-outline btn-xs md:btn-sm mr-auto md:text-xs lg:text-sm"><span>Teacher Panel</span></a>
 								</div>
 							</div>	
 						<% } else { %>
@@ -70,40 +70,39 @@
 
 							<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
 					
-								<div class="border border-slate-400/40 card card-compact bg-base-100 shadow-xl">
-									<figure class="items-stretch"><img src="https://placeimg.com/400/250/tech" class="object-cover" alt="Shoes" /></figure>
+								<div class="border border-slate-400/40 card bg-base-100 shadow-xl">
+									<figure class="items-stretch"><img src="https://placeimg.com/400/250/tech" class="object-cover" alt="Picture for classroom X" /></figure>
 									<div class="card-body gap-4">
 										<h2 class="card-title">Classroom name 2</h2>
 										<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed ipsum facere deserunt placeat
 											blanditiis modi sit eum officiis rerum s!
 										</p>
 										<div class="relative w-full">
-											<label for="p03c" class="block mb-1 text-xs text-right">7 lessons not complete</label>
-											<progress id="p03c" max="100" value="40"
-												class="block w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">
-												60% </progress>
+											<label for="p03c" class="mb-2 text-xs text-right">Lesson completion status</label>
+											<progress id="p03c" max="10" value="4" aria-valuetext="4 lessons out of 10 completed"
+												class="w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">40%</progress>
 										</div>
 										<div class="card-actions justify-end">
-											<a href="#" class="btn btn-outline btn-secondary">View Lessons</a>
+											<a aria-label="View lessons" href="#" class="btn btn-outline btn-secondary">View Lessons</a>
 										</div>
 									</div>
 								</div>
 						
-								<div class="border border-slate-400/40 card card-compact bg-base-100 shadow-xl">
-									<figure class="items-stretch"><img src="https://placeimg.com/400/250/animals" alt="Shoes" class="object-cover" /></figure>
+								<div class="border border-slate-400/40 card bg-base-100 shadow-xl">
+									<figure class="items-stretch"><img src="https://placeimg.com/400/250/animals" alt="Picture for classroom X" class="object-cover" /></figure>
 									<div class="card-body gap-4">
 										<h2 class="card-title">Classroom name 3</h2>
 										<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed ipsum facere deserunt placeat
 											blanditiis modi sit eum officiis rerum as!
 										</p>
 										<div class="relative w-full">
-											<label for="p03c" class="block mb-1 text-xs text-right">4 lessons not complete</label>
-											<progress id="p03c" max="100" value="80"
-												class="block w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">
-												60% </progress>
+											<label for="p04c" class="mb-1 text-xs text-right">Lesson completion status</label>
+											<progress id="p04c" max="10" value="8"
+											aria-valuetext="8 lessons out of 10 completed" class="w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">
+												80%</progress>
 										</div>
 										<div class="card-actions justify-end">
-											<a href="#" class="btn btn-outline btn-secondary">View Lessons</a>
+											<a aria-label="View lessons" href="#" class="btn btn-outline btn-secondary">View Lessons</a>
 										</div>
 									</div>
 								</div>

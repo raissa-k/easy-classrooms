@@ -32,7 +32,7 @@ module.exports = {
 		try {
 			const publicClassroom = await Classroom.findOne({
                 accessName: req.params.accessName
-            }).populate('lessons')
+            }).populate('lessons creator')
 			res.render('classroompublic.ejs', { classrooms: publicClassroom, lessons: publicClassroom.lessons, user: req.user })
 		} catch (err) {
 			req.flash("error", {
