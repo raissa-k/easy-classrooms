@@ -9,9 +9,11 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 router.get("/:accessName/view", classroomController.getClassroom)
 router.get("/:accessName/edit", ensureAuth, classroomController.getClassroomManagement)
-router.get("/:accessName/:lessonId", lessonController.getLesson)
 
-router.post("/:accessName/:lessonId", commentController.createComment)
+router.route("/:accessName/:lessonId")
+	.get(lessonController.getLesson)
+	.post(commentController.createComment)
+	.delete(commentController.deleteComment)
 
 router.route("/")
 	.delete(classroomController.deleteClassroom)

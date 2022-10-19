@@ -216,7 +216,7 @@ module.exports = {
 			await classroomToDelete.remove({ session: classSession })
 			await Lesson.deleteMany({ _id: {$in: [...lessonsToDelete]}}).session(classSession)
 			await creator.save({ session: classSession })
-//			await Comment.deleteMany({ lesson: {$in: [...lessonsToDelete]}}).session(classSession)
+			await Comment.deleteMany({ lesson: {$in: [...lessonsToDelete]}}).session(classSession)
 			await classSession.commitTransaction()
 			req.flash('success', {msg: `Classroom successfully deleted.`})
 			res.redirect(`/teacher`)

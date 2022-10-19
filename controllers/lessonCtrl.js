@@ -76,7 +76,6 @@ module.exports = {
   	getLesson: async (req, res) => {
 		const accessName = req.params.accessName
 		const lessonId = req.params.lessonId
-
 		try {
 			let foundClassroom = await Classroom.findOne({ accessName: accessName })
 			let foundLesson = await Lesson.findById(lessonId).populate('comment creator students')

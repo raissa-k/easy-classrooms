@@ -7,11 +7,10 @@
 				<h1 class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal"><%=lessons.title%> <span class="text-lg"><%=classrooms.name%></span></h1>
 				<%if( user && user.id == classrooms.creator ){%>
 				<a aria-label="Edit lesson" class="btn btn-ghost flex gap-2 mr-4" href="/classrooms/<%= classrooms.accessName %>/edit">
-					<span class="order-2">Edit lesson</span>
-					<span aria-hidden="true" class="relative only:-mx-5">
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-						  </svg>
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+					</svg>
+					Edit lesson
 					</span>
 				</a>
 				<% } %>
@@ -53,18 +52,18 @@
 					</div>
 					</aside>
 
-					<div class="overflow-x-auto prose">
-						<article class="flex flex-wrap gap-4">
-							<section class="w-full lg:basis-5/12 lg:flex-grow">
-								<div class="divider uppercase">
-									<h2 class="font-bold tracking-tighter" aria-label="Lesson description">
-										Description
-									</h2>
-								</div>
-									<p><%=lessons.description%></p>
-							</section>
+			<div class="overflow-x-auto prose">
+				<article class="flex flex-wrap gap-4">
+					<section class="w-full lg:basis-5/12 lg:flex-grow">
+						<div class="divider uppercase">
+							<h2 class="font-bold tracking-tighter" aria-label="Lesson description">
+								Description
+							</h2>
+						</div>
+							<p><%=lessons.description%></p>
+					</section>
 
-							<section class="w-full lg:basis-5/12 lg:flex-grow">
+					<section class="w-full lg:basis-5/12 lg:flex-grow">
 						<div class="divider uppercase">
 							<h2 id="lessonResources" class="font-bold tracking-tighter" aria-label="Lesson resources">
 								Resources
@@ -72,7 +71,7 @@
 						</div>
 						<ul aria-labelledby="lessonResources">
 							<% lessons.resource.forEach (el=> { %>
-							<li><a class="break-all font-medium transition underline underline-offset-4 hover:no-underline hover:text-primary flex gap-2 items-center" href="<%= el %>">
+							<li><a class="break-all font-medium transition underline underline-offset-4 hover:no-underline hover:text-primary flex gap-2 items-center" href="//<%= el %>" target="_blank">
 								<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline">
 									<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
 									<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
@@ -81,45 +80,55 @@
 							</a></li>
 							<% }) %>
 						</ul>
-							</section>
-						<section aria-labelledby="commentsTitle" class="w-full">
-							<div class="divider uppercase">
-								<h2 id="commentsTitle" class="font-bold tracking-tighter" aria-label="Comments">
-								Comments
-								</h2>
-							</div>
-							<div class="flex flex-wrap gap-4">
-							<% comments.forEach( el=> { %>
-								<div class="flex gap-4">
-									<img class="inline w-8 h-8 rounded-full" src="<%= el.user.profile %>" aria-label="<%= el.user.userName %>'s profile picture">
-									<p class="font-semibold tracking-tight text-sm sm:text-lg"><%= el.user.userName %></p>
-									<div class="flex flex-col flex-wrap gap-2">
-										<p class="inline"><%= el.comment %></p>
-										<span class="text-xs font-normal" datetime="<%= el.creationDate %>">posted on <%= new Date(el.creationDate).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></span></p>
+					</section>
+					<section aria-labelledby="commentsTitle" class="w-full flex flex-wrap gap-4">
+						<div class="divider uppercase min-w-full">
+							<h2 id="commentsTitle" class="font-bold tracking-tighter" aria-label="Comments">
+							Comments
+							</h2>
+						</div>
+						<div class="flex flex-wrap flex-col gap-4 w-full lg:basis-5/12 lg:flex-grow">
+						<% comments.forEach( el=> { %>
+							<div class="flex gap-4">
+								<img class="inline w-8 h-8 rounded-full" src="<%= el.user.profile %>" aria-label="<%= el.user.userName %>'s profile picture">
+								<p class="font-semibold tracking-tight text-sm sm:text-lg"><%= el.user.userName %></p>
+								<div class="flex flex-col flex-wrap gap-2">
+									<p><%= el.comment %></p>
+									<div class="flex flex-wrap gap-4 items-center">
+										<span class="text-xs font-normal" datetime="<%= el.creationDate %>">posted on <%= new Date(el.creationDate).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></span>
+										<%if( el.user.id == user.id){%>
+										<form action="./<%= lessons._id %>?_method=DELETE" method="post" class="">
+											<input type="hidden" name="commentId" value="<%= el._id %>">
+											<button type="submit" aria-label="Delete comment" class="btn btn-xs btn-error w-fit rounded-2xl tooltip tooltip-error normal-case" data-tip="Delete comment"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+												<path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
+											  </svg>
+											  </button>
+										</form>
 									</div>
+									<%}%>
 								</div>
-								<% }) %>
 							</div>
+							<% }) %>
+						</div>
 
-							<form action="./<%= lessons._id %>" method="POST" class="form-control max-w-xs gap-4" aria-labelledby="commentLabel">
-								<label id="commentLabel" for="commentInput" class="">Add your comment
-								</label>
-								<textarea class="textarea textarea-bordered" rows="3" id="commentInput" name="comment" required></textarea>
-								<div>
-									<button type="submit" aria-label="Submit comment" class="btn btn-sm btn-primary gap-2">
-										<span>Submit</span>
-										<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-											<path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd" />
-										  </svg>
-									</button>
-								</div>
-							</form>
-						</section>
-
-					</article>				
-					</div>
-				</div>
+						<form action="./<%= lessons._id %>" method="POST" class="form-control w-full lg:basis-5/12 lg:flex-grow gap-4" aria-labelledby="commentLabel">
+							<label id="commentLabel" for="commentInput" class="">Add your comment
+							</label>
+							<textarea class="textarea textarea-bordered" rows="3" id="commentInput" name="comment" required></textarea>
+							<div>
+								<button type="submit" aria-label="Submit comment" class="btn btn-sm btn-primary gap-2">
+									<span>Submit</span>
+									<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+										<path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd" />
+										</svg>
+								</button>
+							</div>
+						</form>
+					</section>
+				</article>				
 			</div>
+		</div>
+		</div>
 		</div>
 	</div>
 </div>
