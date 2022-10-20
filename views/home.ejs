@@ -5,14 +5,14 @@
 <div class="px-4 xl:px-0">
 	<div class="mx-auto container">
 		<div class="flex flex-col">
-			<div class="pl-4 md:pl-10 py-4 md:py-7 rounded-tl-md rounded-tr-md shadow bg-gradient-to-r from-secondary/10 via-transparent to-secondary/10 flex justify-between gap-4 flex-wrap">
+			<div class="pl-4 md:pl-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 flex justify-between gap-4 flex-wrap">
 				<h1 class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal">Welcome, <%= user.userName %>!</h1>
 			</div>
 				<div class="bg-primary-content/5 rounded-b-md shadow-lg pb-8 px-2 sm:px-4 md:px-6 xl:px-10">
 
 
-					<div class="stats stats-vertical md:stats-horizontal shadow mt-8 w-full border border-base-200 rounded-md">
-						<div class="stat">
+					<div class="stats stats-vertical md:stats-horizontal shadow mt-8 w-full border border-base-200 bg-secondary/5 rounded-md">
+						<div class="stat shrink-0">
 							<div class="stat-figure text-secondary">
 								<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline-block w-8 h-8">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />								  
@@ -20,8 +20,8 @@
 							</div>
 							<form role="form" action="/find/" method="post" class="form-control gap-4 w-full max-w-xs">
 								<label class="sr-only" for="findClassroom">Input classroom password to find a classroom you'd like to enroll</label>
-								  <input id="findClassroom" name="accessName" type="text" placeholder="Password for classroom" class="input input-bordered input-sm lg:input-md w-full max-w-xs" />
-								<button aria-label="Find classroom" type="submit" class="btn btn-secondary btn-outline btn-xs md:btn-sm mr-auto group"><span class="text-secondary-focus group-hover:text-secondary-content">Find class</span><span class="xs:inline md:hidden lg:inline text-secondary-focus group-hover:text-secondary-content">room</span></button>
+								  <input id="findClassroom" name="accessName" type="text" placeholder="Password for classroom" class="input input-bordered input-sm lg:input-md w-full max-w-xs md:pl-4 lg:pl-3" />
+								<button aria-label="Find classroom" type="submit" class="btn btn-ghost btn-active btn-xs md:btn-sm mr-auto md:text-xs lg:text-base"><span>Find class</span><span class="xs:inline md:hidden lg:inline">room</span></button>
 							</form>
 						  </div>
 
@@ -33,8 +33,8 @@
 									</svg>
 								</div>
 								<div class="flex flex-col gap-4 opacity-80">
-									<p>You have registered<br> as a teacher</p>
-									<a aria-label="Teacher panel" href="/teacher" class="btn btn-primary btn-outline btn-xs md:btn-sm mr-auto md:text-xs lg:text-sm"><span>Teacher Panel</span></a>
+									<p class="max-w-[150px] break-words lg:max-w-xs">You have turned on "Teacher" settings</p>
+									<a aria-label="Teacher panel" href="/teacher" class="btn btn-primary btn-outline btn-xs md:btn-sm mr-auto md:text-xs lg:text-base"><span>Teacher Panel</span></a>
 								</div>
 							</div>	
 						<% } else { %>
@@ -45,11 +45,12 @@
 							</svg>
 						  </div>
 							<div class="stat-title opacity-80">
-							<p>Total classrooms</p>
+							<p>Enrolled in:</p>
 							</div>
 						  <div class="stat-value text-primary">
-							3
+							<%= classrooms.length > 0 ? classrooms.length : "0" %>
 						  </div>
+						  <p class="opacity-80"><%= classrooms.length >= 2 || classrooms.length == 0 ? "classrooms" : "classroom" %></p>
 						</div>
 						<%}%>
 						<div class="stat">
@@ -58,83 +59,39 @@
 								<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
 							  </svg>							  
 						  </div>
-						  <div class="stat-value">86%</div>
+						  <%if( classrooms.length > 0 ){%>
+						  <div class="stat-value"><%= Math.round((lessonCompletion.length - lessonCompletion.length / incompleteLessons.length)*100) %>%</div>
 						  <div class="stat-title opacity-80">Lessons done</div>
-						  <div class="stat-desc opacity-80">31 tasks remaining</div>
+						  <div class="stat-desc opacity-80"><%= incompleteLessons.length %> <%= incompleteLessons.length == 1 ? 'lesson' : 'lessons' %> to complete</div>
+						  <% } else { %>
+						  <div class="stat-title opacity-80 max-w-[150px] break-words lg:max-w-xs">Enroll in a classroom to access stats</div>
+						  <div class="stat-desc opacity-80">Lesson completion unavailable</div>
+						  <%}%>
 						</div>
 					</div>
 
-					<h2 class="text-xl font-bold pt-8">Your enrollments:</h2>
-
-						<%if( !classrooms || !classrooms.length ){%>
-
-							<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
-					
-								<div class="border border-slate-400/40 card bg-base-100 shadow-xl">
-									<figure class="items-stretch"><img src="https://placeimg.com/400/250/tech" class="object-cover" alt="Picture for classroom X" /></figure>
-									<div class="card-body gap-4">
-										<h2 class="card-title">Classroom name 2</h2>
-										<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed ipsum facere deserunt placeat
-											blanditiis modi sit eum officiis rerum s!
-										</p>
-										<div class="relative w-full">
-											<label for="p03c" class="mb-2 text-xs text-right">Lesson completion status</label>
-											<progress id="p03c" max="10" value="4" aria-valuetext="4 lessons out of 10 completed"
-												class="w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">40%</progress>
-										</div>
-										<div class="card-actions justify-end">
-											<a aria-label="View lessons" href="#" class="btn btn-outline btn-secondary">View Lessons</a>
-										</div>
-									</div>
-								</div>
-						
-								<div class="border border-slate-400/40 card bg-base-100 shadow-xl">
-									<figure class="items-stretch"><img src="https://placeimg.com/400/250/animals" alt="Picture for classroom X" class="object-cover" /></figure>
-									<div class="card-body gap-4">
-										<h2 class="card-title">Classroom name 3</h2>
-										<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed ipsum facere deserunt placeat
-											blanditiis modi sit eum officiis rerum as!
-										</p>
-										<div class="relative w-full">
-											<label for="p04c" class="mb-1 text-xs text-right">Lesson completion status</label>
-											<progress id="p04c" max="10" value="8"
-											aria-valuetext="8 lessons out of 10 completed" class="w-full overflow-hidden rounded bg-base-200 [&::-webkit-progress-bar]:bg-base-200 [&::-webkit-progress-value]:bg-secondary [&::-moz-progress-bar]:bg-secondary">
-												80%</progress>
-										</div>
-										<div class="card-actions justify-end">
-											<a aria-label="View lessons" href="#" class="btn btn-outline btn-secondary">View Lessons</a>
-										</div>
-									</div>
-								</div>
+						<%if( !classrooms.length ){%>
+							<h2 class="text-xl font-bold pt-8 mb-40 lg:mb-80">You are currently not enrolled in any classroom.</h2>
+							
 						
 							</div>
 						
 								<% } else { %>
+									<h2 class="text-xl font-bold pt-8">Classrooms you are enrolled in:</h2>
 									<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
 										<% classrooms.forEach (el=> { %>
-												<div class="border border-base-300 card card-compact bg-base-100 shadow-xl">
-													<figure class="w-full h-32" style="background-image: linear-gradient(
-														hsla(var(--p)/.3), 
-														hsla(var(--s)/.3)
-													  ), url(<%=el.image%>); background-size: cover; background-position: top; filter: opacity(0.8);"></figure>
+												<div class="border border-base-300 card bg-base-100 shadow-xl">
 													<div class="card-body gap-4">
 														<h2 class="card-title"><%=el.name%></h2>
 														<p><%=el.description%></p>
-														<div class="relative w-full">
-															<p class="block mb-1 text-xs text-right"><%=el.accessName%></p>
-														</div>
 														<div class="card-actions justify-end">
-															<button class="btn">Buy Now</button>
-															<button class="btn">
-																<span class="order-2">Send message</span>
-																<span aria-hidden="true" class="relative only:-mx-5">
-																	<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-																		<path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-																	</svg>
-																</span>
-															</button>
+															<a aria-label="View lessons" href="/classroom/<%=el.accessName%>/view" class="btn btn-outline btn-secondary">View Lessons</a>
 														</div>
 													</div>
+													<div class="w-full h-64" style="background-image: linear-gradient(
+														hsla(var(--p)/.3), 
+														hsla(var(--s)/.3)
+													  ), url(<%=el.image%>); background-size: cover; background-position: center; filter: opacity(0.8);"></div>
 												</div>
 										<% }) %>
 										</div>

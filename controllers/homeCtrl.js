@@ -19,14 +19,17 @@ module.exports = {
         res.render('index.ejs', {data: data})            
     },
 	home: async (req, res) => {
-		let userClassrooms
 		try {
-			await Enrollment.find({ student: req.user.id }).populate({
-				path: 'classroom',
-				populate: { path: 'lessons' }
-			}).exec((err, enrolledClassrooms) =>
-			userClassrooms = enrolledClassrooms)
-			res.render("home.ejs", { classrooms: userClassrooms, user: req.user });
+			const enrollment = await Enrollment.find({ student: req.user }).populate({ path: 'classroom', populate: { path: 'lessons' } })
+			const userClassrooms = enrollment.map((obj) => obj.classroom)
+			const userLessons = enrollment.map((obj) => obj.classroom.lessons)
+			const lessonCount = enrollment.map((obj) => obj.lessonCompletion)
+			let incompleteLessons = lessonCount.reduce((incompleteLessons, el) => {
+				if (!el.complete) incompleteLessons.push(el)
+				return incompleteLessons
+			}, [])
+			const incompleteCount = incompleteLessons.flat()
+			res.render("home.ejs", { classrooms: userClassrooms, lessons: userLessons, lessonCompletion: lessonCount, incompleteLessons: incompleteCount, user: req.user });
 		} catch (err) {
 			console.log(err);
 		}

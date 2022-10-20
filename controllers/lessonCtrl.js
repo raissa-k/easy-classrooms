@@ -79,7 +79,7 @@ module.exports = {
 		try {
 			let foundClassroom = await Classroom.findOne({ accessName: accessName })
 			let foundLesson = await Lesson.findById(lessonId).populate('comment creator students')
-			let comments = await Comment.find({ lesson: lessonId}).populate("user")
+			let comments = await Comment.find({ lesson: lessonId }).sort({creationDate: -1}).populate("user")
 			res.render('lesson.ejs', { classrooms: foundClassroom, lessons: foundLesson, comments: comments, user: req.user })
 		} catch (error) {
 			req.flash("error", {msg: "Could not access lesson. Try again."})

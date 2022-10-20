@@ -3,24 +3,41 @@ const Classroom = require('../models/Classroom')
 
 module.exports = {
 	enroll: async (req, res) => {
-		let classroomToEnroll 
+		let classId = req.body.classroom
+		let classroomToEnroll
+
+		try {
+			let foundClassroom = await Classroom.findById(classId).populate('lessons')
+			if(!foundClassroom){
+				req.flash('error', {msg: 'Could not find classroom.'})
+				return res.redirect('back')
+			}
+			classroomToEnroll = foundClassroom
+		} catch (error) {
+			req.flash('error', {msg: "Error. Please try again."})
+			console.error(error)
+			return res.redirect('back')
+		}
 
 		let newEnrollment = {
 			classroom: req.body.classroom,
 			student: req.user,
 		}
-		newEnrollment.lessonCompletion = req.classroom.lessons.map((lesson) => {
+
+		newEnrollment.lessonCompletion = classroomToEnroll.lessons.map((lesson) => {
 			return { lesson: lesson, complete: false }
 		})
+
 		const enrollment = new Enrollment(newEnrollment)
 		try {
-			let result = await enrollment.save()
-			return res.status(200).json(result)
+			await enrollment.save()
 		} catch (err) {
-			return res.status(400).json({
-				error: errorHandler.getErrorMessage(err)
-			})
+			req.flash('error', {msg: "Error. Please try again."})
+			console.error(err)
+			return res.redirect('back')
 		}
+		req.flash('success', {msg: `Successfully enrolled in "${classroomToEnroll.name}".`})
+		res.redirect("back")
 	},
 	enrollmentByID: async (req, res, next, id) => {
 		try {

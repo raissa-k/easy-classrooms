@@ -34,13 +34,13 @@
 								</figcaption>
 							</figure>
 
-							<%if( user && user.id != classrooms.creator.id && !user.enrollments ){%>
-							<form role="form" action="" method="post">
+							<!-- if( user && user.id != classrooms.creator.id && !user.enrollments ) -->
+							<%if (user) {%>	
+							<form role="form" action="/enroll" method="post">
 								<div class="form-control text-sm text-center gap-2">
 									<p>Add classroom to your profile to track lesson completion.</p>
 									<p>This will also allow you to read and write comments on each lesson.</p>
 									<input type="hidden" name="classroom" value="<%=classrooms.id%>">
-									<input type="hidden" name="student" value="<%=user.id%>">
 									<button  aria-label="Add to profile" type="submit" class="btn btn-ghost">Add to profile</button>
 								</div>
 							</form>
