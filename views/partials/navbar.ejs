@@ -1,58 +1,49 @@
-<ul class="hidden lg:flex items-center navbar-center gap-4">
+<ul class="hidden md:flex items-center navbar-center gap-4">
 	<li>
-		<a href="/classroom/feed" aria-current="<%= active=='classroom-feed' ? 'page' : 'false' %>" class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary mx-4 <%= active=='classroom-feed' ? 'border-accent' : 'border-transparent' %>">
-			<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-				stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-				<path stroke-linecap="round" stroke-linejoin="round"
-					d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-			</svg>
-			Classrooms
+		<a href="/home" aria-current="<%= active=='home' ? 'page' : 'false' %>" class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary mx-4 <%= active=='home' ? 'border-accent' : 'border-transparent' %>">
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+				<path fill-rule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z" clip-rule="evenodd" />
+			  </svg>			  
+			Home
 		</a>
 	</li>
+	<%if( user.educator ){%>
 	<li>
-		<a href="/classrooms" aria-current="<%= active=='lessons' ? 'page' : 'false' %>"  class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary border-transparent mx-4 <%= active=='lessons' ? 'border-accent' : 'border-transparent' %> ">
-			<svg aria-hidden="true" role="presentation" aria-current="" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-				stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-				<path stroke-linecap="round" stroke-linejoin="round"
-					d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-			</svg>
-			Lessons
-		</a>
-	</li>
-	<li>
-		<a href="/classroom/teacher" aria-current="<%= active=='teacher-panel' ? 'page' : 'false' %>" class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary mx-4 <%= active=='teacher-panel' ? 'border-accent' : 'border-transparent' %>">
-			<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z" />
-			</svg>
+		<a href="/teacher" aria-current="<%= active=='teacher-panel' ? 'page' : 'false' %>" class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary mx-4 <%= active=='teacher-panel' ? 'border-accent' : 'border-transparent' %>">
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+				<path d="M10.75 16.82A7.462 7.462 0 0115 15.5c.71 0 1.396.098 2.046.282A.75.75 0 0018 15.06v-11a.75.75 0 00-.546-.721A9.006 9.006 0 0015 3a8.963 8.963 0 00-4.25 1.065V16.82zM9.25 4.065A8.963 8.963 0 005 3c-.85 0-1.673.118-2.454.339A.75.75 0 002 4.06v11a.75.75 0 00.954.721A7.506 7.506 0 015 15.5c1.579 0 3.042.487 4.25 1.32V4.065z" />
+			  </svg>
 			Teacher Panel
 		</a>
 	</li>
+	<% } %>
 	<li>
 		<a href="/user/profile" aria-current="<%= active=='profile' ? 'page' : 'false' %>" class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary  mx-4 <%= active=='profile' ? 'border-accent' : 'border-transparent' %>">
-			<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-			</svg>
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+				<path d="M10 8a3 3 0 100-6 3 3 0 000 6zM3.465 14.493a1.23 1.23 0 00.41 1.412A9.957 9.957 0 0010 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 00-13.074.003z" />
+			  </svg>						
 			User profile
 		</a>
 	</li>
 	<li>
 		<a href="/logout" class="focus:outline-none h-full flex items-center justify-between pb-2 gap-2 border-b-2 focus:border-accent hover:border-secondary  mx-4 border-transparent">
-			<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-			  </svg>  
+			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+				<path fill-rule="evenodd" d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z" clip-rule="evenodd" />
+				<path fill-rule="evenodd" d="M19 10a.75.75 0 00-.75-.75H8.704l1.048-.943a.75.75 0 10-1.004-1.114l-2.5 2.25a.75.75 0 000 1.114l2.5 2.25a.75.75 0 101.004-1.114l-1.048-.943h9.546A.75.75 0 0019 10z" clip-rule="evenodd" />
+			  </svg>			   
 			Log out
 		</a>
 	</li>
 </ul>
 
 	<div class="flex justify-between">
-		<button class="btn btn-ghost lg:hidden" id="navbar-toggle"
+		<button aria-label="Menu" class="btn btn-ghost md:hidden" id="navbar-toggle"
 		data-modal-trigger="" aria-controls="navbar-mobile" aria-expanded="false">
 		Menu
 		<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="ml-2 inline-block w-5 h-5 stroke-current pointer-events-none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
 		</button>
 
-		<div class="pointer-events-auto lg:hidden not-prose">
+		<div class="pointer-events-auto md:hidden not-prose">
 			<div id="navbar-mobile" aria-labelledby="modalmenu-title" data-modal-target="" class="absolute inset-0 overflow-hidden hidden" aria-modal="true">
 					<div data-modal-overlay="" data-modal-close="" tabindex="-1" data-class-in="opacity-50" data-class-out="opacity-0" class="fixed inset-0 w-full z-40 transition-opacity duration-500 bg-black select-none opacity-50"></div>
 				<div data-modal-wrapper="" data-class-in="translate-x-0" data-class-out="-translate-x-full" class="prose fixed top-0 left-0 bottom-0 w-10/12 h-full max-w-md z-50 overflow-auto scrolling-touch transition-transform duration-500 bg-base-100 flex flex-col shadow-xl transform translate-x-0">
@@ -61,40 +52,29 @@
 							<img aria-hidden="true" alt="profile-pic" src="<%=user.profile%>" class="w-8 h-8 rounded-full">
 							<h3 id="navbar-mobile" class="text-2xl font-bold tracking-tight"><%=user.userName%></h3>
 						</div>
-						<button data-modal-close="" class="btn btn-square btn-outline btn-sm">
+						<button aria-label="Close" data-modal-close="" class="btn btn-square btn-outline btn-sm">
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-							<span class="sr-only">Close</span>
 						</button>
 					</div>
 
 				<nav class="relative h-full flex-grow overflow-x-hidden overflow-y-auto p-6">
 					<ul>
 						<li class="border-b border-base-200">
-							<a href="/classroom/feed" class="cursor-pointer flex flex-row items-center justify-between py-4" <%= active=="classroom-feed" ? 'aria-current="page"' : '' %>>
-								Classrooms
-								<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-									stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-									<path stroke-linecap="round" stroke-linejoin="round"
-										d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-								</svg>
-							</a>
-						</li>
-						<li class="border-b border-base-200">
-							<a class="cursor-pointer flex flex-row items-center justify-between py-4" <%= active=="lessons" ? 'aria-current="page"' : '' %>>
-								Your lessons
-								<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-									stroke-width="1.5" stroke="currentColor" class="w-6 h-6 md:w-8 md:h-8">
-									<path stroke-linecap="round" stroke-linejoin="round"
-										d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-								</svg>
+							<a href="/home" class="cursor-pointer flex flex-row items-center justify-between py-4" <%= active=="home" ? 'aria-current="page"' : '' %>>
+								Home
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+								  </svg>								  
 							</a>
 						</li>
 						<%if( user.educator ){%>
 						<li class="border-b border-base-200">
-							<a href="/classroom/teacher" class="cursor-pointer flex flex-row items-center justify-between py-4" <%= active=="teacher-panel" ? 'aria-current="page"' : '' %>>
+							<a href="/teacher" class="cursor-pointer flex flex-row items-center justify-between py-4" <%= active=="teacher-panel" ? 'aria-current="page"' : '' %>>
 								Teacher Panel
-								<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z" />
+								<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+									stroke-width="1.5" stroke="currentColor" class="w-6 h-6 md:w-8 md:h-8">
+									<path stroke-linecap="round" stroke-linejoin="round"
+										d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
 								</svg>
 							</a>
 						</li>
@@ -118,7 +98,7 @@
 					</ul>	
 				</nav>
 				<div class="absolute bottom-0 left-0 mb-2 ml-2">
-					<button data-modal-close="" type="button" class="btn btn-outline">
+					<button aria-label="Close" data-modal-close="" type="button" class="btn btn-outline">
 					Close Drawer
 					</button>
 				</div>

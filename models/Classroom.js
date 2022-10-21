@@ -27,6 +27,10 @@ const ClassroomSchema = new mongoose.Schema({
 	type: mongoose.Schema.Types.ObjectId,
 	ref: "Lesson"
   }],
+  students: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  }],
   createdAt: {
     type: Date,
     default: Date.now,

@@ -109,13 +109,13 @@
 								<td class="p-3">
 									No lesson found.
 								</td>
-								<td class="p-3"></td>
+								<td class="p-0"></td>
 								<td class="p-3">
-									<button class="btn btn-ghost btn-xs"  data-modal-trigger="" id="addLesson-tabletoggle" aria-controls="addLesson-table" aria-expanded="false">
+									<button aria-label="Add lesson" class="btn btn-ghost btn-xs gap-2"  data-modal-trigger="" id="addLesson-tabletoggle" aria-controls="addLesson-table" aria-expanded="false">
 										Create
-										<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 inline-block w-5 h-5 stroke-current pointer-events-none">
-											<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-										</svg>
+										<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="hidden sm:inline-block w-5 h-5">
+											<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" clip-rule="evenodd" />
+										  </svg>										  
 									</button>
 									<%- include('partials/modal-blank', {modalName: "addLesson-table" , modalTitle: "Add lesson" , prose: "not-prose", partial: "modal-createLesson", icon: "add"}) -%>
 								</td>

@@ -1,0 +1,139 @@
+<%- include('partials/header', {navbar: "yes" , title: "Classroom" , active: "" }) -%>
+
+ 
+<div class="px-4 xl:px-0">
+	<div class="mx-auto container">
+		<div class="flex flex-col">
+			<div class="pl-4 md:pl-10 py-4 md:py-7q rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 flex justify-between gap-4 flex-wrap">
+				<h1 class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal"><%=classrooms.name%></h1>
+				<figure class="flex items-center px-4 gap-4 lg:mr-4">
+					<img src="<%= classrooms.creator.profile %>" alt="<%= classrooms.creator.userName %> profile picture" class="rounded-full w-12">
+					<figcaption class="sm:text-lg md:text-xl lg:text-2xl leading-normal">
+					 <span class="font-bold">Instructor:</span> <%= classrooms.creator.userName %>
+					</figcaption>
+				</figure>
+				<%if( user && user.id == classrooms.creator ){%>
+				<a aria-label="Edit classroom" class="btn btn-ghost flex gap-2 mr-4" href="/classroom/<%= classrooms.accessName %>/edit">
+					<span class="order-2">Edit classroom</span>
+					<span aria-hidden="true" class="relative only:-mx-5">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+						  </svg>
+					</span>
+				</a>
+				<% } %>
+			</div>
+		</div>
+			<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
+				<div class="py-8 not-prose flex flex-col md:flex-row gap-8">
+
+					<article class="w-full max-w-xs mb-auto border border-base-content border-opacity-20 card bg-base-100 mx-auto shadow-xl prose">
+						<div class="w-10/12 h-48 rounded-xl mx-auto mt-8" style="background-image: linear-gradient(
+							hsla(var(--p)/.3), 
+							hsla(var(--s)/.3)
+							), url(<%=classrooms.image%>); background-size: cover; background-position: top; filter: opacity(0.8);"></div>
+						<div class="card-body">
+							<div aria-label="Classroom description" class="divider uppercase font-bold">description</div>
+							<p><%=classrooms.description%></p>
+							<%if (user && !enrollment && !isTeacher) {%>	
+							<div aria-label="Enroll" class="divider uppercase font-bold">Enroll</div>
+							<form role="form" action="/enroll" method="post">
+								<div class="form-control text-sm text-center gap-4">
+									<p>Add classroom to your profile to track lesson completion.</p>
+									<p>This will also allow you to read and write comments on each lesson.</p>
+									<input type="hidden" name="classroom" value="<%=classrooms.id%>">
+									<button  aria-label="Add to profile" type="submit" class="btn btn-ghost">Add to profile</button>
+								</div>
+							</form>
+							<% } else if (user && enrollment && !isTeacher) { %>
+								<div aria-label="Enrollment" class="divider uppercase font-bold">Enrollment</div>
+								<details class="p-4 group outline-base-content/50 bg-base-200/50 rounded-md">
+									<summary class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer focus-visible:outline-none ">
+										<p>Cancell enrollment</p>
+										<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute right-0 w-5 h-5 transition duration-300 top-1 group-open:rotate-90">
+											<path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+										</svg>										  
+									</summary>
+									<form role="form" action="/enroll/<%=enrollment.id%>?_method=DELETE" method="post" class="py-4">
+										<div class="form-control text-sm text-left gap-4">
+											<p>Note that this will also:</p>
+											<ul class="list-inside list-disc">
+												<li><p class="inline">Erase your lesson tracking status.</p></li>
+												<li><p class="inline">Delete any comments you have created.</p></li>
+											</ul>
+											<input type="hidden" name="classroom" value="<%=classrooms.id%>">
+											<button aria-label="Cancel enrollment" type="submit" class="btn btn-sm btn-ghost btn-active hover:btn-error mx-auto">Cancel enrollment</button>
+										</div>
+									</form>
+								</details>
+							<% } else if (user && isTeacher) { %>
+								<button  aria-label="Edit classroom" class="btn btn-secondary btn-outline w-40 mx-auto mt-4" data-modal-trigger="" id="editClass-btoggle" aria-controls="editClass" aria-expanded="false">
+									Edit classroom</span>
+								</button>
+				
+								<%- include('partials/modal-blank', {modalName: "editClass" , modalTitle: "Edit classroom" , prose: "not-prose", partial: "modal-editClass", icon: "edit"}) -%>
+							<% } else { %>
+								<p class="text-center"><a aria-label="Sign up" href="/signup" class="btn btn-ghost btn-xs">Sign up</a> or <a aria-label="Log in" href="/login" class="btn btn-ghost btn-xs">log in</a><br> to enroll and track progress.</p>
+							<%}%>
+						</div>
+					</article>
+
+					<div class="overflow-x-auto w-full">
+						<table class="table table-zebra w-full prose">
+							<thead class="border-b border-base-content border-opacity-20">
+								<tr>
+									<th aria-label="Lesson" class="px-2 sm:px-4 <%= !enrollment ? 'rounded-tr-xl' : '' %>">Lesson</th>
+									<th aria-label="Date due" class="px-0 sm:px-4 <%= !enrollment ? 'hidden' : 'show' %>">Due</th>
+								</tr>
+							</thead>
+							<caption class="sr-only">List of lessons</caption>
+							<tbody>
+								<%if (lessons.length > 0 && !enrollment) {%>
+									<% lessons.forEach (el=> { %>
+								<tr class="">
+									<td class="px-2 sm:px-4 xs:w-40 whitespace-normal sm:w-auto">
+										<a href="./<%= el.id %>" class="font-medium transition underline underline-offset-4 hover:no-underline hover:text-primary flex gap-2 items-center">
+											<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 hidden sm:inline-block">
+												<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
+												<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
+											  </svg>
+											  <%= el.title %>
+										</a>
+										<p class="hidden sm:inline-block badge badge-ghost ml-5">Added: <%= new Date(el.createdAt).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
+									</td>
+								</tr>
+									<% }) %>
+								<% } else if (lessons.length > 0 && enrollment) { %>
+									<% lessons.forEach (el=> { %>
+									<tr class="">
+										<td class="px-2 sm:px-4 xs:w-40 whitespace-normal sm:w-auto">
+											<a href="./<%= el.id %>" class="font-medium transition underline underline-offset-4 hover:no-underline hover:text-primary flex gap-2 items-center">
+												<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 hidden sm:inline-block">
+													<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
+													<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
+												  </svg>
+												  <%= el.title %>
+											</a>
+											<p class="hidden sm:inline-block badge badge-ghost ml-5">Added: <%= new Date(el.createdAt).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
+										</td>
+										<td class="px-0 sm:px-4"><%= el.dateDue.toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %>
+										</td>
+									</tr>
+									<% }) %>
+								<% } else { %>
+									<tr class="hover">
+										<td>
+											No lesson found.
+										</td>
+									</tr>
+								<%}%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+					
+<%- include('partials/footer') -%>

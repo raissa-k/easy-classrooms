@@ -1,4 +1,3 @@
-const validator = require("validator");
 const { startSession } = require("mongoose");
 const { uniqueNamesGenerator, adjectives, names, colors, animals } = require('unique-names-generator');
 const cloudinary = require("../middleware/cloudinary");
@@ -32,8 +31,13 @@ module.exports = {
 		try {
 			const publicClassroom = await Classroom.findOne({
                 accessName: req.params.accessName
-            }).populate('lessons')
-			res.render('classroompublic.ejs', { classrooms: publicClassroom, lessons: publicClassroom.lessons, user: req.user })
+            }).populate('lessons creator')
+			const isTeacher = String(req.user._id) == String(publicClassroom.creator._id)
+			const enrollment = await Enrollment.findOne({
+				classroom: publicClassroom._id,
+				student: req.user
+			}).populate({path: 'lessonCompletion'})
+			res.render('classroom.ejs', { classrooms: publicClassroom, lessons: publicClassroom.lessons, enrollment: enrollment, user: req.user, isTeacher: isTeacher })
 		} catch (err) {
 			req.flash("error", {
 				msg: "Something went wrong.",
@@ -117,7 +121,6 @@ module.exports = {
 			return res.redirect("back")
 		}
 
-		// placeholder to be saved in transaction
 		const createdClassroom = new Classroom({
 			name: req.body.name,
 			description: req.body.description,
@@ -200,7 +203,7 @@ module.exports = {
 			console.error(error)
 		}
 		req.flash('success', {msg: `Classroom "${req.body.name}" edited.`})
-		res.redirect(`/classroom/${foundClassroom.accessName}/edit/`)
+		res.redirect('back')
 	},
 	deleteClassroom: async (req, res) => {
 		const classroomId = req.body.classroomId
@@ -216,7 +219,7 @@ module.exports = {
 			await classroomToDelete.remove({ session: classSession })
 			await Lesson.deleteMany({ _id: {$in: [...lessonsToDelete]}}).session(classSession)
 			await creator.save({ session: classSession })
-//			await Comment.deleteMany({ lesson: {$in: [...lessonsToDelete]}}).session(classSession)
+			await Comment.deleteMany({ lesson: {$in: [...lessonsToDelete]}}).session(classSession)
 			await classSession.commitTransaction()
 			req.flash('success', {msg: `Classroom successfully deleted.`})
 			res.redirect(`/teacher`)

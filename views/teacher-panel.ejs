@@ -8,7 +8,7 @@
 				<h1 class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal">Teacher panel</h1>
 			
 				<div class="flex justify-between pr-4 md:pr-10">
-					<button aria-label="Create classroom" class="btn btn-secondary" data-modal-trigger="" id="createClass-toggle" aria-controls="createClass" aria-expanded="false">
+					<button aria-label="Create classroom" class="btn btn-outline" data-modal-trigger="" id="createClass-toggle" aria-controls="createClass" aria-expanded="false">
 						Create classroom
 						<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 inline-block w-5 h-5 stroke-current pointer-events-none">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5v6m3-3H9m4.06-7.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
@@ -22,15 +22,15 @@
 				<%if( classrooms.length ){%>
 				<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
 				<% classrooms.forEach (el=> { %>
-						<div class="border border-base-content border-opacity-20 card card-compact bg-base-100 shadow">
-							<div class="w-full h-32" style="background-image: linear-gradient(
+						<div class="border border-base-content border-opacity-20 bg-base-100 card shadow">
+							<div class="w-full h-64" style="background-image: linear-gradient(
 								hsla(var(--p)/.3), 
 								hsla(var(--s)/.3)
 							  ), url(<%=el.image%>); background-size: cover; background-position: top; filter: opacity(0.8);"></div>
 							<div class="card-body gap-4">
 								<h2 class="card-title"><%=el.name%></h2>
-								<a aria-label="Access classroom" class="btn btn-primary btn-outline btn-sm mr-auto flex gap-2" href="/classroom/<%=el.accessName%>/view">
-									<span class="order-2">Access</span>
+								<a aria-label="View classroom" class="btn btn-primary btn-outline mr-auto flex gap-2" href="/classroom/<%=el.accessName%>/view">
+									<span class="order-2">View</span>
 									<span aria-hidden="true" class="-ml-1">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
 											<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
@@ -71,7 +71,7 @@
 
 
 			<div class="w-full flex justify-end mt-8">
-				<button aria-label="Create classroom" class="btn btn-secondary" data-modal-trigger="" id="createClass-btoggle" aria-controls="createClass-b" aria-expanded="false">
+				<button aria-label="Create classroom" class="btn btn-outline" data-modal-trigger="" id="createClass-btoggle" aria-controls="createClass-b" aria-expanded="false">
 					Create classroom
 					<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 inline-block w-5 h-5 stroke-current pointer-events-none">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5v6m3-3H9m4.06-7.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />

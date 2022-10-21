@@ -12,6 +12,7 @@ const mainRoutes = require("./routes/mainRoutes");
 const userRoutes = require("./routes/userRoutes")
 const classroomRoutes = require("./routes/classroomRoutes")
 const lessonRoutes = require("./routes/lessonRoutes")
+const enrollmentRoutes = require("./routes/enrollmentRoutes")
 
 
 require("dotenv").config({ path: "./config/.env" });
@@ -48,6 +49,7 @@ app.use("/", mainRoutes);
 app.use("/user", userRoutes);
 app.use("/classroom", classroomRoutes);
 app.use("/lesson", lessonRoutes)
+app.use("/enroll", enrollmentRoutes)
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
