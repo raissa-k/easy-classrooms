@@ -1,5 +1,5 @@
 # Easy Classrooms
 
-- [] Complete README
-- [] Display user flow in Wiki
-- [] Close two last issue tickets
+- [ ] Complete README
+- [ ] Display user flow in Wiki
+- [ ] Close two last issue tickets
