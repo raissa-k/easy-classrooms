@@ -9,8 +9,6 @@ router.route("/:enrollmentId", ensureAuth)
 	.delete(enrollmentController.removeEnrollment)
 	.patch(enrollmentController.completeLesson)
 
-router.param('enrollmentId', enrollmentController.findEnrollment)
-
 module.exports = router;
 
 
