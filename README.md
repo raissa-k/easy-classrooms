@@ -1,6 +1,5 @@
 # Easy Classrooms
 
-Made with love for teachers and private tutors all around.
-
-README and documentation in progress.
- 
+- [] Complete README
+- [] Display user flow in Wiki
+- [] Close two last issue tickets
