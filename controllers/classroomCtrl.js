@@ -36,8 +36,16 @@ module.exports = {
 			const enrollment = await Enrollment.findOne({
 				classroom: publicClassroom._id,
 				student: req.user
-			}).populate({path: 'lessonCompletion'})
-			res.render('classroom.ejs', { classrooms: publicClassroom, lessons: publicClassroom.lessons, enrollment: enrollment, user: req.user, isTeacher: isTeacher })
+			}).populate({
+				path: 'lessonCompletion',
+				populate: { path: 'lesson' }
+			})
+			let foundLessons
+			if (enrollment){
+				let lessons = enrollment.lessonCompletion.flat()
+				foundLessons = lessons
+			}
+			res.render('classroom.ejs', { classrooms: publicClassroom, lessons: publicClassroom.lessons, enrollment: enrollment, enrolledLessons: foundLessons, user: req.user, isTeacher: isTeacher })
 		} catch (err) {
 			req.flash("error", {
 				msg: "Something went wrong.",

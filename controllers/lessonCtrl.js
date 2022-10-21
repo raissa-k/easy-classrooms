@@ -85,12 +85,12 @@ getLesson: async (req, res) => {
 		const classId = foundClassroom._id
 		const isTeacher = String(req.user._id) == String(foundClassroom.creator._id)
 		let foundComplete
-		let foundEnrollment = await Enrollment.findOne({ student: req.user, classroom: classId }).populate('lessonCompletion', 'lesson complete')
-
+		let foundEnrollment = await Enrollment.findOne({ student: req.user, classroom: classId }).populate({
+			path: 'lessonCompletion',
+			populate: { path: 'lesson' }
+		})
 		if (foundEnrollment){
-			foundComplete = foundEnrollment.lessonCompletion.map((obj) => obj.lesson == lessonId ? obj.complete : '').toString()
-		} else {
-			foundComplete = ''
+			foundComplete = foundEnrollment.lessonCompletion.flat().filter(obj => String(obj.lesson._id) === String(lessonId))[0]
 		}
 		res.render('lesson.ejs', { classrooms: foundClassroom, lessons: foundLesson, comments: comments, enrollment: foundEnrollment, lessonComplete: foundComplete, user: req.user, isTeacher: isTeacher })
 	} catch (error) {

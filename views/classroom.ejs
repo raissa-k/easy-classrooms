@@ -79,7 +79,7 @@
 					</article>
 
 					<div class="overflow-x-auto w-full">
-						<table class="table table-zebra w-full prose">
+						<table class="table w-full prose">
 							<thead class="border-b border-base-content border-opacity-20">
 								<tr>
 									<th aria-label="Lesson" class="px-2 sm:px-4 <%= !enrollment ? 'rounded-tr-xl' : '' %>">Lesson</th>
@@ -103,24 +103,28 @@
 									</td>
 								</tr>
 									<% }) %>
-								<% } else if (lessons.length > 0 && enrollment) { %>
-									<% lessons.forEach (el=> { %>
-									<tr class="">
-										<td class="px-2 sm:px-4 xs:w-40 whitespace-normal sm:w-auto">
-											<a href="./<%= el.id %>" class="font-medium transition underline underline-offset-4 hover:no-underline hover:text-primary flex gap-2 items-center">
+								<%}%>
+								<%if (enrollment) { %>
+									<% enrolledLessons.forEach (el=> { %>
+									<tr>
+										<td class="px-2 sm:px-4 xs:w-40 whitespace-normal sm:w-auto <%= el.complete === true ? 'bg-base-300' : '' %>">
+											<a href="./<%= el.lesson._id %>" class="font-medium transition underline underline-offset-4 hover:no-underline hover:text-primary flex gap-2 items-center">
 												<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 hidden sm:inline-block">
 													<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
 													<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
 												  </svg>
-												  <%= el.title %>
+												  <%= el.lesson.title %>
 											</a>
-											<p class="hidden sm:inline-block badge badge-ghost ml-5">Added: <%= new Date(el.createdAt).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
+											<p class="hidden sm:inline-block badge badge-ghost ml-5">Added: <%= new Date(el.lesson.createdAt).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
 										</td>
-										<td class="px-0 sm:px-4"><%= el.dateDue.toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %>
+										<td class="px-0 sm:px-4 <%= el.complete === true ? 'bg-base-300' : '' %>">
+											<span class="badge my-1 <%= el.complete === true ? '' : 'badge-warning' %> "><%= el.complete === true ? 'Complete' : 'Not complete' %></span>
+											<p class="text-sm"><%= el.lesson.dateDue.toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
 										</td>
 									</tr>
 									<% }) %>
-								<% } else { %>
+									<%}%>
+									<%if (!enrolledLessons || !lessons.length ) { %>
 									<tr class="hover">
 										<td>
 											No lesson found.
