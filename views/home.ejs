@@ -60,9 +60,9 @@
 							  </svg>							  
 						  </div>
 						  <%if( classrooms.length > 0 ){%>
-						  <div class="stat-value"><%= Math.round((lessonCompletion.length - lessonCompletion.length / incompleteLessons.length)*100) %>%</div>
+						  <div class="stat-value"><%= Math.round((total === incompleteLessons ? 0 : incompleteLessons / total) *100) %>%</div>
 						  <div class="stat-title opacity-80">Lessons done</div>
-						  <div class="stat-desc opacity-80"><%= incompleteLessons.length %> <%= incompleteLessons.length == 1 ? 'lesson' : 'lessons' %> to complete</div>
+						  <div class="stat-desc opacity-80"><%= incompleteLessons %> <%= incompleteLessons == 1 ? 'lesson' : 'lessons' %> to complete</div>
 						  <% } else { %>
 						  <div class="stat-title opacity-80 max-w-[150px] break-words lg:max-w-xs">Enroll in a classroom to access stats</div>
 						  <div class="stat-desc opacity-80">Lesson completion unavailable</div>
@@ -72,33 +72,29 @@
 
 						<%if( !classrooms.length ){%>
 							<h2 class="text-xl font-bold pt-8 mb-40 lg:mb-80">You are currently not enrolled in any classroom.</h2>
-							
-						
 							</div>
 						
-								<% } else { %>
-									<h2 class="text-xl font-bold pt-8">Classrooms you are enrolled in:</h2>
-									<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
-										<% classrooms.forEach (el=> { %>
-												<div class="border border-base-300 card bg-base-100 shadow-xl">
-													<div class="card-body gap-4">
-														<h2 class="card-title"><%=el.name%></h2>
-														<p><%=el.description%></p>
-														<div class="card-actions justify-end">
-															<a aria-label="View lessons" href="/classroom/<%=el.accessName%>/view" class="btn btn-outline btn-secondary">View Lessons</a>
-														</div>
-													</div>
-													<div class="w-full h-64" style="background-image: linear-gradient(
-														hsla(var(--p)/.3), 
-														hsla(var(--s)/.3)
-													  ), url(<%=el.image%>); background-size: cover; background-position: center; filter: opacity(0.8);"></div>
+						<% } else { %>
+							<h2 class="text-xl font-bold pt-8">Classrooms you are enrolled in:</h2>
+							<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
+								<% classrooms.forEach (el=> { %>
+										<div class="border border-base-300 card bg-base-100 shadow-xl">
+											<div class="w-10/12 h-48 rounded-xl mx-auto mt-8" style="background-image: linear-gradient(
+												hsla(var(--p)/.3), 
+												hsla(var(--s)/.3)
+												), url(<%=el.image%>); background-size: cover; background-position: center; filter: opacity(0.8);"></div>
+											<div class="card-body gap-4">
+												<h2 class="card-title"><%=el.name%></h2>
+												<p><%=el.description%></p>
+												<div class="card-actions justify-end">
+													<a aria-label="View lessons" href="/classroom/<%=el.accessName%>/view" class="btn btn-outline btn-secondary">View Lessons</a>
 												</div>
-										<% }) %>
+											</div>
 										</div>
-								<%}%>
+								<% }) %>
+							</div>
+						<%}%>
 					</div>
-			</div>
+				</div>
 		</div>
-	</div>
-</div>
 <%- include('partials/footer') -%>

@@ -8,10 +8,6 @@ const LessonSchema = new mongoose.Schema({
   description: {
     type: String
   },
-  comment: [{
-	type: mongoose.Schema.Types.ObjectId,
-	ref: "Comment"
-  }],
   resource: [{
 	type: String,
   }],
@@ -22,10 +18,6 @@ const LessonSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  students: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  }],
   createdAt: {
     type: Date,
     default: Date.now,

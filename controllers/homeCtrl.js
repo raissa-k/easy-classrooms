@@ -22,14 +22,14 @@ module.exports = {
 		try {
 			const enrollment = await Enrollment.find({ student: req.user }).populate({ path: 'classroom', populate: { path: 'lessons' } })
 			const userClassrooms = enrollment.map((obj) => obj.classroom)
-			const userLessons = enrollment.map((obj) => obj.classroom.lessons)
 			const lessonCount = enrollment.map((obj) => obj.lessonCompletion)
-			let incompleteLessons = lessonCount.reduce((incompleteLessons, el) => {
-				if (!el.complete) incompleteLessons.push(el)
+			let incompleteLessons = lessonCount.flat().reduce((incompleteLessons, el) => {
+				if (el.complete === false) incompleteLessons.push(el)
 				return incompleteLessons
 			}, [])
-			const incompleteCount = incompleteLessons.flat()
-			res.render("home.ejs", { classrooms: userClassrooms, lessons: userLessons, lessonCompletion: lessonCount, incompleteLessons: incompleteCount, user: req.user });
+			const incompleteCount = incompleteLessons.length
+			const totalCount = lessonCount.flat().length
+			res.render("home.ejs", { classrooms: userClassrooms, lessons: userClassrooms.lessons, total: totalCount, incompleteLessons: incompleteCount, user: req.user });
 		} catch (err) {
 			console.log(err);
 		}
