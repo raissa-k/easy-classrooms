@@ -12,7 +12,7 @@
 					 <span class="font-bold">Instructor:</span> <%= classrooms.creator.userName %>
 					</figcaption>
 				</figure>
-				<%if( user && user.id == classrooms.creator ){%>
+				<%if( user && user.id === classrooms.creator ){%>
 				<a aria-label="Edit classroom" class="btn btn-ghost flex gap-2 mr-4" href="/classroom/<%= classrooms.accessName %>/edit">
 					<span class="order-2">Edit classroom</span>
 					<span aria-hidden="true" class="relative only:-mx-5">
@@ -34,7 +34,7 @@
 							), url(<%=classrooms.image%>); background-size: cover; background-position: top; filter: opacity(0.8);"></div>
 						<div class="card-body">
 							<div aria-label="Classroom description" class="divider uppercase font-bold">description</div>
-							<p><%=classrooms.description%></p>
+							<p class="text-center"><%=classrooms.description%></p>
 							<%if (user && !enrollment && !isTeacher) {%>	
 							<div aria-label="Enroll" class="divider uppercase font-bold">Enroll</div>
 							<form role="form" action="/enroll" method="post">
@@ -124,7 +124,7 @@
 									</tr>
 									<% }) %>
 									<%}%>
-									<%if (!enrolledLessons || !lessons.length ) { %>
+									<%if (!lessons.length ) { %>
 									<tr class="hover">
 										<td>
 											No lesson found.

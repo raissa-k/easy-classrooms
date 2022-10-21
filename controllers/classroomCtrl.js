@@ -32,7 +32,8 @@ module.exports = {
 			const publicClassroom = await Classroom.findOne({
                 accessName: req.params.accessName
             }).populate('lessons creator')
-			const isTeacher = String(req.user._id) == String(publicClassroom.creator._id)
+			let isTeacher = { _id: 0000 }
+			if (req.user) isTeacher = String(req.user._id) == String(publicClassroom.creator._id)
 			const enrollment = await Enrollment.findOne({
 				classroom: publicClassroom._id,
 				student: req.user
