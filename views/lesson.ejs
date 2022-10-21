@@ -89,7 +89,7 @@
 							Comments
 							</h2>
 						</div>
-						<%if (enrollment || isTeacher) {%>
+						<%if (user && enrollment || user && isTeacher) {%>
 							<div class="flex flex-col gap-6 max-w-lg mx-auto w-full break-all">
 								<form role="form" action="./<%= lessons._id %>" method="POST" class="form-control w-full justify-items-stretch" aria-labelledby="commentLabel">
 									<label id="commentLabel" for="commentInput" class="px-4 py-2 bg-base-200 rounded-t-lg rounded-b-none">Add your comment
@@ -132,7 +132,7 @@
 
 
 						<%} else {%>
-							<p class="text-center mx-auto"><a aria-label="Sign up" href="/signup" class="btn btn-ghost btn-xs">Sign up</a> or <a aria-label="Log in" href="/login" class="btn btn-ghost btn-xs">log in</a> to enroll and add comments.</p>
+							<p class="text-center mx-auto">Enroll in classroom to read and add comments.</p>
 						<%}%>
 					</section>
 				</article>				

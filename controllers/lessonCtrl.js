@@ -83,7 +83,8 @@ getLesson: async (req, res) => {
 		let comments = await Comment.find({ lesson: lessonId }).sort({creationDate: -1}).populate("user")
 
 		const classId = foundClassroom._id
-		const isTeacher = String(req.user._id) == String(foundClassroom.creator._id)
+		let isTeacher = { _id: 0000 }
+			if (req.user) isTeacher = String(req.user._id) == String(foundClassroom.creator._id)
 		let foundComplete
 		let foundEnrollment = await Enrollment.findOne({ student: req.user, classroom: classId }).populate({
 			path: 'lessonCompletion',
