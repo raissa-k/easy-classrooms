@@ -4,10 +4,10 @@
 <div class="px-4 xl:px-0">
 	<div class="mx-auto container">
 		<div class="flex flex-col">
-			<div class="pl-4 md:pl-10 py-4 md:py-7 rounded-tl-md rounded-tr-md shadow bg-gradient-to-r from-secondary/10 via-transparent to-secondary/10 flex justify-between gap-4 flex-wrap">
-				<h1 class="sm:text-xl md:text-2xl lg:text-4xl font-bold leading-normal">Classroom management</h1>
+			<div class="px-4 md:px-7 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 flex justify-between gap-4 flex-wrap items-center">
+				<h1 class="text-2xl lg:text-4xl font-bold leading-normal mt-4">Classroom management</h1>
 
-				<div class="flex flex-wrap gap-4 pr-4">
+				<div class="flex flex-wrap gap-4 mt-4">
 					<button aria-label="Add lesson" class="btn btn-secondary btn-outline" data-modal-trigger="" id="addLesson-toggle" aria-controls="addLesson" aria-expanded="false">
 						Add lesson
 						<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 inline-block w-5 h-5 stroke-current pointer-events-none">
@@ -55,14 +55,12 @@
 						<%- include('partials/modal-blank', {modalName: "deleteClass" , modalTitle: "Delete classroom" , prose: "not-prose", partial: "modal-deleteClass", icon: "delete"}) -%>
 					</div>
 
-				<div class="w-full">
+				<div class="w-full overflow-clip text-ellipsis">
 					<table class="table table-zebra w-full">
 						<!-- head -->
 						<thead class="border-b border-base-content border-opacity-20">
 							<tr>
 								<th class="p-3" aria-label="Lesson">Lesson</th>
-								<th class="p-3"></th>
-								<th class="p-3"></th>
 							</tr>
 						</thead>
 						<caption class="sr-only">List of lessons</caption>
@@ -79,28 +77,34 @@
 									<%- include('partials/modal-blank', {modalName: "deleteLesson-modal" , modalTitle: "Delete lesson" , prose: "not-prose", partial: "modal-deleteLesson", icon: "delete"}) -%>
 								</div>
 								<% lessons.forEach (el=> { %>
-							<tr class="hover">
-								<td class="p-3">
-									<%= el.title %>
-									<br>
-									<span class="badge badge-sm badge-ghost">Added: <%= new Date(el.createdAt).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></span>
+							<tr class="flex flex-col">
+								<td class="p-4 flex flex-col lg:flex-row justify-between">
+									<div class="flex-col">
+										<a class="text-center transition hover:text-primary hover:underline font-medium underline-offset-4 flex gap-2" href="./<%= el.id %>">
+											<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 hidden sm:inline-block">
+												<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
+												<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
+											  </svg>
+										<%= el.title %>
+										</a>
+										<span class="badge badge-sm badge-ghost my-2">Added: <%= new Date(el.createdAt).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></span>
+									</div>
+									<div class="flex gap-4 py-4">
+									  <a aria-label="Edit lesson" href="#<%=el._id%>" class="btn btn-secondary btn-outline btn-sm flex gap-2">
+										<span>Edit</span>
+										<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+											<path d="M5.433 13.917l1.262-3.155A4 4 0 017.58 9.42l6.92-6.918a2.121 2.121 0 013 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 01-.65-.65z" />
+											<path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0010 3H4.75A2.75 2.75 0 002 5.75v9.5A2.75 2.75 0 004.75 18h9.5A2.75 2.75 0 0017 15.25V10a.75.75 0 00-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5z" />
+										  </svg>									  
+									  </a>
+									  <button aria-label="Open lesson delete confirmation" type="submit" class="btn btn-outline hover:btn-error btn-sm tooltip tooltip-left tooltip-warning flex gap-2" data-tip="Careful!" onclick="openDeleteModal(this.dataset.id)" data-id="<%= el._id %>">
+										  <span>Delete</span>
+										  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mx-auto">
+											  <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
+											</svg>										  
+									  </button>
+									</div>
 								</td>
-								<td class="p-3">
-								  <a href="#<%=el._id%>" class="btn btn-secondary btn-outline btn-square btn-sm">
-									<span class="sr-only">Edit this lesson</span>
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-										<path d="M5.433 13.917l1.262-3.155A4 4 0 017.58 9.42l6.92-6.918a2.121 2.121 0 013 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 01-.65-.65z" />
-										<path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0010 3H4.75A2.75 2.75 0 002 5.75v9.5A2.75 2.75 0 004.75 18h9.5A2.75 2.75 0 0017 15.25V10a.75.75 0 00-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5z" />
-									  </svg>									  
-								  </a>
-								</td>
-								<td class="p-3">
-									<button type="submit" class="btn btn-outline hover:btn-error btn-sm btn-square tooltip tooltip-left tooltip-warning" data-tip="Careful!" onclick="openDeleteModal(this.dataset.id)" data-id="<%= el._id %>">
-										<span class="sr-only">Delete this lesson</span>
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mx-auto">
-											<path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
-										  </svg>										  
-									</button>
 								</td>
 							</tr>
 								<% }) %>

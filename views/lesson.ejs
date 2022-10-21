@@ -1,58 +1,61 @@
 <%- include('partials/header', {navbar: "yes" , title: "Classroom" , active: "" }) -%>
 
-<div class="px-4 xl:px-0">
-	<div class="mx-auto container">
-		<div class="flex flex-col">
-			<div class="pl-4 md:pl-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 flex justify-between gap-4 flex-wrap">
-				<h1 aria-label="Lesson <%=lessons.title%> in classroom <%=classrooms.name%>" class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal"><%=lessons.title%> <span class="text-lg"><%=classrooms.name%></span></h1>
-			</div>
+	<div class="flex flex-col">
+		<div class="px-4 md:px-7 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 flex justify-between gap-4 flex-wrap items-center">
+			<h1 class="text-2xl lg:text-4xl font-bold leading-normal mt-4" aria-label="Lesson <%=lessons.title%> in classroom <%=classrooms.name%>" class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal"><%=lessons.title%></h1>
+			<figure class="flex items-center mt-4 gap-4">
+				<img src="<%= classrooms.image %>" alt="Classroom picture" class="rounded-full w-8">
+				<figcaption class="text-lg leading-normal">
+					<span class="font-bold">Classroom:</span> <%= classrooms.name %>
+				</figcaption>
+			</figure>
 		</div>
-			<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
-				<div class="py-8 not-prose flex flex-col md:flex-row gap-8">
-					<aside>
-					<div class="w-full max-w-xs mb-auto border border-base-content border-opacity-20 card bg-base-100 mx-auto shadow-xl prose">
-						<div class="card-body">
-							<%if (user && !enrollment && !isTeacher) {%>	
-							<form action="" role="form" aria-label="Enroll in classroom" method="post">
-								<div class="form-control text-sm text-center gap-2">
-									<p>Add classroom to your profile to track lesson completion.</p>
-									<p>This will also allow you to read and write comments on each lesson.</p>
-									<input type="hidden" name="classroom" value="<%=classrooms.id%>">
-									<input type="hidden" name="student" value="<%=user.id%>">
-									<button aria-label="Add to profile" type="submit" class="btn btn-ghost">Add to profile</button>
-								</div>
-							</form>
-							<%} else if (user && enrollment && !isTeacher) {%>	
-							<form name="lessonCompletion" class="form-control prose" method="post" action="/enroll/<%= enrollment._id %>?_method=PATCH">
-								<label class="label p-0 cursor-pointer">
-									<span class="text-sm">Check done:</span>
-									<input type="hidden" name="lessonId" value="<%= lessons._id %>">
-									<input type="checkbox" name="completed" class="checkbox checkbox-sm checkbox-primary rounded-md" onclick="this.form.submit()" <%= lessonComplete.complete === true ? 'checked' : '' %>/>
-								</label>
-								<button type="submit" class="hidden" id="lessonStatus">Submit</button>
-							</form>
-							<%} else if (user && isTeacher) {%>
-								<a aria-label="Edit lesson" class="btn btn-ghost btn-active flex flex-wrap flex-row gap-2" href="/classrooms/<%= classrooms.accessName %>/edit">
-								Edit lesson
-								</a>
-							<%} else {%>
-								<p class="text-center"><a aria-label="Sign up" href="/signup" class="btn btn-ghost btn-xs">Sign up</a> or <a aria-label="Log in" href="/login" class="btn btn-ghost btn-xs">log in</a><br> to enroll and track progress.</p>
-							<%}%>
-							<div class="stats pt-4">
-								<div class="stat p-0">
-									<div class="stat-figure text-secondary">
-										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="w-8 h-8">
-											<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
-										</svg>
-									</div>
-								  <div class="stat-title opacity-100"><span class="badge badge-ghost badge-lg" id="dateDue">Due</span></div>
-								  <time aria-labelledby="dateDue" datetime="<%=new Date(lessons.dateDue).toDateString()%>" class="font-extrabold text-2xl"><%= new Date(lessons.dateDue).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></time>
-								</div>
-							  </div>
+	</div>
+	<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
+		<div class="py-8 not-prose flex flex-col md:flex-row gap-8">
+			<aside>
+			<div class="w-full max-w-xs mb-auto border border-base-content border-opacity-20 card bg-base-100 mx-auto shadow-xl prose">
+				<div class="card-body">
+					<%if (user && !enrollment && !isTeacher) {%>	
+						<form role="form" aria-label="Enrollment" action="/enroll" method="post">
+							<div class="form-control text-sm text-center gap-4">
+								<p>Add classroom to your profile to track lesson completion.</p>
+								<p>This will also allow you to read and write comments on each lesson.</p>
+								<input type="hidden" name="classroom" value="<%=classrooms.id%>">
+								<button  aria-label="Add to profile" type="submit" class="btn btn-ghost">Add to profile</button>
+							</div>
+						</form>
+					<%} else if (user && enrollment && !isTeacher) {%>	
+					<form name="lessonCompletion" aria-label="Mark lesson complete." class="form-control prose" method="post" action="/enroll/<%= enrollment._id %>?_method=PATCH">
+						<label class="label p-0 cursor-pointer">
+							<span class="text-sm">Check done:</span>
+							<input type="hidden" name="lessonId" value="<%= lessons._id %>">
+							<input type="checkbox" name="completed" class="checkbox checkbox-sm checkbox-primary rounded-md" onclick="this.form.submit()" <%= lessonComplete.complete === true ? 'checked' : '' %>/>
+						</label>
+						<button type="submit" class="hidden" id="lessonStatus">Submit</button>
+					</form>
+					<%} else if (user && isTeacher) {%>
+						<a aria-label="Edit lesson" class="btn btn-ghost btn-active flex flex-wrap flex-row gap-2" href="/classrooms/<%= classrooms.accessName %>/edit">
+						Edit lesson
+						</a>
+					<%} else {%>
+						<p class="text-center"><a aria-label="Sign up" href="/signup" class="btn btn-ghost btn-xs">Sign up</a> or <a aria-label="Log in" href="/login" class="btn btn-ghost btn-xs">log in</a><br> to enroll and track progress.</p>
+					<%}%>
+					<div class="stats pt-4">
+						<div class="stat p-0">
+							<div class="stat-figure text-secondary">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="w-8 h-8">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+								</svg>
+							</div>
+							<div class="stat-title opacity-100"><span class="badge badge-ghost badge-lg">Due</span></div>
+							<time datetime="<%=new Date(lessons.dateDue).toDateString()%>" class="font-extrabold text-2xl"><%= new Date(lessons.dateDue).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></time>
 						</div>
-						<button aria-label="Go back" onclick="location.assign('./view')" class="btn btn-sm btn-primary rounded-t-none rounded-b-2xl">Go back</button>
-					</div>
-					</aside>
+						</div>
+				</div>
+				<button aria-label="Back to classroom" onclick="location.assign('./view')" class="btn btn-sm btn-primary rounded-t-none text-xs rounded-b-2xl">Back to classroom</button>
+			</div>
+			</aside>
 
 			<div class="overflow-x-auto prose">
 				<article class="flex flex-wrap gap-8">
@@ -77,7 +80,7 @@
 								<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline">
 									<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
 									<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
-								  </svg>								  
+									</svg>								  
 								<%= el %>
 							</a></li>
 							<% }) %>
@@ -118,9 +121,9 @@
 												<button type="submit" aria-label="Delete comment" class="btn btn-xs btn-ghost w-fit rounded-2xl tooltip tooltip-error items-center normal-case" data-tip="Delete comment">
 													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 inline">
 													<path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
-												  </svg>
-												  Delete
-												  </button>
+													</svg>
+													Delete
+													</button>
 											</form>
 											<%}%>
 									</div>
@@ -138,9 +141,6 @@
 				</article>				
 			</div>
 		</div>
-		</div>
-		</div>
 	</div>
-</div>
-					
+
 <%- include('partials/footer') -%>

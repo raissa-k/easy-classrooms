@@ -1,100 +1,106 @@
 <%- include('partials/header', {navbar: "yes" , title: "Your classrooms" , active: "home" }) -%>
 
 
-
-<div class="px-4 xl:px-0">
-	<div class="mx-auto container">
-		<div class="flex flex-col">
-			<div class="pl-4 md:pl-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 flex justify-between gap-4 flex-wrap">
-				<h1 class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal">Welcome, <%= user.userName %>!</h1>
-			</div>
-				<div class="bg-primary-content/5 rounded-b-md shadow-lg pb-8 px-2 sm:px-4 md:px-6 xl:px-10">
+	<div class="flex flex-col">
+		<div class="px-4 md:px-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 flex justify-between gap-4 flex-wrap items-center">
+			<h1 class="text-2xl lg:text-4xl font-bold leading-normal mt-4">Welcome, <%= user.userName %>!</h1>
+		</div>
+			<div class="bg-primary-content/5 rounded-b-md shadow-lg pb-8 px-2 sm:px-4 md:px-6 xl:px-10">
 
 
-					<div class="stats stats-vertical md:stats-horizontal shadow mt-8 w-full border border-base-200 bg-secondary/5 rounded-md">
-						<div class="stat shrink-0">
-							<div class="stat-figure text-secondary">
-								<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline-block w-8 h-8">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />								  
-								</svg>
-							</div>
-							<form role="form" action="/find/" method="post" class="form-control gap-4 w-full max-w-xs">
-								<label class="sr-only" for="findClassroom">Input classroom password to find a classroom you'd like to enroll</label>
-								  <input id="findClassroom" name="accessName" type="text" placeholder="Password for classroom" class="input input-bordered input-sm lg:input-md w-full max-w-xs md:pl-4 lg:pl-3" />
-								<button aria-label="Find classroom" type="submit" class="btn btn-ghost btn-active btn-xs md:btn-sm mr-auto md:text-xs lg:text-base"><span>Find class</span><span class="xs:inline md:hidden lg:inline">room</span></button>
-							</form>
-						  </div>
+				<section aria-label="Your stats" class="stats grid stats-vertical md:stats-horizontal shadow mt-8 border border-base-200 bg-secondary/5 rounded-md">
+					<article aria-label="Find a classroom" class="stat flex md:flex-col py-6 gap-4">
+						<div class="text-secondary">
+							<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline-block w-8 h-8">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />								  
+							</svg>
+						</div>
+						<form role="form" action="/find/" method="post" class="form-control gap-2">
+							<label class="sr-only" for="findClassroom">Input classroom password to find a classroom you'd like to enroll</label>
+								<input id="findClassroom" name="accessName" type="text" placeholder="Password for classroom" class="input input-bordered input-sm w-44" />
+							<button aria-label="Find classroom" type="submit" class="btn btn-ghost btn-active btn-sm mr-auto md:text-xs lg:text-base">Find classroom</button>
+						</form>
+					</article>
 
-						  <% if (user.educator) {%>
-							<div class="stat">
-								<div class="stat-figure text-primary">
-									<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline-block w-8 h-8">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
-									</svg>
-								</div>
-								<div class="flex flex-col gap-4 opacity-80">
-									<p class="max-w-[150px] break-words lg:max-w-xs">You have turned on "Teacher" settings</p>
-									<a aria-label="Teacher panel" href="/teacher" class="btn btn-primary btn-outline btn-xs md:btn-sm mr-auto md:text-xs lg:text-base"><span>Teacher Panel</span></a>
-								</div>
-							</div>	
-						<% } else { %>
-						<div class="stat">
-						  <div class="stat-figure text-primary">
+					<% if (user.educator) {%>
+					<article class="stat flex md:flex-col py-6 gap-4">
+						<div class="text-primary">
 							<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline-block w-8 h-8">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
 							</svg>
-						  </div>
-							<div class="stat-title opacity-80">
-							<p>Enrolled in:</p>
-							</div>
-						  <div class="stat-value text-primary">
-							<%= classrooms.length > 0 ? classrooms.length : "0" %>
-						  </div>
-						  <p class="opacity-80"><%= classrooms.length >= 2 || classrooms.length == 0 ? "classrooms" : "classroom" %></p>
 						</div>
-						<%}%>
-						<div class="stat">
-						  <div class="stat-figure text-secondary">
+						<div class="flex flex-col gap-4 opacity-80">
+							<p role="heading" class="max-w-[150px] break-words lg:max-w-xs">You have turned on "Teacher" settings</p>
+							<a aria-label="Teacher panel" href="/teacher" class="btn btn-primary btn-outline btn-xs md:btn-sm mr-auto md:text-xs lg:text-base">Teacher Panel</a>
+						</div>
+					</article>	
+					<% } else { %>
+					<article class="stat flex md:flex-col py-6 gap-2">
+						<div class="text-primary">
 							<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline-block w-8 h-8">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-							  </svg>							  
-						  </div>
-						  <%if( classrooms.length > 0 ){%>
-						  <div class="stat-value"><%= Math.round((total === incompleteLessons ? 0 : incompleteLessons / total) *100) %>%</div>
-						  <div class="stat-title opacity-80">Lessons done</div>
-						  <div class="stat-desc opacity-80"><%= incompleteLessons %> <%= incompleteLessons == 1 ? 'lesson' : 'lessons' %> to complete</div>
-						  <% } else { %>
-						  <div class="stat-title opacity-80 max-w-[150px] break-words lg:max-w-xs">Enroll in a classroom to access stats</div>
-						  <div class="stat-desc opacity-80">Lesson completion unavailable</div>
-						  <%}%>
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
+							</svg>
 						</div>
-					</div>
+						<div class="flex-col opacity-80">
+							<p role="heading">Enrolled in:
+							<span class="stat-value text-primary">
+								<%= classrooms.length > 0 ? classrooms.length : "0" %>
+								<span class="text-base font-normal inline opacity-80"><%= classrooms.length >= 2 || classrooms.length == 0 ? "classrooms" : "classroom"%></span>
+							</span>
+							</p>
+						</div>
+					</article>
+					<%}%>
+					
+					<article class="stat flex md:flex-col py-6 gap-2">
+						<div class="text-secondary">
+							<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline-block w-8 h-8">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+							</svg>							  
+						</div>
 
-						<%if( !classrooms.length ){%>
-							<h2 class="text-xl font-bold pt-8 mb-40 lg:mb-80">You are currently not enrolled in any classroom.</h2>
-							</div>
-						
+						<%if( classrooms.length > 0 ){%>
+						<div class="flex-col">
+							<p role="heading" class="stat-value">
+								<span><%= Math.round((total === incompleteLessons ? 0 : incompleteLessons / total) *100) %>%</span>
+								<span class="stat-title font-normal text-base opacity-80">Lessons done</span>
+							</p>
+							<p class="text-sm py-2 block opacity-80"><%= incompleteLessons %> <%= incompleteLessons == 1 ? 'lesson' : 'lessons' %> to complete</p>
+						</div>
 						<% } else { %>
-							<h2 class="text-xl font-bold pt-8">Classrooms you are enrolled in:</h2>
-							<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
-								<% classrooms.forEach (el=> { %>
-										<div class="border border-base-300 card bg-base-100 shadow-xl">
-											<div class="w-10/12 h-48 rounded-xl mx-auto mt-8" style="background-image: linear-gradient(
-												hsla(var(--p)/.3), 
-												hsla(var(--s)/.3)
-												), url(<%=el.image%>); background-size: cover; background-position: center; filter: opacity(0.8);"></div>
-											<div class="card-body gap-4">
-												<h2 class="card-title"><%=el.name%></h2>
-												<p><%=el.description%></p>
-												<div class="card-actions justify-end">
-													<a aria-label="View lessons" href="/classroom/<%=el.accessName%>/view" class="btn btn-outline btn-secondary">View Lessons</a>
-												</div>
-											</div>
-										</div>
-								<% }) %>
-							</div>
+						<div class="flex flex-col opacity-80 gap-2">
+							<p class="max-w-[150px] break-words lg:max-w-xs break-all">Enroll in a classroom to access stats</p>
+							<p class="stat-desc opacity-80">Lesson completion unavailable</p>
+						</div>
 						<%}%>
+					</article>
+				</section>
+
+				<%if( !classrooms.length ){%>
+				<h2 class="text-xl font-bold pt-8 mb-40 lg:mb-80">
+					You are currently not enrolled in any classroom.
+				</h2>
+				
+				<% } else { %>
+					<h2 class="text-xl font-bold pt-8">Classrooms you are enrolled in:</h2>
+					<div class="py-8 not-prose grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
+						<% classrooms.forEach (el=> { %>
+							<article class="border border-base-300 card bg-secondary/5 shadow-xl">
+								<div class="w-10/12 h-48 rounded-xl mx-auto mt-8" style="background-image: linear-gradient(
+									hsla(var(--p)/.3), 
+									hsla(var(--s)/.3)
+									), url(<%=el.image%>); background-size: cover; background-position: center; filter: opacity(0.8);"></div>
+								<div class="card-body gap-4">
+									<h3 class="card-title"><%=el.name%></h3>
+									<p><%=el.description%></p>
+									<div class="card-actions justify-end">
+										<a aria-label="View lessons" href="/classroom/<%=el.accessName%>/view" class="btn btn-outline btn-secondary">View Lessons</a>
+									</div>
+								</div>
+							</article>
+						<% }) %>
 					</div>
-				</div>
-		</div>
+				<%}%>
+			</div>
+	</div>
 <%- include('partials/footer') -%>
