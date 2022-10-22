@@ -1,117 +1,146 @@
 <%- include('partials/header', {navbar: "yes", title: "User profile", active: "profile"} ) %>
 
-<div class="p-2 md:px-12 mx-auto bg-base-100 prose rounded-lg">
-	<div class="lg:order-first lg:row-span-2">
-
-		<div class="xl:w-1/4 2xl:w-1/5 flex flex-col items-center">
-			<div class="w-full flex items-center justify-center">
-				<div class="flex flex-col items-center">
-					<img src="<%= user.profile ? user.profile : 'https://api.lorem.space/image/face?w=50&h=50' %>" alt="Display avatar" role="img">
-					<p class="mt-2 text-xs sm:text-sm md:text-base font-semibold text-center"><%= user.userName %></p>
-				</div>
-			</div>
-			<div class="flex items-center mt-7">
-				<div class="">
-					<p class="text-xs">Enrolled in:</p>
-					<p class="mt-2 text-base sm:text-lg md:text-xl 2xl:text-2xl"><%= classrooms > 0 ? classrooms : "no" %> classrooms</p>
-				</div>
-			</div>
-		</div>
-
-
-		<div class="mt-6 space-y-7">
-			<h1>What would you like to do today?</h1>
-		
-			<section class="w-full rounded-lg divide-y divide-slate-200 shadow-md shadow-teal-500/40">
-
-				<details class="p-4 group focus:ring focus-within:ring-teal-400 focus-within:ring-opacity-70">
-					<summary class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer transition">
-						Change profile picture
-						<svg xmlns="http://www.w3.org/2000/svg" class="absolute right-0 w-6 h-6 transition -rotate-90 duration-300 top-1 stroke-slate-700 group-open:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-							<path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-						</svg>
-					</summary>
-					<form action="/user/update/picture/?_method=PUT" class="my-8 px-3 sm:px-8 md:px-12" enctype="multipart/form-data" method="post">
-						<input type="hidden" name="update" value="picture">
-						<label class="block mb-2 text-sm font-medium for="user_avatar">
-							Upload picture
-						</label>
-						<input name="file" class="block w-full text-sm bg-gray-50 rounded-lg border border-gray-300 cursor-pointer file:mr-4 file:py-2 file:px-4 file:border file:border-e file:border-gray-200file:text-base file:font-semibold file:bg-zinc-100 file:text-zinc-700 hover:file:bg-zinc-200 focus:ring focus:ring-offset-3 focus:ring-teal-400 focus:ring-opacity-70" aria-describedby="user_avatar_help" id="user_avatar" type="file" required>
-					
-						<div class="mt-1 text-sm" id="user_avatar_help">
-							Supported file formats: JPG, JPEG, and PNG.
-						</div>
-
-						<button type="submit" class="group relative w-full flex my-6 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md transition active:transition-none bg-zinc-800 text-zinc-100 hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 focus:outline-none focus:ring focus:ring-offset-3 focus:ring-teal-400">
-							<span class="absolute right-0 inset-y-0 flex items-center pr-3">
-								<!-- Heroicon name: arrow-up-tray -->
-								<svg class="h-5 w-5 text-zinc-600 transition group-hover:text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-									<path d="M9.25 13.25a.75.75 0 001.5 0V4.636l2.955 3.129a.75.75 0 001.09-1.03l-4.25-4.5a.75.75 0 00-1.09 0l-4.25 4.5a.75.75 0 101.09 1.03L9.25 4.636v8.614z" />
-									<path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
-								</svg>
-							</span>
-							Submit new picture
-						</button>
-					</form>
-				</details>
-
-				<details class="p-4 group focus:outline-none focus:ring focus:ring-offset-3 focus:ring-teal-400 focus:ring-opacity-70">
-					<summary class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer transition">
-						Change info and educator status
-						<svg xmlns="http://www.w3.org/2000/svg" class="absolute right-0 w-6 h-6 transition -rotate-90 duration-300 top-1 stroke-slate-700 group-open:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-							<path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-						</svg>
-					</summary>
-					<div class="my-8 px-3 sm:px-8 md:px-12">
-						<form action="/user/update/?_method=PUT" class="my-8 px-3 sm:px-8 md:px-12" method="post">
-							<input type="hidden" name="update" value="info">
-							<div class="sm:overflow-hidden">
-								<div class="space-y-6">
-									<!-- Form Fields -->
-									<div class="col-span-6">
-										<label class="block ">
-											<span class="font-medium">Current name: <%= user.userName %></span> 
-											<span class="block font-medium">New name:</span>
-											<input type="text" name="newName" autocomplete="off"  
-											class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-300 focus:ring focus:ring-offset-3 focus:ring-teal-400 focus:ring-opacity-70">
-										</label>
-									</div>
-									<div class="col-span-6">
-										<label class="block">
-											<span class="font-medium">Current e-mail: <%= user.email %></span> 
-											<span class="block font-medium">New e-mail address:</span>
-											<input type="email" inputmode="email" name="newEmail" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-300 focus:ring focus:ring-offset-3 focus:ring-teal-400 focus:ring-opacity-70"/>
-											</label>
-									</div>
-									<div class="col-span-6">
-										
-										<label class="block">
-											<span class="font-medium">Currently registered as a <%= user.educator ? "Teacher" : "Student" %></span> 
-											<span class="block font-medium">Toggle "on" to change to <%= user.educator ? 'Student' : 'Teacher' %></span>
-											<input type="checkbox" class="toggle mx-4 toggle-secondary" name="educator" value="<%= user.educator ? 'false' : 'true' %>" class="checkbox checkbox-secondary"/>
-											</label>
-									</div>
-									
-									<div>
-										<button type="submit" class="group relative w-full flex my-6 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md transition active:transition-none bg-zinc-800 text-zinc-100 hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 focus:outline-none focus:ring focus:ring-offset-3 focus:ring-teal-400">
-											<span class="absolute right-0 inset-y-0 flex items-center pr-3">
-												<!-- Heroicon name: arrow-path -->
-												<svg class="h-5 w-5 text-zinc-600 group-hover:text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-													<path fillRule="evenodd" d="M15.312 11.424a5.5 5.5 0 01-9.201 2.466l-.312-.311h2.433a.75.75 0 000-1.5H3.989a.75.75 0 00-.75.75v4.242a.75.75 0 001.5 0v-2.43l.31.31a7 7 0 0011.712-3.138.75.75 0 00-1.449-.39zm1.23-3.723a.75.75 0 00.219-.53V2.929a.75.75 0 00-1.5 0V5.36l-.31-.31A7 7 0 003.239 8.188a.75.75 0 101.448.389A5.5 5.5 0 0113.89 6.11l.311.31h-2.432a.75.75 0 000 1.5h4.243a.75.75 0 00.53-.219z" clipRule="evenodd" />
-												</svg>
-											</span>
-											Update info
-										</button>
-									</div>
-									<!-- / Form Fields -->
-								</div>
-							</div>
-						</form>
-					</div>
-				</details>
-			</section>
+<div class="px-4 xl:px-0 mx-auto container">
+	<div class="flex flex-col">
+		<div class="px-4 md:px-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 via-transparent flex justify-between gap-4 flex-wrap items-center">
+			<h1 class="text-2xl lg:text-4xl font-bold leading-normal mt-4">
+				What would you like to do today?
+			</h1>
 		</div>
 	</div>
-</div>
+	<div class="bg-primary-content/5 rounded-b-md shadow-lg pb-8 px-2 sm:px-4 md:px-6 xl:px-10">
 
+	<section class="grid grid-cols-4 gap-12 md:grid-cols-8 lg:grid-cols-12 prose">
+		<section class="col-span-4 lg:col-span-7 prose rounded w-full divide-y shadow-md shadow-primary/20 my-0">
+			<% if (!enrollment ) {%>
+				<div class="px-4 md:px-8 py-4 border-primary/10 flex justify-between items-center my-0">
+					<article aria-label="Find a classroom" class="py-8 flex flex-col flex-wrap gap-4 mx-auto">
+						<h2 class="my-0 text-base sm:text-lg md:text-xl 2xl:text-2xl">Enrolled in 0 classrooms.</h2>
+						<div class="text-secondary">
+							<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline-block w-8 h-8">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"></path>								  
+							</svg>
+						</div>
+						<form role="form" action="/find/" method="post" class="form-control gap-4">
+							<label class="sr-only" for="findClassroom">Input classroom password to find a classroom you'd like to enroll</label>
+								<input id="findClassroom" name="accessName" type="text" placeholder="Password for classroom" class="input input-bordered input-md">
+							<button aria-label="Find classroom" type="submit" class="btn mr-auto">Find classroom</button>
+						</form>
+					</article>
+				</div>
+				
+						
+					<% } else { %>
+						<h2 class="py-10 px-6 my-0 text-base sm:text-lg md:text-xl 2xl:text-2xl">Cancel enrollments</h2>
+				<div class="py-10 px-6 flex flex-wrap justify-center border-primary/10 my-0 gap-4">
+					<% enrollment.forEach (el=> { %>
+					<div class="sm:w-5/12 w-full mb-12 not-prose rounded bg-primary/5 p-6">
+						<div class="flex flex-col items-center gap-2">
+							<div class="pt-6 h-20 w-20">
+								<img src="<%= el.classroom.image %>" alt="Picture for <%= el.classroom.name %> classroom." class="h-full w-full object-cover rounded opacity-80">
+							</div>
+							<p class="text-base text-center"><%= el.classroom.name %></p>
+							<p class="text-sm">Lessons: <%= el.lessonCompletion.length %></p>
+							<form role="form" action="/enroll/<%=el.id%>?_method=DELETE" method="post" class="py-4">
+								<div class="form-control text-center text-sm gap-2">
+										<svg aria-label="Warning" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 self-center fill-warning hover:fill-error stroke-black">
+											<path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+										</svg>
+									<p>Cancelling will also erase your comments and lesson tracking.</p>
+									<input type="hidden" name="classroom" value="<%=el.classroom._id%>">
+									<button aria-label="Cancel enrollment" type="submit" class="mt-2 btn btn-ghost btn-active hover:btn-error mx-auto">Cancel enrollment</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<% }) %>
+				</div>
+					<%}%>
+		</section>
+
+		<section class="col-span-4 lg:col-span-5 my-0">
+			<div class="flex flex-col w-full">
+				<section aria-label="Update user info" class="rounded-lg divide-y shadow-md shadow-primary/20">
+					<div class="px-4 md:px-8 py-4 border-primary/10 flex justify-between items-center my-0">
+						<h2 class="my-0 text-base sm:text-lg md:text-xl 2xl:text-2xl">Update user info</h2>
+						<img src="<%= user.profile ? user.profile : 'https://api.lorem.space/image/face?w=50&h=50' %>" alt="<%= user.userName %>'s profile picture" role="img" class="w-16 h-16 md:w-20 md:h-20">
+					</div>
+					<details class="p-4 md:px-8  group focus:ring focus-within:ring-primary focus-within:ring-opacity-70 border-primary/10">
+						<summary class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer transition">
+							Change profile picture
+							<svg xmlns="http://www.w3.org/2000/svg" class="absolute right-0 w-6 h-6 transition -rotate-90 duration-300 top-1 group-open:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+								<path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+							</svg>
+						</summary>
+						<form role="form" action="/user/update/picture/?_method=PUT" class="my-8 px-4 flex flex-col gap-2" enctype="multipart/form-data" method="post">
+							<input type="hidden" name="update" value="picture">
+							<label class="text-sm font-medium" for="user_avatar">
+								Upload picture
+							</label>
+							<input name="file" class="block w-full text-sm rounded-lg cursor-pointer border border-primary/10 file:mr-4 file:py-2 file:border file:border-r file:uppercase file:text-sm file:border-primary/10 file:font-semibold file:bg-neutral file:text-neutral-content focus:ring focus:ring-offset-3 focus:ring-primary focus:ring-opacity-70" aria-describedby="user_avatar_help" id="user_avatar" type="file" required>
+						
+							<div class="mt-1 text-sm" id="user_avatar_help">
+								Supported file formats: JPG, JPEG, and PNG.
+							</div>
+	
+							<button aria-label="Submit picture" type="submit" class="btn gap-4 mr-auto mt-4">
+									<svg class="h-5 w-5 transition" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+										<path d="M9.25 13.25a.75.75 0 001.5 0V4.636l2.955 3.129a.75.75 0 001.09-1.03l-4.25-4.5a.75.75 0 00-1.09 0l-4.25 4.5a.75.75 0 101.09 1.03L9.25 4.636v8.614z" />
+										<path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
+									</svg>
+								</span>
+								Submit picture
+							</button>
+						</form>
+					</details>
+	
+					<details class="p-4 md:px-8  group focus:outline-none focus:ring focus:ring-offset-3 focus:ring-primary focus:ring-opacity-70 border-primary/10">
+						<summary class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer transition">
+							Change info and educator status
+							<svg xmlns="http://www.w3.org/2000/svg" class="absolute right-0 w-6 h-6 transition -rotate-90 duration-300 top-1 group-open:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+								<path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+							</svg>
+						</summary>
+						<form role="form" action="/user/update/?_method=PUT" class="my-8 sm:px-4 flex flex-col gap-6" method="post">
+							<input type="hidden" name="update" value="info">
+									<div class="flex flex-col gap-1">
+										<span class="text-sm">Current name: <%= user.userName %></span> 
+										<label for="profileChange-name">
+											<span class="text-base">Type your new name:</span>
+										</label>
+										<input type="text" id="profileChange-name" name="newName" autocomplete="off" placeholder="<%= user.userName %>"  
+										class="mt-1 input block w-full rounded-md border-primary/10 shadow-sm focus:border-primary focus:ring focus:ring-offset-3 focus:ring-primary focus:ring-opacity-70">
+									</div>
+									<div class="flex flex-col gap-1">
+										<span class="text-sm">Current e-mail: <%= user.email %></span> 
+										<label for="profileChange-email">
+											<span class="text-base">Type new e-mail address:</span>
+										</label>
+										<input type="email" placeholder="<%= user.email %>" id="profileChange-email" inputmode="email" name="newEmail" class="mt-1 input block w-full rounded-md border-primary/10 shadow-sm focus:border-primary focus:ring focus:ring-offset-3 focus:ring-primary focus:ring-opacity-70"/>
+									</div>
+									<div class="flex flex-col gap-1">
+										<span class="text-sm">Currently registered as: <%= user.educator ? "Teacher" : "Student" %>.</span>
+										<label>
+											<div class="flex gap-4 items-center">
+												<input type="checkbox" name="educator" value="<%= user.educator ? 'false' : 'true' %>"  class="checkbox checkbox-md"/> 
+												<span class="text-base">Change to <%= user.educator ? '"Student"' : '"Teacher"' %>?</span>
+											</div> 
+										</label>
+									</div>
+									
+									<button aria-label="Submit updated info" type="submit" class="btn gap-4 mr-auto mt-4">
+										<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+											<path fillRule="evenodd" d="M15.312 11.424a5.5 5.5 0 01-9.201 2.466l-.312-.311h2.433a.75.75 0 000-1.5H3.989a.75.75 0 00-.75.75v4.242a.75.75 0 001.5 0v-2.43l.31.31a7 7 0 0011.712-3.138.75.75 0 00-1.449-.39zm1.23-3.723a.75.75 0 00.219-.53V2.929a.75.75 0 00-1.5 0V5.36l-.31-.31A7 7 0 003.239 8.188a.75.75 0 101.448.389A5.5 5.5 0 0113.89 6.11l.311.31h-2.432a.75.75 0 000 1.5h4.243a.75.75 0 00.53-.219z" clipRule="evenodd" />
+										</svg>
+										Update info
+									</button>
+						</form>
+					</details>
+				</section>
+			</div>
+		</section>
+	</section>
+
+</div>
+</div>
 <%- include('partials/footer') -%>

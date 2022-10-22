@@ -1,14 +1,11 @@
 <%- include('partials/header', {navbar: "yes" , title: "Classroom" , active: "" }) -%>
-
  
-<div class="px-4 xl:px-0">
-	<div class="mx-auto container">
 		<div class="flex flex-col">
-			<div class="pl-4 md:pl-10 py-4 md:py-7q rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 flex justify-between gap-4 flex-wrap">
-				<h1 class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal"><%=classrooms.name%></h1>
-				<figure class="flex items-center px-4 gap-4 lg:mr-4">
-					<img src="<%= classrooms.creator.profile %>" alt="<%= classrooms.creator.userName %> profile picture" class="rounded-full w-12">
-					<figcaption class="sm:text-lg md:text-xl lg:text-2xl leading-normal">
+			<div class="px-4 md:px-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 via-transparent flex justify-between gap-4 flex-wrap items-center">
+				<h1 class="text-2xl lg:text-4xl font-bold leading-normal mt-4"><%=classrooms.name%></h1>
+				<figure class="flex items-center mt-4 gap-4">
+					<img src="<%= classrooms.creator.profile %>" alt="<%= classrooms.creator.userName %> profile picture" class="rounded-full w-8">
+					<figcaption class="text-lg leading-normal">
 					 <span class="font-bold">Instructor:</span> <%= classrooms.creator.userName %>
 					</figcaption>
 				</figure>
@@ -27,7 +24,7 @@
 			<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
 				<div class="py-8 not-prose flex flex-col md:flex-row gap-8">
 
-					<article class="w-full max-w-xs mb-auto border border-base-content border-opacity-20 card bg-base-100 mx-auto shadow-xl prose">
+					<aside class="w-full max-w-xs mb-auto border border-base-content border-opacity-20 card bg-secondary-5 mx-auto shadow-xl prose">
 						<div class="w-10/12 h-48 rounded-xl mx-auto mt-8" style="background-image: linear-gradient(
 							hsla(var(--p)/.3), 
 							hsla(var(--s)/.3)
@@ -49,7 +46,7 @@
 								<div aria-label="Enrollment" class="divider uppercase font-bold">Enrollment</div>
 								<details class="p-4 group outline-base-content/50 bg-base-200/50 rounded-md">
 									<summary class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer focus-visible:outline-none ">
-										<p>Cancell enrollment</p>
+										<p>Cancel enrollment</p>
 										<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute right-0 w-5 h-5 transition duration-300 top-1 group-open:rotate-90">
 											<path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
 										</svg>										  
@@ -76,14 +73,14 @@
 								<p class="text-center"><a aria-label="Sign up" href="/signup" class="btn btn-ghost btn-xs">Sign up</a> or <a aria-label="Log in" href="/login" class="btn btn-ghost btn-xs">log in</a><br> to enroll and track progress.</p>
 							<%}%>
 						</div>
-					</article>
+					</aside>
 
 					<div class="overflow-x-auto w-full">
 						<table class="table w-full prose">
 							<thead class="border-b border-base-content border-opacity-20">
 								<tr>
-									<th aria-label="Lesson" class="px-2 sm:px-4 <%= !enrollment ? 'rounded-tr-xl' : '' %>">Lesson</th>
-									<th aria-label="Date due" class="px-0 sm:px-4 <%= !enrollment ? 'hidden' : 'show' %>">Due</th>
+									<th aria-label="Lesson title" class="px-2 sm:px-4 <%= !enrollment ? 'rounded-tr-xl' : '' %>">Lesson title</th>
+									<th aria-label="Date due" class="px-0 sm:px-4 <%= !enrollment ? 'hidden' : 'show' %>">Date due</th>
 								</tr>
 							</thead>
 							<caption class="sr-only">List of lessons</caption>
@@ -92,14 +89,13 @@
 									<% lessons.forEach (el=> { %>
 								<tr class="">
 									<td class="px-2 sm:px-4 xs:w-40 whitespace-normal sm:w-auto">
-										<a href="./<%= el.id %>" class="font-medium transition underline underline-offset-4 hover:no-underline hover:text-primary flex gap-2 items-center">
+										<a href="./<%= el.id %>" class="text-center transition hover:text-primary text-sm font-medium underline underline-offset-4 flex gap-2 items-center">
 											<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 hidden sm:inline-block">
 												<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
 												<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
 											  </svg>
 											  <%= el.title %>
 										</a>
-										<p class="hidden sm:inline-block badge badge-ghost ml-5">Added: <%= new Date(el.createdAt).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
 									</td>
 								</tr>
 									<% }) %>
@@ -115,11 +111,10 @@
 												  </svg>
 												  <%= el.lesson.title %>
 											</a>
-											<p class="hidden sm:inline-block badge badge-ghost ml-5">Added: <%= new Date(el.lesson.createdAt).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
 										</td>
 										<td class="px-0 sm:px-4 <%= el.complete === true ? 'bg-base-300' : '' %>">
-											<span class="badge my-1 <%= el.complete === true ? '' : 'badge-warning' %> "><%= el.complete === true ? 'Complete' : 'Not complete' %></span>
-											<p class="text-sm"><%= el.lesson.dateDue.toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
+											<span aria-label="You have marked this lesson as <%= el.complete === true ? 'Complete.' : 'Not complete.' %>" class="badge my-1 <%= el.complete === true ? '' : 'badge-warning' %> "><%= el.complete === true ? 'Complete' : 'Not complete' %></span>
+											<p class="text-sm"><span class="sr-only">Expected completed by </span><%= el.lesson.dateDue.toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
 										</td>
 									</tr>
 									<% }) %>
@@ -136,8 +131,5 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
 					
 <%- include('partials/footer') -%>

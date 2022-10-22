@@ -2,4 +2,4 @@
 
 - [ ] Complete README
 - [ ] Display user flow in Wiki
-- [ ] Close two last issue tickets
+- [x] Close ~~two~~ last issue
