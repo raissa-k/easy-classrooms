@@ -1,7 +1,7 @@
 <%- include('partials/header', {navbar: "yes" , title: "Classroom" , active: "" }) -%>
 
 	<div class="flex flex-col">
-		<div class="px-4 md:px-7 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 flex justify-between gap-4 flex-wrap items-center">
+		<div class="px-4 md:px-7 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 via-transparent flex justify-between gap-4 flex-wrap items-center">
 			<h1 class="text-2xl lg:text-4xl font-bold leading-normal mt-4" aria-label="Lesson <%=lessons.title%> in classroom <%=classrooms.name%>" class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal"><%=lessons.title%></h1>
 			<figure class="flex items-center mt-4 gap-4">
 				<img src="<%= classrooms.image %>" alt="Classroom picture" class="rounded-full w-8">
@@ -14,7 +14,7 @@
 	<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
 		<div class="py-8 not-prose flex flex-col md:flex-row gap-8">
 			<aside>
-			<div class="w-full max-w-xs mb-auto border border-base-content border-opacity-20 card bg-base-100 mx-auto shadow-xl prose">
+			<div class="w-full max-w-xs mb-auto border border-primary/10 card bg-base-100 mx-auto shadow-xl prose">
 				<div class="card-body">
 					<%if (user && !enrollment && !isTeacher) {%>	
 						<form role="form" aria-label="Enrollment" action="/enroll" method="post">
@@ -57,18 +57,17 @@
 			</div>
 			</aside>
 
-			<div class="overflow-x-auto prose">
-				<article class="flex flex-wrap gap-8">
-					<section aria-labelledby="lessonDesc" class="w-full lg:basis-5/12 lg:flex-grow">
+			<div class="shadow rounded flex-col w-full prose border border-primary/10">
+				<div class="bg-primary/5 rounded-t flex-col justify-center items-center px-4 py-6">
+					<section aria-labelledby="lessonDesc" class="flex flex-col items-center w-5/6 mx-auto py-4">
 						<div class="divider uppercase">
 							<h2 id="lessonDesc" class="font-bold tracking-tighter" aria-label="Lesson description">
 								Description
 							</h2>
 						</div>
-							<p><%=lessons.description%></p>
+							<p class="max-w-prose"><%=lessons.description%></p>
 					</section>
-
-					<section aria-labelledby="lessonResources" class="w-full lg:basis-5/12 lg:flex-grow">
+					<section aria-labelledby="lessonResources" class="flex flex-col items-center w-5/6 mx-auto pt-4 pb-8">
 						<div class="divider uppercase">
 							<h2 id="lessonResources" class="font-bold tracking-tighter" aria-label="Lesson resources">
 								Resources
@@ -86,15 +85,16 @@
 							<% }) %>
 						</ul>
 					</section>
-					<section aria-labelledby="commentsTitle" class="flex flex-col flex-wrap gap-4 w-full">
-						<div class="divider uppercase min-w-full">
+				</div>
+					<section aria-labelledby="commentsTitle" class="flex flex-col flex-wrap gap-4 w-full pb-8">
+						<div class="divider uppercase min-w-full -mt-2">
 							<h2 id="commentsTitle" class="font-bold tracking-tighter" aria-label="Comments">
 							Comments
 							</h2>
 						</div>
 						<%if (user && enrollment || user && isTeacher) {%>
 							<div class="flex flex-col gap-6 max-w-lg mx-auto w-full break-all">
-								<form role="form" action="./<%= lessons._id %>" method="POST" class="form-control w-full justify-items-stretch" aria-labelledby="commentLabel">
+								<form role="form" action="./<%= lessons._id %>" method="POST" class="form-control w-full justify-items-stretch px-8" aria-labelledby="commentLabel">
 									<label id="commentLabel" for="commentInput" class="px-4 py-2 bg-base-200 rounded-t-lg rounded-b-none">Add your comment
 									</label>
 									<textarea class="textarea textarea-bordered placeholder:text-base-content/60 rounded-none" rows="3" id="commentInput" name="comment" placeholder="I have a question..." required></textarea>
@@ -130,15 +130,10 @@
 								</article>
 								<% }) %>
 							</div>
-						
-						
-
-
 						<%} else {%>
 							<p class="text-center mx-auto">Enroll in classroom to read and add comments.</p>
 						<%}%>
 					</section>
-				</article>				
 			</div>
 		</div>
 	</div>

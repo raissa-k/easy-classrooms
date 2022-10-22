@@ -7,17 +7,18 @@ const Enrollment = require("../models/Enrollment")
 
 module.exports = {
 	getPrivateProfile: async (req, res) => {
-		let userClassrooms
+		let userEnrollment
 		try {
-			await Enrollment.find({ student: req.user.id }).populate({
+			userEnrollment = await Enrollment.find({ student: req.user.id }).populate({
 				path: 'classroom',
 				populate: { path: 'lessons' }
-			}).exec((err, enrolledClassrooms) =>
-			userClassrooms = enrolledClassrooms)
-			res.render("profile.ejs", {user: req.user, classrooms: userClassrooms });
+			})
 		} catch (err) {
-		  console.log(err);
+			req.flash('error', {msg: 'Error. Could not access user information.'})
+			res.redirect('back')
+			console.log(err);
 		}
+		res.render("profile.ejs", {user: req.user, enrollment: userEnrollment });
 	},
 	updateInfo: async (req, res) => {
 		const action = req.body.update
