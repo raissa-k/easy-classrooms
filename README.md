@@ -61,7 +61,7 @@ An easy-to-use solution to share assignments with students, even those who don't
 Clone the project
 
 ```bash
-  git clone https://github.com/raissa-k/talkincorporate.git
+  git clone https://github.com/raissa-k/easy-classrooms.git
 ```
 Install dependencies
 
