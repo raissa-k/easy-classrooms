@@ -59,10 +59,10 @@
 						<%if( classrooms.length > 0 ){%>
 						<div class="flex-col">
 							<p role="heading" class="stat-value">
-								<span><%= Math.round((total === incompleteLessons ? 0 : incompleteLessons / total) *100) %>%</span>
+								<span><%= Math.round((total === completeLessons ? 0 : completeLessons / total) *100) %>%</span>
 								<span class="stat-title font-normal text-base opacity-80">Lessons done</span>
 							</p>
-							<p class="text-sm py-2 block opacity-90"><%= incompleteLessons %> <%= incompleteLessons == 1 ? 'lesson' : 'lessons' %> to complete</p>
+							<p class="text-sm py-2 block opacity-90"><%= total - completeLessons %> <%= total - completeLessons == 1 ? 'lesson' : 'lessons' %> to complete</p>
 						</div>
 						<% } else { %>
 						<div class="flex flex-col opacity-90 gap-2">
