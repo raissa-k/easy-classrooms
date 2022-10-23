@@ -1,23 +1,21 @@
 <%- include('partials/header', {navbar: "yes" , title: "Your classrooms" , active: "home" }) -%>
 
-
-	<div class="flex flex-col">
-		<div class="px-4 md:px-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 via-transparent flex justify-between gap-4 flex-wrap items-center">
+		<div class="px-6 md:px-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 to-inherit flex justify-between gap-4 flex-wrap items-center">
 			<h1 class="text-2xl lg:text-4xl font-bold leading-normal mt-4">Welcome, <%= user.userName %>!</h1>
 		</div>
-			<div class="bg-primary-content/5 rounded-b-md shadow-lg pb-8 px-2 sm:px-4 md:px-6 xl:px-10">
+			<div class="shadow-lg pb-8 px-6 xl:px-10">
 
-				<section aria-label="Your stats" class="stats grid stats-vertical md:stats-horizontal shadow mt-8 border border-base-200 bg-secondary/5 rounded-md">
+				<section aria-label="Your stats" class="stats grid stats-vertical md:stats-horizontal shadow mt-8 border border-base-200 bg-base-200/50 rounded-md overflow-hidden">
 					<article aria-label="Find a classroom" class="stat flex md:flex-col py-6 gap-4">
 						<div class="text-secondary">
 							<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline-block w-8 h-8">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />								  
 							</svg>
 						</div>
-						<form role="form" action="/find/" method="post" class="form-control gap-2">
+						<form role="form" action="/find/" method="post" class="form-control gap-4">
 							<label class="sr-only" for="findClassroom">Input classroom password to find a classroom you'd like to enroll</label>
-								<input id="findClassroom" name="accessName" type="text" placeholder="Password for classroom" class="input input-bordered input-sm w-44" />
-							<button aria-label="Find classroom" type="submit" class="btn btn-sm mr-auto text-sm hover:btn-secondary">Find</button>
+								<input id="findClassroom" name="accessName" type="text" placeholder="Password for classroom" class="input input-xs sm:input-md input-bordered mr-auto" />
+							<button aria-label="Find classroom" type="submit" class="btn btn-xs sm:btn-sm mr-auto text-xs sm:text-sm btn-secondary">Find</button>
 						</form>
 					</article>
 
@@ -28,9 +26,9 @@
 								<path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
 							</svg>
 						</div>
-						<div class="flex flex-col gap-4 opacity-80">
-							<p role="heading" class="max-w-[150px] break-words lg:max-w-xs">You have turned on "Teacher" settings</p>
-							<a aria-label="Teacher panel" href="/teacher" class="btn btn-primary btn-outline btn-xs md:btn-sm mr-auto md:text-xs lg:text-base">Teacher Panel</a>
+						<div class="flex flex-col gap-4">
+							<p role="heading" class="max-w-[150px] break-words lg:max-w-xs opacity-80">You have turned on "Teacher" settings</p>
+							<a aria-label="Teacher panel" href="/teacher" class="btn-primary btn btn-xs sm:btn-sm mr-auto text-xs sm:text-sm">Teacher Panel</a>
 						</div>
 					</article>	
 					<% } else { %>
@@ -44,7 +42,7 @@
 							<p role="heading">Enrolled in:
 							<span class="stat-value text-primary">
 								<%= classrooms.length > 0 ? classrooms.length : "0" %>
-								<span class="text-base font-normal inline opacity-80"><%= classrooms.length >= 2 || classrooms.length == 0 ? "classrooms" : "classroom"%></span>
+								<span class="text-base font-normal inline opacity-100"><%= classrooms.length >= 2 || classrooms.length == 0 ? "classrooms" : "classroom"%></span>
 							</span>
 							</p>
 						</div>
@@ -64,12 +62,12 @@
 								<span><%= Math.round((total === incompleteLessons ? 0 : incompleteLessons / total) *100) %>%</span>
 								<span class="stat-title font-normal text-base opacity-80">Lessons done</span>
 							</p>
-							<p class="text-sm py-2 block opacity-80"><%= incompleteLessons %> <%= incompleteLessons == 1 ? 'lesson' : 'lessons' %> to complete</p>
+							<p class="text-sm py-2 block opacity-90"><%= incompleteLessons %> <%= incompleteLessons == 1 ? 'lesson' : 'lessons' %> to complete</p>
 						</div>
 						<% } else { %>
-						<div class="flex flex-col opacity-80 gap-2">
+						<div class="flex flex-col opacity-90 gap-2">
 							<p class="max-w-[150px] break-words lg:max-w-xs break-all">Enroll in a classroom to access stats</p>
-							<p class="stat-desc opacity-80">Lesson completion unavailable</p>
+							<p class="stat-desc opacity-90">Lesson completion unavailable</p>
 						</div>
 						<%}%>
 					</article>
@@ -101,5 +99,4 @@
 					</div>
 				<%}%>
 			</div>
-	</div>
 <%- include('partials/footer') -%>

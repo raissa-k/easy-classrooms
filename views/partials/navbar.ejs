@@ -46,20 +46,20 @@
 		<div class="pointer-events-auto md:hidden not-prose">
 			<div id="navbar-mobile" aria-labelledby="modalmenu-title" data-modal-target="" class="absolute inset-0 overflow-hidden hidden" aria-modal="true">
 					<div data-modal-overlay="" data-modal-close="" tabindex="-1" data-class-in="opacity-50" data-class-out="opacity-0" class="fixed inset-0 w-full z-40 transition-opacity duration-500 bg-black select-none opacity-50"></div>
-				<div data-modal-wrapper="" data-class-in="translate-x-0" data-class-out="-translate-x-full" class="prose fixed top-0 left-0 bottom-0 w-10/12 h-full max-w-md z-50 overflow-auto scrolling-touch transition-transform duration-500 bg-base-100 flex flex-col shadow-xl transform translate-x-0">
-					<div class="flex items-center justify-between border-b p-6">
+				<div data-modal-wrapper="" data-class-in="translate-x-0" data-class-out="-translate-x-full" class="prose fixed top-0 left-0 bottom-0 w-10/12 h-full max-w-md z-50 overflow-auto scrolling-touch transition-transform duration-500 bg-neutral text-neutral-content flex flex-col shadow-xl transform translate-x-0">
+					<div class="flex items-center justify-between border-b border-neutral-content/10 p-6">
 						<div class="flex items-center gap-4">
 							<img aria-hidden="true" alt="profile-pic" src="<%=user.profile%>" class="w-8 h-8 rounded-full">
 							<h3 id="navbar-mobile" class="text-2xl font-bold tracking-tight"><%=user.userName%></h3>
 						</div>
-						<button aria-label="Close" data-modal-close="" class="btn btn-square btn-outline btn-sm">
+						<button aria-label="Close" data-modal-close="" class="btn btn-square btn-sm">
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
 						</button>
 					</div>
 
 				<nav class="relative h-full flex-grow overflow-x-hidden overflow-y-auto p-6">
-					<ul>
-						<li class="border-b border-base-200">
+					<ul class="divide-y">
+						<li class="border-neutral-content/10">
 							<a href="/home" class="cursor-pointer flex flex-row items-center justify-between py-4" <%= active=="home" ? 'aria-current="page"' : '' %>>
 								Home
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -68,7 +68,7 @@
 							</a>
 						</li>
 						<%if( user.educator ){%>
-						<li class="border-b border-base-200">
+						<li class="border-neutral-content/10">
 							<a href="/teacher" class="cursor-pointer flex flex-row items-center justify-between py-4" <%= active=="teacher-panel" ? 'aria-current="page"' : '' %>>
 								Teacher Panel
 								<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -79,7 +79,7 @@
 							</a>
 						</li>
 						<% } %>
-						<li class="border-b border-base-200">
+						<li class="border-neutral-content/10">
 							<a href="/user/profile" class="cursor-pointer active flex flex-row items-center justify-between py-4" <%= active=="profile" ? 'aria-current="page"' : '' %>>
 								User profile
 								<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -87,7 +87,7 @@
 								</svg>	
 							</a>
 						</li>
-						<li class="border-base-300 pt-4 border-t">
+						<li class="border-neutral-content/10">
 							<a href="/logout" class="cursor-pointer flex flex-row items-center justify-between py-4">
 								<span class="font-bold">Log out</span>
 								<svg aria-hidden="true" role="presentation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -98,7 +98,7 @@
 					</ul>	
 				</nav>
 				<div class="absolute bottom-0 left-0 mb-2 ml-2">
-					<button aria-label="Close" data-modal-close="" type="button" class="btn btn-outline">
+					<button aria-label="Close" data-modal-close="" type="button" class="btn">
 					Close Drawer
 					</button>
 				</div>

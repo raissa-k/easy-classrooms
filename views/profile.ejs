@@ -1,20 +1,17 @@
 <%- include('partials/header', {navbar: "yes", title: "User profile", active: "profile"} ) %>
 
-<div class="px-4 xl:px-0 mx-auto container">
-	<div class="flex flex-col">
-		<div class="px-4 md:px-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 via-transparent flex justify-between gap-4 flex-wrap items-center">
+	<div class="px-6 md:px-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 to-inherit flex justify-between gap-4 flex-wrap items-center">
 			<h1 class="text-2xl lg:text-4xl font-bold leading-normal mt-4">
 				What would you like to do today?
 			</h1>
 		</div>
-	</div>
-	<div class="bg-primary-content/5 rounded-b-md shadow-lg pb-8 px-2 sm:px-4 md:px-6 xl:px-10">
+	<div class="rounded-b-md shadow-lg pb-8 px-2 sm:px-4 md:px-6 xl:px-10">
 
-	<section class="grid grid-cols-4 gap-12 md:grid-cols-8 lg:grid-cols-12 prose">
-		<section class="col-span-4 lg:col-span-7 prose rounded w-full divide-y shadow-md shadow-primary/20 my-0">
-			<% if (!enrollment ) {%>
+	<section class="grid grid-cols-4 gap-12 md:grid-cols-8 lg:grid-cols-12 prose pb-8">
+		<section class="col-span-4 lg:col-span-7 prose w-full divide-y my-0">
+			<% if (!enrollment.length ) {%>
 				<div class="px-4 md:px-8 py-4 border-primary/10 flex justify-between items-center my-0">
-					<article aria-label="Find a classroom" class="py-8 flex flex-col flex-wrap gap-4 mx-auto">
+					<article aria-label="Find a classroom" class="flex flex-col flex-wrap gap-4 mx-auto">
 						<h2 class="my-0 text-base sm:text-lg md:text-xl 2xl:text-2xl">Enrolled in 0 classrooms.</h2>
 						<div class="text-secondary">
 							<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline-block w-8 h-8">
@@ -24,17 +21,17 @@
 						<form role="form" action="/find/" method="post" class="form-control gap-4">
 							<label class="sr-only" for="findClassroom">Input classroom password to find a classroom you'd like to enroll</label>
 								<input id="findClassroom" name="accessName" type="text" placeholder="Password for classroom" class="input input-bordered input-md">
-							<button aria-label="Find classroom" type="submit" class="btn mr-auto">Find classroom</button>
+							<button aria-label="Find classroom" type="submit" class="btn btn-secondary mr-auto">Find classroom</button>
 						</form>
 					</article>
 				</div>
 				
 						
-					<% } else { %>
-						<h2 class="py-10 px-6 my-0 text-base sm:text-lg md:text-xl 2xl:text-2xl">Cancel enrollments</h2>
-				<div class="py-10 px-6 flex flex-wrap justify-center border-primary/10 my-0 gap-4">
+			<% } else { %>
+				<h2 class="py-10 px-6 my-0 text-base sm:text-lg md:text-xl 2xl:text-2xl">Cancel enrollments</h2>
+				<div class="py-10 px-6 flex flex-wrap justify-center border-secondary/10 my-0 gap-4">
 					<% enrollment.forEach (el=> { %>
-					<div class="sm:w-5/12 w-full mb-12 not-prose rounded bg-primary/5 p-6">
+					<div class="sm:w-5/12 w-full mb-12 not-prose rounded bg-secondary/5 p-6">
 						<div class="flex flex-col items-center gap-2">
 							<div class="pt-6 h-20 w-20">
 								<img src="<%= el.classroom.image %>" alt="Picture for <%= el.classroom.name %> classroom." class="h-full w-full object-cover rounded opacity-80">
@@ -60,12 +57,12 @@
 
 		<section class="col-span-4 lg:col-span-5 my-0">
 			<div class="flex flex-col w-full">
-				<section aria-label="Update user info" class="rounded-lg divide-y shadow-md shadow-primary/20">
+				<section aria-label="Update user info" class="rounded-lg divide-y bg-secondary/5">
 					<div class="px-4 md:px-8 py-4 border-primary/10 flex justify-between items-center my-0">
 						<h2 class="my-0 text-base sm:text-lg md:text-xl 2xl:text-2xl">Update user info</h2>
 						<img src="<%= user.profile ? user.profile : 'https://api.lorem.space/image/face?w=50&h=50' %>" alt="<%= user.userName %>'s profile picture" role="img" class="w-16 h-16 md:w-20 md:h-20">
 					</div>
-					<details class="p-4 md:px-8  group focus:ring focus-within:ring-primary focus-within:ring-opacity-70 border-primary/10">
+					<details class="p-4 md:px-8 group focus:ring focus-within:ring-secondary focus-within:ring-opacity-70 border-secondary/10">
 						<summary class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer transition">
 							Change profile picture
 							<svg xmlns="http://www.w3.org/2000/svg" class="absolute right-0 w-6 h-6 transition -rotate-90 duration-300 top-1 group-open:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -77,13 +74,13 @@
 							<label class="text-sm font-medium" for="user_avatar">
 								Upload picture
 							</label>
-							<input name="file" class="block w-full text-sm rounded-lg cursor-pointer border border-primary/10 file:mr-4 file:py-2 file:border file:border-r file:uppercase file:text-sm file:border-primary/10 file:font-semibold file:bg-neutral file:text-neutral-content focus:ring focus:ring-offset-3 focus:ring-primary focus:ring-opacity-70" aria-describedby="user_avatar_help" id="user_avatar" type="file" required>
+							<input name="file" class="input w-full text-sm rounded-lg cursor-pointer border border-secondary/20 file:mr-4 file:py-2 file:border file:border-r file:-ml-4 file:h-12 file:uppercase file:text-sm file:border-secondary/20 file:font-semibold file:bg-secondary file:text-secondary-content focus:ring focus:ring-offset-3 focus:ring-secondary focus:ring-opacity-70" aria-describedby="user_avatar_help" id="user_avatar" type="file" required>
 						
 							<div class="mt-1 text-sm" id="user_avatar_help">
 								Supported file formats: JPG, JPEG, and PNG.
 							</div>
 	
-							<button aria-label="Submit picture" type="submit" class="btn gap-4 mr-auto mt-4">
+							<button aria-label="Submit picture" type="submit" class="btn btn-secondary gap-4 mr-auto mt-4">
 									<svg class="h-5 w-5 transition" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
 										<path d="M9.25 13.25a.75.75 0 001.5 0V4.636l2.955 3.129a.75.75 0 001.09-1.03l-4.25-4.5a.75.75 0 00-1.09 0l-4.25 4.5a.75.75 0 101.09 1.03L9.25 4.636v8.614z" />
 										<path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
@@ -94,7 +91,7 @@
 						</form>
 					</details>
 	
-					<details class="p-4 md:px-8  group focus:outline-none focus:ring focus:ring-offset-3 focus:ring-primary focus:ring-opacity-70 border-primary/10">
+					<details class="p-4 md:px-8  group focus:outline-none focus:ring focus:ring-offset-3 focus:ring-secondary focus:ring-opacity-70 border-primary/10">
 						<summary class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer transition">
 							Change info and educator status
 							<svg xmlns="http://www.w3.org/2000/svg" class="absolute right-0 w-6 h-6 transition -rotate-90 duration-300 top-1 group-open:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -109,26 +106,26 @@
 											<span class="text-base">Type your new name:</span>
 										</label>
 										<input type="text" id="profileChange-name" name="newName" autocomplete="off" placeholder="<%= user.userName %>"  
-										class="mt-1 input block w-full rounded-md border-primary/10 shadow-sm focus:border-primary focus:ring focus:ring-offset-3 focus:ring-primary focus:ring-opacity-70">
+										class="mt-1 input w-full rounded-md border-secondary/20 shadow-sm focus:border-secondary focus:ring focus:ring-offset-3 focus:ring-secondary focus:ring-opacity-70">
 									</div>
 									<div class="flex flex-col gap-1">
 										<span class="text-sm">Current e-mail: <%= user.email %></span> 
 										<label for="profileChange-email">
 											<span class="text-base">Type new e-mail address:</span>
 										</label>
-										<input type="email" placeholder="<%= user.email %>" id="profileChange-email" inputmode="email" name="newEmail" class="mt-1 input block w-full rounded-md border-primary/10 shadow-sm focus:border-primary focus:ring focus:ring-offset-3 focus:ring-primary focus:ring-opacity-70"/>
+										<input type="email" placeholder="<%= user.email %>" id="profileChange-email" inputmode="email" name="newEmail" class="mt-1 input w-full rounded-md border-secondary/20 shadow-sm focus:border-secondary focus:ring focus:ring-offset-3 focus:ring-secondary focus:ring-opacity-70"/>
 									</div>
 									<div class="flex flex-col gap-1">
 										<span class="text-sm">Currently registered as: <%= user.educator ? "Teacher" : "Student" %>.</span>
 										<label>
 											<div class="flex gap-4 items-center">
-												<input type="checkbox" name="educator" value="<%= user.educator ? 'false' : 'true' %>"  class="checkbox checkbox-md"/> 
+												<input type="checkbox" name="educator" value="<%= user.educator ? 'false' : 'true' %>"  class="checkbox checkbox-md bg-base-100"/> 
 												<span class="text-base">Change to <%= user.educator ? '"Student"' : '"Teacher"' %>?</span>
 											</div> 
 										</label>
 									</div>
 									
-									<button aria-label="Submit updated info" type="submit" class="btn gap-4 mr-auto mt-4">
+									<button aria-label="Submit updated info" type="submit" class="btn btn-secondary gap-4 mr-auto mt-4">
 										<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
 											<path fillRule="evenodd" d="M15.312 11.424a5.5 5.5 0 01-9.201 2.466l-.312-.311h2.433a.75.75 0 000-1.5H3.989a.75.75 0 00-.75.75v4.242a.75.75 0 001.5 0v-2.43l.31.31a7 7 0 0011.712-3.138.75.75 0 00-1.449-.39zm1.23-3.723a.75.75 0 00.219-.53V2.929a.75.75 0 00-1.5 0V5.36l-.31-.31A7 7 0 003.239 8.188a.75.75 0 101.448.389A5.5 5.5 0 0113.89 6.11l.311.31h-2.432a.75.75 0 000 1.5h4.243a.75.75 0 00.53-.219z" clipRule="evenodd" />
 										</svg>

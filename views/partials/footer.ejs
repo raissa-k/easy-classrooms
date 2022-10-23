@@ -1,15 +1,16 @@
-<div class="flex not-prose flex-col items-center justify-center gap-6 sm:flex-row mt-32">
-<a href="#top" class="text-center transition hover:text-accent text-sm font-medium" data-js-hook="back-to-top-button">
+</div>
+<div class="flex text-neutral-content not-prose flex-col items-center justify-center gap-6 sm:flex-row mt-32">
+<a href="#top" class="text-center transition hover:text-accent text-sm font-medium <%= typeof (bg) != 'undefined' && bg === 'no' ? 'text-base-content' : 'text-neutral-content' %>" data-js-hook="back-to-top-button">
 	<svg aria-hidden="true" class="inline h-4 w-4 group-hover:mb-2 duration-200" fill="currentColor" fill-rule="evenodd" viewBox="0 0 24 24" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"></path></svg>
 	<span>Back to top</span>
 </a>
 </div>
 </main>
 <footer role="contentinfo" class="relative mt-8 p-8 mx-auto max-w-2xl lg:max-w-5xl">
-	<span class="absolute inset-x-1 -top-px h-px bg-gradient-to-r from-blue-500/0 via-secondary to-blue-500/0 opacity-50"></span>
+	<span class="absolute inset-x-1 -top-px h-px bg-gradient-to-r from-transparent via-accent  to-transparent opacity-50"></span>
 				<div class="flex text-xs items-center justify-between gap-6 sm:flex-row prose">
-					<a href="https://github.com/raissa-k/easy-classrooms" target="_blank">See on GitHub</a>
-					<p class="prose">© <%= new Date().getFullYear() %> <a target="_blank" href="http://raissak.com">Raissa K.</a><br>All rights reserved.</p>
+					<a class="<%= typeof (bg) != 'undefined' && bg === 'no' ? 'text-base-content' : 'text-neutral-content' %>" href="https://github.com/raissa-k/easy-classrooms" target="_blank">See on GitHub</a>
+					<p class="prose <%= typeof (bg) != 'undefined' && bg === 'no' ? 'text-base-content' : 'text-neutral-content' %>">© <%= new Date().getFullYear() %> <a target="_blank" href="http://raissak.com" class="<%= typeof (bg) != 'undefined' && bg === 'no' ? 'text-base-content' : 'text-neutral-content' %>">Raissa K.</a><br>All rights reserved.</p>
 				</div>
 </footer>
 <script src="/script.js"></script>

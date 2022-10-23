@@ -1,7 +1,6 @@
-<%- include('partials/header', {navbar: "yes" , title: "Classroom" , active: "" }) -%>
+<%- include('partials/header', {navbar: "yes" , title: "Lesson" , active: "" }) -%>
 
-	<div class="flex flex-col">
-		<div class="px-4 md:px-7 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 via-transparent flex justify-between gap-4 flex-wrap items-center">
+	<div class="px-6 md:px-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 to-inherit flex justify-between gap-4 flex-wrap items-center">
 			<h1 class="text-2xl lg:text-4xl font-bold leading-normal mt-4" aria-label="Lesson <%=lessons.title%> in classroom <%=classrooms.name%>" class="sm:text-lg md:text-2xl lg:text-4xl font-bold leading-normal"><%=lessons.title%></h1>
 			<figure class="flex items-center mt-4 gap-4">
 				<img src="<%= classrooms.image %>" alt="Classroom picture" class="rounded-full w-8">
@@ -10,11 +9,10 @@
 				</figcaption>
 			</figure>
 		</div>
-	</div>
-	<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
+	<div class="shadow-lg pb-8 px-6 xl:px-10 rounded-md">
 		<div class="py-8 not-prose flex flex-col md:flex-row gap-8">
 			<aside>
-			<div class="w-full max-w-xs mb-auto border border-primary/10 card bg-base-100 mx-auto shadow-xl prose">
+			<div class="w-full max-w-xs mb-auto border border-primary/10 card mx-auto shadow-xl prose">
 				<div class="card-body">
 					<%if (user && !enrollment && !isTeacher) {%>	
 						<form role="form" aria-label="Enrollment" action="/enroll" method="post">
@@ -57,7 +55,7 @@
 			</div>
 			</aside>
 
-			<div class="shadow rounded flex-col w-full prose border border-primary/10">
+			<div class="shadow rounded-md flex-col w-full prose border border-primary/10">
 				<div class="bg-primary/5 rounded-t flex-col justify-center items-center px-4 py-6">
 					<section aria-labelledby="lessonDesc" class="flex flex-col items-center w-5/6 mx-auto py-4">
 						<div class="divider uppercase">
@@ -95,7 +93,7 @@
 						<%if (user && enrollment || user && isTeacher) {%>
 							<div class="flex flex-col gap-6 max-w-lg mx-auto w-full break-all">
 								<form role="form" action="./<%= lessons._id %>" method="POST" class="form-control w-full justify-items-stretch px-8" aria-labelledby="commentLabel">
-									<label id="commentLabel" for="commentInput" class="px-4 py-2 bg-base-200 rounded-t-lg rounded-b-none">Add your comment
+									<label id="commentLabel" for="commentInput" class="px-4 py-2 bg-primary/5 border border-base-content/20 rounded-t-lg rounded-b-none">Add your comment
 									</label>
 									<textarea class="textarea textarea-bordered placeholder:text-base-content/60 rounded-none" rows="3" id="commentInput" name="comment" placeholder="I have a question..." required></textarea>
 										<button type="submit" aria-label="Submit comment" class="btn btn-sm btn-primary gap-2 rounded-b-lg rounded-t-none">
@@ -106,10 +104,10 @@
 										</button>
 								</form>	
 							<% comments.forEach( el=> { %>
-								<article class="p-6 pb-0 text-base border-t border-base-200">
+								<article class="p-6 pb-0 text-base border-t border-primary/10">
 									<header class="flex justify-between items-center mb-2">
 										<div class="flex items-center gap-2">
-											<p class="inline-flex items-center mr-3 font-semibold tracking-tight text-sm sm:text-lg"><img class="mr-2 w-6 h-6 rounded-full" src="<%= el.user.profile %>" alt="<%= el.user.userName %>'s profile picture"><%= el.user.userName %></p>
+											<p class="inline-flex items-center font-semibold tracking-tight text-sm sm:text-lg gap-1"><img class="w-6 h-6 rounded-full" src="<%= el.user.profile %>" alt="<%= el.user.userName %>'s profile picture"><%= el.user.userName %></p>
 											<p class="text-xs font-normal"><time pubdate="" datetime="<%= el.creationDate %>">posted on <%= new Date(el.creationDate).toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></time></p>
 										</div>
 									</header>
