@@ -1,7 +1,6 @@
 <%- include('partials/header', {navbar: "yes" , title: "Classroom" , active: "" }) -%>
  
-		<div class="flex flex-col">
-			<div class="px-4 md:px-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-secondary/10 via-transparent flex justify-between gap-4 flex-wrap items-center">
+			<div class="px-6 md:px-10 py-4 md:py-7 rounded-tl-md rounded-tr-md bg-gradient-to-b from-primary/10 to-inherit flex justify-between gap-4 flex-wrap items-center">
 				<h1 class="text-2xl lg:text-4xl font-bold leading-normal mt-4"><%=classrooms.name%></h1>
 				<figure class="flex items-center mt-4 gap-4">
 					<img src="<%= classrooms.creator.profile %>" alt="<%= classrooms.creator.userName %> profile picture" class="rounded-full w-8">
@@ -20,11 +19,10 @@
 				</a>
 				<% } %>
 			</div>
-		</div>
-			<div class="bg-primary-content/5 shadow-lg pb-8 px-4 md:px-8 xl:px-10 rounded-md">
+			<div class="shadow-lg pb-8 px-6 xl:px-10 rounded-md">
 				<div class="py-8 not-prose flex flex-col md:flex-row gap-8">
 
-					<aside class="w-full max-w-xs mb-auto border border-base-content border-opacity-20 card bg-secondary-5 mx-auto shadow-xl prose">
+					<aside class="w-full max-w-xs mb-auto border border-primary/10 card bg-primary/5 mx-auto shadow-xl prose">
 						<div class="w-10/12 h-48 rounded-xl mx-auto mt-8" style="background-image: linear-gradient(
 							hsla(var(--p)/.3), 
 							hsla(var(--s)/.3)
@@ -64,7 +62,7 @@
 									</form>
 								</details>
 							<% } else if (user && isTeacher) { %>
-								<button  aria-label="Edit classroom" class="btn btn-secondary btn-outline w-40 mx-auto mt-4" data-modal-trigger="" id="editClass-btoggle" aria-controls="editClass" aria-expanded="false">
+								<button  aria-label="Edit classroom" class="btn btn-primary btn-outline w-40 mx-auto mt-4" data-modal-trigger="" id="editClass-btoggle" aria-controls="editClass" aria-expanded="false">
 									Edit classroom</span>
 								</button>
 				
@@ -77,20 +75,20 @@
 
 					<div class="overflow-x-auto w-full">
 						<table class="table w-full prose">
-							<thead class="border-b border-base-content border-opacity-20">
-								<tr>
-									<th aria-label="Lesson title" class="px-2 sm:px-4 <%= !enrollment ? 'rounded-tr-xl' : '' %>">Lesson title</th>
-									<th aria-label="Date due" class="px-0 sm:px-4 <%= !enrollment ? 'hidden' : 'show' %>">Date due</th>
+							<thead class="border-b border-primary/10">
+								<tr class="">
+									<th aria-label="Lesson title" class="bg-primary/5 px-2 sm:px-4 <%= !enrollment ? 'rounded-tr-xl' : '' %>">Lesson title</th>
+									<th aria-label="Date due" class="bg-primary/5 px-0 sm:px-4 <%= !enrollment ? 'hidden' : 'show' %>">Date due</th>
 								</tr>
 							</thead>
 							<caption class="sr-only">List of lessons</caption>
-							<tbody>
+							<tbody class="border-b border-primary/10">
 								<%if (lessons.length > 0 && !enrollment) {%>
 									<% lessons.forEach (el=> { %>
 								<tr class="">
 									<td class="px-2 sm:px-4 xs:w-40 whitespace-normal sm:w-auto">
 										<a href="./<%= el.id %>" class="text-center transition hover:text-primary text-sm font-medium underline underline-offset-4 flex gap-2 items-center">
-											<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 hidden sm:inline-block">
+											<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
 												<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
 												<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
 											  </svg>
@@ -103,16 +101,16 @@
 								<%if (enrollment) { %>
 									<% enrolledLessons.forEach (el=> { %>
 									<tr>
-										<td class="px-2 sm:px-4 xs:w-40 whitespace-normal sm:w-auto <%= el.complete === true ? 'bg-base-300' : '' %>">
+										<td class="px-2 sm:px-4 xs:w-40 whitespace-normal sm:w-auto <%= el.complete === true ? 'bg-primary/5' : '' %>">
 											<a href="./<%= el.lesson._id %>" class="font-medium transition underline underline-offset-4 hover:no-underline hover:text-primary flex gap-2 items-center">
-												<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 hidden sm:inline-block">
+												<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
 													<path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.225 5.865.75.75 0 00.977-1.138 2.5 2.5 0 01-.142-3.667l3-3z" />
 													<path d="M11.603 7.963a.75.75 0 00-.977 1.138 2.5 2.5 0 01.142 3.667l-3 3a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.061-1.06l-1.224 1.224a4 4 0 105.656 5.656l3-3a4 4 0 00-.225-5.865z" />
 												  </svg>
 												  <%= el.lesson.title %>
 											</a>
 										</td>
-										<td class="px-0 sm:px-4 <%= el.complete === true ? 'bg-base-300' : '' %>">
+										<td class="px-0 sm:px-4 <%= el.complete === true ? 'bg-primary/5' : '' %>">
 											<span aria-label="You have marked this lesson as <%= el.complete === true ? 'Complete.' : 'Not complete.' %>" class="badge my-1 <%= el.complete === true ? '' : 'badge-warning' %> "><%= el.complete === true ? 'Complete' : 'Not complete' %></span>
 											<p class="text-sm"><span class="sr-only">Expected completed by </span><%= el.lesson.dateDue.toLocaleDateString('en', { year: 'numeric' , month: 'short' , day: '2-digit' }) %></p>
 										</td>
@@ -120,7 +118,7 @@
 									<% }) %>
 									<%}%>
 									<%if (!lessons.length ) { %>
-									<tr class="hover">
+									<tr>
 										<td>
 											No lesson found.
 										</td>

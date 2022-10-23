@@ -16,7 +16,7 @@ module.exports = {
             data = result.response
         })
         .catch(error => console.error(error))
-        res.render('index.ejs', {data: data})            
+        res.render('index.ejs', {data: data, bg: "no"})            
     },
 	home: async (req, res) => {
 		try {

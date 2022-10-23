@@ -14,19 +14,34 @@ module.exports = {
 	],
 	daisyui: {
     styled: true,
-    themes: ["fantasy", "night"],
+    themes: [{
+        light: {
+		...require("daisyui/src/colors/themes")["[data-theme=light]"],
+		"primary": "#1e40af",
+		"secondary": "#155e75",
+        },
+		dark: {
+		...require("daisyui/src/colors/themes")["[data-theme=dark]"],
+		"primary": "#3abff8",
+		"secondary": "#67e8f9",
+		"--p": "198 93% 60%",
+    	"--s": "187 92% 69%",
+    	"--pf": "198 93% 48%",
+    	"--sf": "187 92% 55%",
+		"--pc": "198 100% 12%",
+		"--sc": "187 100% 14%",
+		}}],
     base: true,
     utils: true,
     logs: true,
     rtl: false,
     prefix: "",
-    darkTheme: "night"
+    darkTheme: "dark"
 	},
 	theme: {
 		typography: (theme) => ({
 		  DEFAULT: {
 			css: {
-			  '--tw-prose-body': theme('colors.zinc.600'),
 			  '--tw-prose-headings': theme('colors.zinc.900'),
 			  '--tw-prose-links': theme('colors.teal.500'),
 			  '--tw-prose-links-hover': theme('colors.teal.600'),
