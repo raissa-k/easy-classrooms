@@ -19,9 +19,18 @@ An easy-to-use solution to share assignments with students, even those who don't
 * [Lessons Learned](#lessons-learned)
 * [Roadmap](#roadmap)
 * [Author](#author)
+
 ## Links
 
 - [Hosted project](https://easy-classrooms.raissak.com/)
+
+To avoid signing up, you may log in with the following credentials:
+
+`tester2@gmail.com // testtest`
+
+To view an example class without loggin in, try this classroom password in the landing page:
+
+`metropolitan-Cherice-sheep`
 
 ## Screenshots
 
