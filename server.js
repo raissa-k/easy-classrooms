@@ -50,6 +50,9 @@ app.use("/user", userRoutes);
 app.use("/classroom", classroomRoutes);
 app.use("/lesson", lessonRoutes)
 app.use("/enroll", enrollmentRoutes)
+app.use(function (req, res, next) {
+    res.status(404).render('404.ejs', {bg: 'no'})
+  })
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
