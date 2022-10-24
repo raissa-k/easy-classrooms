@@ -7,11 +7,6 @@ An easy-to-use solution to share assignments with students, even those who don't
 
 * [Links](#links)
 * [Screenshots](#screenshots)
-  + [Landing page](#landing-page)
-  + [Home page (teacher view)](#home-page--teacher-view-)
-  + [Home page (student view)](#home-page--student-view-)
-  + [Classroom management (dark mode)](#classroom-management--dark-mode-)
-  + [Lesson (enrolled student view)](#lesson--enrolled-student-view-)
 * [Tech Stack](#tech-stack)
 * [Features](#features)
 * [Run Locally](#run-locally)
@@ -34,6 +29,12 @@ To view an example class without loggin in, try this classroom password in the l
 
 ## Screenshots
 
+<details><summary>
+  
+  ### Screenshots
+  
+</summary>
+
 ### Landing page
 ![screenshot of the landing page](https://i.imgur.com/mb4s7kGl.png)
 
@@ -48,6 +49,12 @@ To view an example class without loggin in, try this classroom password in the l
 
 ### Lesson (enrolled student view)
 ![screenshot of lesson page as viewed by a student](https://i.imgur.com/45AepZvl.png)
+  
+</details>  
+
+![Gif animation of navigation through project](https://user-images.githubusercontent.com/91985540/197544300-ea5c17ca-a2d6-466e-a4e2-5a0f3fcc90c6.gif)
+
+ 
 ## Tech Stack
 
 **Client:** JavaScript, HTML, EJS, TailwindCSS
