@@ -4,10 +4,11 @@
   "description": "A simpler way to share homework with students",
   "main": "server.js",
   "scripts": {
-    "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/style.css",
+    "build:js": "esbuild public/script.js --outfile=public/script.min.js --minify --target=chrome58,firefox57,safari11,edge16",
+    "build:css": "postcss public/styles/tailwind.css -o public/styles/style.css",
     "dev": "nodemon server.js",
     "start": "node server.js",
-	"lint": "eslint .",
+    "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "repository": {
@@ -59,10 +60,11 @@
     "@tailwindcss/typography": "github:tailwindcss/typography",
     "cssnano": "^5.1.13",
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.7",
-	"eslint": "^8.24.0",
+    "esbuild": "^0.15.12",
+    "eslint": "^8.24.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.1"
+    "eslint-plugin-promise": "^6.0.1",
+    "nodemon": "^2.0.7"
   }
 }
