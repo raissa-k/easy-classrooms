@@ -27,7 +27,7 @@
 							</svg>
 						</div>
 						<div class="flex flex-col gap-4">
-							<p role="heading" class="max-w-[150px] break-words lg:max-w-xs opacity-80">You have turned on "Teacher" settings</p>
+							<p class="max-w-[150px] break-words lg:max-w-xs opacity-80">You have turned on "Teacher" settings</p>
 							<a aria-label="Teacher panel" href="/teacher" class="btn-primary btn btn-xs sm:btn-sm mr-auto text-xs sm:text-sm">Teacher Panel</a>
 						</div>
 					</article>	
@@ -39,7 +39,7 @@
 							</svg>
 						</div>
 						<div class="flex-col opacity-80">
-							<p role="heading">Enrolled in:
+							<p>Enrolled in:
 							<span class="stat-value text-primary">
 								<%= classrooms.length > 0 ? classrooms.length : "0" %>
 								<span class="text-base font-normal inline opacity-100"><%= classrooms.length >= 2 || classrooms.length == 0 ? "classrooms" : "classroom"%></span>
@@ -58,7 +58,7 @@
 
 						<%if( classrooms.length > 0 ){%>
 						<div class="flex-col">
-							<p role="heading" class="stat-value">
+							<p class="stat-value">
 								<span><%= Math.round((total === completeLessons ? 0 : completeLessons / total) *100) %>%</span>
 								<span class="stat-title font-normal text-base opacity-80">Lessons done</span>
 							</p>

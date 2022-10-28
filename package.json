@@ -7,7 +7,8 @@
     "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/style.css",
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -58,6 +59,10 @@
     "@tailwindcss/typography": "github:tailwindcss/typography",
     "cssnano": "^5.1.13",
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+	"eslint": "^8.24.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.1"
   }
 }
