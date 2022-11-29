@@ -2,6 +2,8 @@
 
 An easy-to-use solution to share assignments with students, even those who don't want to register to follow along class.
 
+Read more about the process of building it [here](https://raissak.com/blog/building-easy-classrooms/)
+
 
 ## Table of Contents
 
@@ -72,6 +74,7 @@ To view an example class without loggin in, try this classroom password in the l
   - Users may access a classroom using its specific classroom password
   - Users don't need to log in to access a classroom or lessons, but their usage is limited
   - Students who are logged in and enrolled into a classroom can leave comments in lessons and track lesson completion
+  
 ## Run Locally
 
 Clone the project
@@ -113,7 +116,7 @@ UNSPLASH_CLIENT_ID= (from Unsplash Image API)
 - When it comes to text, CSS `text-transform: uppercase` also directly affects the element, and so adding aria-labels to buttons might seem like extra work but cannot be skipped.
 - While I did choose a pre-made color theme which looked fine at first, it turned out to not generate the sufficient contrast in some elements so I had to add further customization.
 ## Roadmap
-
+- [ ]  Rebuild with React
 - [ ]  Add different authentication methods
 - [ ]  Enable password change and recovery
 - [ ]  Add lesson editing
